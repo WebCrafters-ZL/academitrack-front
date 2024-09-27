@@ -1,0 +1,64 @@
+$barraLateral-bg: #1976d2;
+$text-color: white;
+
+.barraLateral {
+  width: 250px;
+  height: 100vh;
+  background-color: $barraLateral-bg;
+  color: $text-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+  padding: 10px;
+}
+
+.info-aluno {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 15px; 
+
+  .foto-aluno {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 5px; 
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 2px 0;
+  }
+
+  p {
+    font-size: 0.85rem;
+    margin: 5px; 
+  }
+}
+
+.custom-divider {
+  background-color: white;
+  height: 1px; 
+}
+
+.menu-aluno {
+  margin-top: 10px;
+
+  h4 {
+    font-size: 1rem;
+    margin-bottom: 5px; 
+  }
+
+  .lista-item {
+    margin-bottom: 1px; 
+
+    .MuiListItemText-primary {
+      color: $text-color;
+      font-size: 0.9rem;
+    }
+
+    &:hover .MuiListItemText-primary {
+      text-decoration: underline;
+    }
+  }
+}
