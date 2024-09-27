@@ -1,11 +1,11 @@
 /* Login.scss */
-$primary-color: #1976d2; // Variável para a cor primária
-$hover-color: #115293; // Cor do botão ao passar o mouse
-$background-color: rgba(173, 216, 230, 0.5); // Azul claro
+$primary-color: #1976d2; 
+$hover-color: #115293; 
+$background-color: rgba(173, 216, 230, 0.5); 
 
 .login-background {
     background-color: $background-color;
-    height: 100vh; // Para preencher a altura total da página
+    height: 100vh; 
 }
 
 .login-container {
