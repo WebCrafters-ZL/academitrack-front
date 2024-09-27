@@ -27,16 +27,16 @@ $background-color: rgba(173, 216, 230, 0.5); // Azul claro
 }
 
 .login-button {
-    margin-top: 24px; 
-    margin-bottom: 16px; 
-    font-family: 'Arial', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    background-color: $primary-color; 
-    color: white; 
-    transition: background-color 0.3s; 
+  margin-top: 8px !important; 
+  margin-bottom: 8px !important; 
+  font-family: 'Arial', sans-serif;
+  font-size: 3rem;
+  font-weight: 600;
+  background-color: $primary-color; 
+  color: white; 
+  transition: background-color 0.3s; 
 
-    &:hover {
-        background-color: $hover-color;
-    }
+  &:hover {
+      background-color: $hover-color;
+  }
 }
