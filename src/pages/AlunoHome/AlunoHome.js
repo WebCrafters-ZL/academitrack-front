@@ -1,6 +1,6 @@
 import React from "react";
-import BarraLateral from "../components/BarraLateral";
-import '../styles/AlunoHome.scss';
+import BarraLateral from "../../components/BarraLateral/BarraLateral";
+import '../AlunoHome/AlunoHome.scss';
 
 
 const AlunoHome = () => {

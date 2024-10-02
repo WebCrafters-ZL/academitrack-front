@@ -1,8 +1,8 @@
 import React from "react";
 import { List, ListItem, ListItemText, Box, Divider, Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
-import '../styles/BarraLateral.scss';
-import fotoPerfil from '../assets/nicolas-cage-perfil.jpg'
+import '../BarraLateral/BarraLateral.scss';
+import fotoPerfil from '../../assets/nicolas-cage-perfil.jpg';
 
 const BarraLateral = () => {
   return (

@@ -8,7 +8,7 @@ import {
   Box,
   Grid2,
 } from "@mui/material";
-import '../styles/Login.scss';  
+import '../Login/Login.scss';  
 
 const Login = () => {
   const enviarFormulario = (event) => {
