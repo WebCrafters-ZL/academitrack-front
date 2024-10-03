@@ -1,10 +1,20 @@
-import React from "react";
-import { List, ListItem, ListItemText, Box, Divider, Avatar } from "@mui/material";
+import React, { useState } from "react";
+import { List, ListItem, ListItemText, Box, Divider, Avatar, ListItemButton, ListItemIcon, Collapse } from "@mui/material";
 import { Link } from "react-router-dom";
-import '../BarraLateral/BarraLateral.scss';
 import fotoPerfil from '../../assets/nicolas-cage-perfil.jpg';
 
+// Importar apenas os ícones que você vai usar
+import SendIcon from '@mui/icons-material/Send';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+
 const BarraLateral = () => {
+  const [openDisciplinas, setOpenDisciplinas] = useState(false);
+
+  const handleClickDisciplinas = () => {
+    setOpenDisciplinas(!openDisciplinas);
+  };
+
   return (
     <Box className="barraLateral">
       <Box className="info-aluno">
@@ -24,14 +34,34 @@ const BarraLateral = () => {
       <Box className="menu-aluno">
         <h4>Menu</h4>
         <List>
-          <ListItem button className="lista-item" component={Link} to="/aluno">
-            <ListItemText primary="Dashboard" />
+          <ListItem button component={Link} to="/inicio">
+            <ListItemText primary="Inicio" />
           </ListItem>
-          <ListItem button className="lista-item" component={Link} to="/perfil">
-            <ListItemText primary="Perfil" />
+          <ListItem button onClick={handleClickDisciplinas}>
+            <ListItemIcon>
+              <SendIcon />
+            </ListItemIcon>
+            <ListItemText primary="Disciplinas" />
+            {openDisciplinas ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-          <ListItem button className="lista-item" component={Link} to="/cursos">
-            <ListItemText primary="Cursos" />
+          <Collapse in={openDisciplinas} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button sx={{ pl: 4 }} component={Link} to="/disciplinas/materia1">
+                <ListItemText primary="Matéria 1" />
+              </ListItem>
+              <ListItem button sx={{ pl: 4 }} component={Link} to="/disciplinas/materia2">
+                <ListItemText primary="Matéria 2" />
+              </ListItem>
+            </List>
+          </Collapse>
+          <ListItem button component={Link} to="/notas">
+            <ListItemText primary="Notas" />
+          </ListItem>
+          <ListItem button component={Link} to="/faltas">
+            <ListItemText primary="Faltas" />
+          </ListItem>
+          <ListItem button component={Link} to="/agenda-avaliacoes">
+            <ListItemText primary="Agenda de avaliações" />
           </ListItem>
         </List>
       </Box>

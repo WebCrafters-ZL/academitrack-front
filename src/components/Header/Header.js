@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Box, Typography } from "@mui/material";
+import Logout from "@mui/icons-material/Logout";
 import './Header.scss';
 
 const Header = () => {
@@ -12,8 +13,8 @@ const Header = () => {
         </Typography>
       </div>
       <div className="logout">
-        <Button variant="contained" color="secondary">
-          Sair
+        <Button className="logout-button" startIcon={<Logout />}>
+          Sair 
         </Button>
       </div>
     </Box>
