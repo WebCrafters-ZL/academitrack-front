@@ -1,64 +1,79 @@
-$barraLateral-bg: #1976d2;
-$text-color: white;
+$text-color: white; 
+$listitem-bg: transparent; 
 
-.barraLateral {
-  width: 400px;
-  height: 100vh;
-  background-color: $barraLateral-bg;
+.barra-lateral {
+  position: fixed;
+  top: 80px; /* Ajuste para começar abaixo do Header */
+  left: 0;
+  width: 300px;
+  height: calc(100vh - 80px); /* Altura total menos a altura do Header */
+  background-color: #1976d2;
   color: $text-color;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; 
   padding: 10px;
-} 
+  z-index: 999;
 
-.info-aluno {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 15px;
+  .info-aluno {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 15px;
 
-  .foto-aluno {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 5px; 
-  }
-
-  h3 {
-    font-size: 1rem;
-    margin: 2px 0;
-  }
-
-  p {
-    font-size: 0.85rem;
-    margin: 5px; 
-  }
-}
-
-.custom-divider {
-  background-color: white;
-  height: 1px; 
-}
-
-.menu-aluno {
-  margin-top: 10px;
-
-  h4 {
-    font-size: 1rem;
-    margin-bottom: 5px;
-  }
-
-  .lista-item {
-    margin-bottom: 1px; 
-
-    .MuiListItemText-primary {
-      color: $text-color;
-      font-size: 0.9rem;
+    .foto-aluno {
+      width: 135px; 
+      height: 135px; 
+      margin-bottom: 5px; 
     }
 
-    &:hover .MuiListItemText-primary {
-      text-decoration: underline;
+    h3, p {
+      margin: 5px 0;
+      color: $text-color; 
+    }
+
+    h3 {
+      font-size: 1.1rem; 
+    }
+
+    p {
+      font-size: 0.85rem; 
+    }
+  }
+
+  .custom-divider {
+    background-color: white;
+    height: 1px; 
+    margin: 10px 0;
+  }
+
+  .menu-aluno {
+    margin-top: 10px;
+    
+
+    h4 {
+      font-size: 1rem; 
+      margin-bottom: 10px; 
+      color: $text-color; 
+    }
+
+    .MuiListItemButton-root {
+      margin-bottom: 5px; 
+      background-color: $listitem-bg; 
+      border-radius: 4px; 
+      transition: background-color 0.3s; 
+      color: $text-color;  
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2); 
+      }
+
+      .MuiListItemText-primary {
+        color: $text-color !important;  
+        font-size: 0.9rem; 
+      }
+    }
+
+    .MuiCollapse-root {
+      margin-left: 20px; 
     }
   }
 }

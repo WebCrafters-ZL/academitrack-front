@@ -1,19 +1,25 @@
 .pagina-aluno {
   display: flex;
-  height: 100vh; 
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 100px); /* Altura total menos a altura do Header e um pouco do espaço do conteúdo */
+  padding: 20px; 
+  background-color: #f0f0f0; 
 }
 
-.barraLateral {
-  flex-basis: 23.5%; 
-  background-color: #1976d2;
-  color: white;
-  padding: 20px;
-  box-sizing: border-box;
+.conteudo-aluno {
+  background-color: #ffffff; 
+  padding: 40px; /* Reduzido para não ficar muito espaçado */
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  text-align: center; 
 }
 
-.aluno-conteudo {
-  flex-grow: 1; 
-  padding: 20px;
-  background-color: #f5f5f5;
-  overflow-y: auto; 
+h1 {
+  font-size: 1.5rem; /* Tamanho da fonte do cabeçalho */
+  margin-bottom: 10px; /* Espaçamento inferior */
+}
+
+p {
+  font-size: 1rem; /* Tamanho da fonte do parágrafo */
 }

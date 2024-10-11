@@ -7,7 +7,7 @@ import Layout from "../components/Layout/Layout";
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} /> 
+      <Route path="/" element={<Login />} /> 
       <Route element={<Layout />}> 
         <Route path="/aluno-home" element={<AlunoHome />} /> 
       </Route>

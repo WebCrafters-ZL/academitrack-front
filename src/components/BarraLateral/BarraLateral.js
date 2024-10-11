@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { List, ListItem, ListItemText, Box, Divider, Avatar, ListItemButton, ListItemIcon, Collapse } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Box,
+  Divider,
+  Avatar,
+  ListItemButton,
+  ListItemIcon,
+  Collapse,
+} from "@mui/material";
 import { Link } from "react-router-dom";
-import fotoPerfil from '../../assets/nicolas-cage-perfil.jpg';
-
-// Importar apenas os ícones que você vai usar
-import SendIcon from '@mui/icons-material/Send';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import fotoPerfil from "../../assets/nicolas-cage-perfil.jpg";
+import SendIcon from "@mui/icons-material/Send";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import "./BarraLateral.scss";
 
 const BarraLateral = () => {
   const [openDisciplinas, setOpenDisciplinas] = useState(false);
@@ -16,7 +25,7 @@ const BarraLateral = () => {
   };
 
   return (
-    <Box className="barraLateral">
+    <Box className="barra-lateral">
       <Box className="info-aluno">
         <Avatar
           alt="Caio Cesar Silva Pena"
@@ -46,10 +55,20 @@ const BarraLateral = () => {
           </ListItem>
           <Collapse in={openDisciplinas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button sx={{ pl: 4 }} component={Link} to="/disciplinas/materia1">
+              <ListItem
+                button
+                sx={{ pl: 4 }}
+                component={Link}
+                to="/disciplinas/materia1"
+              >
                 <ListItemText primary="Matéria 1" />
               </ListItem>
-              <ListItem button sx={{ pl: 4 }} component={Link} to="/disciplinas/materia2">
+              <ListItem
+                button
+                sx={{ pl: 4 }}
+                component={Link}
+                to="/disciplinas/materia2"
+              >
                 <ListItemText primary="Matéria 2" />
               </ListItem>
             </List>
