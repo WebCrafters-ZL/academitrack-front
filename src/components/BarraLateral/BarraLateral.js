@@ -12,7 +12,11 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import fotoPerfil from "../../assets/nicolas-cage-perfil.jpg";
-import SendIcon from "@mui/icons-material/Send";
+import HomeIcon from "@mui/icons-material/Home";
+import SchoolIcon from "@mui/icons-material/School";
+import GradeIcon from "@mui/icons-material/Grade";
+import EventIcon from "@mui/icons-material/Event";
+import WarningIcon from "@mui/icons-material/Warning";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import "./BarraLateral.scss";
@@ -44,43 +48,49 @@ const BarraLateral = () => {
         <h4>Menu</h4>
         <List>
           <ListItem button component={Link} to="/inicio">
-            <ListItemText primary="Inicio" />
+            <ListItemIcon className="custom-icon">
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText className="custom-icon" primary="Início" />
           </ListItem>
+
           <ListItem button onClick={handleClickDisciplinas}>
-            <ListItemIcon>
-              <SendIcon />
+            <ListItemIcon className="custom-icon">
+              <SchoolIcon />
             </ListItemIcon>
             <ListItemText primary="Disciplinas" />
             {openDisciplinas ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={openDisciplinas} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem
-                button
-                sx={{ pl: 4 }}
-                component={Link}
-                to="/disciplinas/materia1"
-              >
-                <ListItemText primary="Matéria 1" />
+              <ListItem button sx={{ pl: 4 }} component={Link} to="/disciplinas/materia1">
+                <ListItemText className="custom-icon" primary="Matéria 1" />
               </ListItem>
-              <ListItem
-                button
-                sx={{ pl: 4 }}
-                component={Link}
-                to="/disciplinas/materia2"
-              >
-                <ListItemText primary="Matéria 2" />
+              <ListItem button sx={{ pl: 4 }} component={Link} to="/disciplinas/materia2">
+                <ListItemText className="custom-icon" primary="Matéria 2" />
               </ListItem>
             </List>
           </Collapse>
+
           <ListItem button component={Link} to="/notas">
-            <ListItemText primary="Notas" />
+            <ListItemIcon className="custom-icon">
+              <GradeIcon />
+            </ListItemIcon>
+            <ListItemText className="custom-icon" primary="Notas" />
           </ListItem>
+
           <ListItem button component={Link} to="/faltas">
-            <ListItemText primary="Faltas" />
+            <ListItemIcon className="custom-icon">
+              <WarningIcon />
+            </ListItemIcon>
+            <ListItemText className="custom-icon" primary="Faltas" />
           </ListItem>
+
           <ListItem button component={Link} to="/agenda-avaliacoes">
-            <ListItemText primary="Agenda de avaliações" />
+            <ListItemIcon className="custom-icon">
+              <EventIcon />
+            </ListItemIcon>
+            <ListItemText  className="custom-icon"primary="Agenda de avaliações" />
           </ListItem>
         </List>
       </Box>
