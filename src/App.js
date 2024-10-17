@@ -1,6 +1,8 @@
 import React from "react";
 import {BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from './routes/routes';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
