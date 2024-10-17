@@ -25,16 +25,7 @@ const BarraProfessor = () => {
             fontWeight: "bold", 
             color: "red" 
           }}>
-            Professor
-          </div>
-        </Col>
-        <Col xs={7}> 
-          <div>
-            <span style={{ 
-              fontSize: "1.5rem",
-              fontWeight: "bold"
-             }}>Curso Ministrado:</span> 
-            <strong style={{ fontSize: "1.2rem" }}>Desenvolvimento de Software Multiplataforma</strong> 
+            Administrador
           </div>
         </Col>
       </Row>

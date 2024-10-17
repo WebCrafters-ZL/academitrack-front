@@ -42,11 +42,8 @@ const BarraLateralAdm = () => {
       </div>
 
       <hr style={{ backgroundColor: "white" }} />
-
-      {/* Menu */}
       <h4 style={{ fontSize: "1rem", marginBottom: "10px" }}>Menu</h4>
       <ListGroup variant="flush">
-        {/* Início */}
         <ListGroupItem
           action
           as={Link}
@@ -57,7 +54,6 @@ const BarraLateralAdm = () => {
           Início
         </ListGroupItem>
 
-        {/* Disciplinas */}
         <ListGroupItem
           action
           onClick={handleClickDisciplinas}
@@ -94,7 +90,6 @@ const BarraLateralAdm = () => {
           </div>
         </Collapse>
 
-        {/* Notas */}
         <ListGroupItem
           action
           as={Link}
@@ -105,7 +100,6 @@ const BarraLateralAdm = () => {
           Notas
         </ListGroupItem>
 
-        {/* Faltas */}
         <ListGroupItem
           action
           as={Link}
@@ -116,7 +110,6 @@ const BarraLateralAdm = () => {
           Faltas
         </ListGroupItem>
 
-        {/* Agenda de Avaliações */}
         <ListGroupItem
           action
           as={Link}
