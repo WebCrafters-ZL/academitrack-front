@@ -15,18 +15,17 @@ const BarraLateralAdm = () => {
     <div
       style={{
         position: "fixed",
-        top: "80px", 
+        top: "80px",
         left: "0",
         width: "300px",
-        height: "calc(100vh - 80px)", 
+        height: "calc(100vh - 80px)",
         backgroundColor: "#1976d2",
         color: "white",
         padding: "10px",
         zIndex: "999",
-        overflowY: "auto", 
+        overflowY: "auto",
       }}
     >
-
       <div style={{ textAlign: "center", marginBottom: "15px" }}>
         <Avatar
           alt="Nelson Firmino Arantes Figado"
@@ -34,7 +33,9 @@ const BarraLateralAdm = () => {
           size="135"
           round={true}
         />
-        <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>Nelson Firmino Arantes Figado</h3>
+        <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
+          Nelson Firmino Arantes Figado
+        </h3>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RP: 0000000058</p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
           Email: nelsinho.frutifero@fatec.sp.gov.br
@@ -59,8 +60,8 @@ const BarraLateralAdm = () => {
           onClick={handleClickDisciplinas}
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <i className="bi bi-book" style={{ marginRight: "10px" }}></i>
-          Disciplinas
+          <i className="bi bi-people" style={{ marginRight: "10px" }}></i>
+          Pessoas
           <i
             className={`bi ${
               openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"
@@ -75,17 +76,30 @@ const BarraLateralAdm = () => {
               action
               as={Link}
               to="/disciplinas/materia1"
-              style={{ backgroundColor: "transparent", color: "white", paddingLeft: "30px" }}
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+              }}
             >
-              Matéria 1
+              <i className="bi bi-person" style={{ marginRight: "10px" }}></i>
+              Gerenciar Alunos
             </ListGroupItem>
             <ListGroupItem
               action
               as={Link}
               to="/disciplinas/materia2"
-              style={{ backgroundColor: "transparent", color: "white", paddingLeft: "30px" }}
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+              }}
             >
-              Matéria 2
+              <i
+                className="bi bi-person-badge"
+                style={{ marginRight: "10px" }}
+              ></i>
+              Gerenciar Professores
             </ListGroupItem>
           </div>
         </Collapse>
@@ -106,7 +120,10 @@ const BarraLateralAdm = () => {
           to="/faltas"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <i className="bi bi-exclamation-triangle" style={{ marginRight: "10px" }}></i>
+          <i
+            className="bi bi-exclamation-triangle"
+            style={{ marginRight: "10px" }}
+          ></i>
           Faltas
         </ListGroupItem>
 
@@ -116,7 +133,10 @@ const BarraLateralAdm = () => {
           to="/agenda-avaliacoes"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <i className="bi bi-calendar-event" style={{ marginRight: "10px" }}></i>
+          <i
+            className="bi bi-calendar-event"
+            style={{ marginRight: "10px" }}
+          ></i>
           Agenda de avaliações
         </ListGroupItem>
       </ListGroup>

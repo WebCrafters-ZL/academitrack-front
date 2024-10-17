@@ -59,7 +59,7 @@ const CadastroProfessorModal = ({ show, handleClose }) => {
           </Form.Group>
 
           <Form.Group controlId="formDisciplinasProfessor">
-            <Form.Label>Disciplinas</Form.Label>
+            <Form.Label>Cursos</Form.Label>
             <Form.Control as="select" multiple onChange={handleDisciplinasChange}>
               <option>Análise e Desenvolvimento de Sistemas</option>
               <option>Desenvolvimento de Software Multiplataforma</option>
