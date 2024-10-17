@@ -104,41 +104,6 @@ const BarraLateralAdm = () => {
           </div>
         </Collapse>
 
-        <ListGroupItem
-          action
-          as={Link}
-          to="/notas"
-          style={{ backgroundColor: "transparent", color: "white" }}
-        >
-          <i className="bi bi-award" style={{ marginRight: "10px" }}></i>
-          Notas
-        </ListGroupItem>
-
-        <ListGroupItem
-          action
-          as={Link}
-          to="/faltas"
-          style={{ backgroundColor: "transparent", color: "white" }}
-        >
-          <i
-            className="bi bi-exclamation-triangle"
-            style={{ marginRight: "10px" }}
-          ></i>
-          Faltas
-        </ListGroupItem>
-
-        <ListGroupItem
-          action
-          as={Link}
-          to="/agenda-avaliacoes"
-          style={{ backgroundColor: "transparent", color: "white" }}
-        >
-          <i
-            className="bi bi-calendar-event"
-            style={{ marginRight: "10px" }}
-          ></i>
-          Agenda de avaliações
-        </ListGroupItem>
       </ListGroup>
     </div>
   );
