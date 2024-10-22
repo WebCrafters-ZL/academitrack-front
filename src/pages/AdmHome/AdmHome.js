@@ -1,12 +1,12 @@
 import React from "react";
 import BarraLateralAdm from "../../components/BarraLateralAdm/BarraLateralAdm";
-import BarraProfessor from "../../components/BarraProfessor/BarraProfessor";
 import HomeAdm from "../../components/HomeAdm/HomeAdm";
+import BarraSuperiorAdm from "../../components/BarraSuperiorAdm/BarraSuperiorAdm";
 
 const AdmHome = () => {
   return (
     <div className="AdmHome">
-      <BarraProfessor> </BarraProfessor>
+      <BarraSuperiorAdm> </BarraSuperiorAdm>
       <BarraLateralAdm></BarraLateralAdm>
       <HomeAdm></HomeAdm>
     </div>

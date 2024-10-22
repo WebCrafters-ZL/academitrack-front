@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
-const BarraProfessor = () => {
+const BarraSuperiorAdm = () => {
   return (
     <Container fluid style={{ 
       position: "fixed", 
@@ -15,7 +15,7 @@ const BarraProfessor = () => {
       justifyContent: "space-between", 
       alignItems: "center", 
       padding: "10px 20px", 
-      borderRadius: "20px", 
+      borderRadius: "10px", 
       zIndex: "999" 
     }}>
       <Row className="w-100">
@@ -33,4 +33,4 @@ const BarraProfessor = () => {
   );
 };
 
-export default BarraProfessor;
+export default BarraSuperiorAdm;

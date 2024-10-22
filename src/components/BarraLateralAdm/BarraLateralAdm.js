@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Collapse, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
+import { FaSignOutAlt, FaQuestionCircle } from "react-icons/fa"; // Importa o ícone de ajuda
 import fotoPerfil from "../../assets/professor.avif";
 
 const BarraLateralAdm = () => {
@@ -26,6 +27,43 @@ const BarraLateralAdm = () => {
         overflowY: "auto",
       }}
     >
+      <div
+        className="logo"
+        style={{ display: "flex", alignItems: "center", marginBottom: "15px" }}
+      >
+        <h1
+          style={{
+            display: "flex",
+            alignItems: "center",
+            margin: 0,
+          }}
+        >
+          <span
+            style={{ fontWeight: "bold", fontSize: "40px", color: "black" }}
+          >
+            Academi
+          </span>
+          <span
+            style={{
+              fontWeight: "bold",
+              fontSize: "40px",
+              color: "#f5f5f5",
+              marginLeft: "2px",
+            }}
+          >
+            Track
+          </span>
+        </h1>
+      </div>
+      <hr
+        style={{
+          backgroundColor: "white",
+          height: "3px",
+          width: "80%",
+          margin: "20px auto",
+          border: "none",
+        }}
+      />
       <div style={{ textAlign: "center", marginBottom: "15px" }}>
         <Avatar
           alt="Nelson Firmino Arantes Figado"
@@ -42,7 +80,47 @@ const BarraLateralAdm = () => {
         </p>
       </div>
 
-      <hr style={{ backgroundColor: "white" }} />
+      {/* Botões de Ajuda e Sair */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center", // Centraliza os itens
+          alignItems: "center",
+          marginBottom: "5px",
+        }}
+      >
+        <FaQuestionCircle
+          style={{
+            color: "white",
+            cursor: "pointer",
+            marginRight: "55px", 
+          }}
+          size={30}
+        />
+
+        <Button
+          variant="danger"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+          // Pode adicionar o onClick lógico aqui depois
+        >
+          <FaSignOutAlt style={{ marginRight: "8px" }} /> Sair
+        </Button>
+      </div>
+
+      <hr
+        style={{
+          backgroundColor: "white",
+          height: "3px",
+          width: "80%",
+          margin: "20px auto",
+          border: "none",
+        }}
+      />
       <h4 style={{ fontSize: "1rem", marginBottom: "10px" }}>Menu</h4>
       <ListGroup variant="flush">
         <ListGroupItem
@@ -103,7 +181,6 @@ const BarraLateralAdm = () => {
             </ListGroupItem>
           </div>
         </Collapse>
-
       </ListGroup>
     </div>
   );
