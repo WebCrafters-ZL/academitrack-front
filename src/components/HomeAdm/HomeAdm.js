@@ -15,15 +15,16 @@ const HomeAdm = () => {
 
   return (
     <Container fluid style={{ 
-      marginTop: "140px", 
-      marginLeft: "305px", 
+      marginTop: "70px", 
+      marginLeft: "315px", 
       padding: "20px",
       maxWidth: "calc(100% - 320px)", 
-      height: "calc(100vh - 140px)",  
+      height: `calc(100vh - 75px)`, 
       display: "flex", 
       flexDirection: "column", 
       gap: "20px",
-      overflowY: "auto"
+      overflowY: "auto",
+      border: "2px solid blue"
     }}>
       <Row>
         <Col>
@@ -54,7 +55,6 @@ const HomeAdm = () => {
         </Col>
       </Row>
 
-      {/* Modais de Cadastro */}
       <CadastroAlunoModal show={showAlunoModal} handleClose={handleCloseAlunoModal} />
       <CadastroProfessorModal show={showProfessorModal} handleClose={handleCloseProfessorModal} />
     </Container>

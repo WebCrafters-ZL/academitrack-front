@@ -15,10 +15,10 @@ const BarraLateralAdm = () => {
     <div
       style={{
         position: "fixed",
-        top: "80px",
+        top: "0px",
         left: "0",
         width: "300px",
-        height: "calc(100vh - 80px)",
+        height: "100vh",
         backgroundColor: "#1976d2",
         color: "white",
         padding: "10px",

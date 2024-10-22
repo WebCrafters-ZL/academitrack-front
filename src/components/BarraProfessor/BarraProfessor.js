@@ -5,10 +5,10 @@ const BarraProfessor = () => {
   return (
     <Container fluid style={{ 
       position: "fixed", 
-      top: "85px", 
+      top: "5px", 
       left: "310px", 
-      height: "50px", 
-      maxWidth: "calc(100% - 320px)", 
+      height: "55px", 
+      maxWidth: "calc(100% - 315px)", 
       backgroundColor: "#1976d2", 
       color: "white", 
       display: "flex", 
