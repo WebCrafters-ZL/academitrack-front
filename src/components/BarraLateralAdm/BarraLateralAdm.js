@@ -4,13 +4,17 @@ import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
 import { FaSignOutAlt, FaQuestionCircle } from "react-icons/fa"; 
 import fotoPerfil from "../../assets/avatarAdm1.avif";
+import CadastroAluno from "../CadastroAlunoForm/CadastroAlunoForm";
 
 const BarraLateralAdm = () => {
   const [openPessoas, setOpenPessoas] = useState(false);
+  const [showCadastroForm, setShowCadastroForm] = useState(false)
 
   const handleClickPessoas = () => {
     setOpenPessoas(!openPessoas);
   };
+  const handleShowCadastroForm = () => setShowCadastroForm(true);
+  const handleCloseCadastroForm = () => setShowCadastroForm(false);
 
   return (
     <div
@@ -148,38 +152,39 @@ const BarraLateralAdm = () => {
         </ListGroupItem>
 
         <Collapse in={openPessoas}>
-          <div>
-            <ListGroupItem
-              action
-              as={Link}
-              to="/pessoas/gerenciarAlunos"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-              }}
-            >
-              <i className="bi bi-person" style={{ marginRight: "10px" }}></i>
-              Gerenciar Alunos
-            </ListGroupItem>
-            <ListGroupItem
-              action
-              as={Link}
-              to="/pessoas/gerenciarProfessores"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-              }}
-            >
-              <i
-                className="bi bi-person-badge"
-                style={{ marginRight: "10px" }}
-              ></i>
-              Gerenciar Professores
-            </ListGroupItem>
-          </div>
-        </Collapse>
+        <div>
+          <ListGroupItem
+            action
+            onClick={() => {
+              handleShowCadastroForm(); // Mostrar o formulário ao clicar
+              handleCloseCadastroForm(); // Fecha quando gerenciar alunos é clicado
+            }}
+            style={{
+              backgroundColor: "transparent",
+              color: "white",
+              paddingLeft: "30px",
+            }}
+          >
+            <i className="bi bi-person" style={{ marginRight: "10px" }}></i>
+            Gerenciar Alunos
+          </ListGroupItem>
+          <ListGroupItem
+            action
+            style={{
+              backgroundColor: "transparent",
+              color: "white",
+              paddingLeft: "30px",
+            }}
+          >
+            <i
+              className="bi bi-person-badge"
+              style={{ marginRight: "10px" }}
+            ></i>
+            Gerenciar Professores
+          </ListGroupItem>
+        </div>
+      </Collapse>
+      {showCadastroForm && <CadastroAluno handleClose={handleCloseCadastroForm} />}
       </ListGroup>
     </div>
   );

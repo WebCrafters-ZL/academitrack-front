@@ -99,13 +99,14 @@ const HomeAluno = () => {
           borderRadius: "10px",
           maxWidth: "100%",
           height: "80%",
+          overflowY: "auto", 
         }}
       >
         <h4 style={{ textAlign: "center", marginBottom: "15px" }}>
-          Caixa de Mensagens
+          Caixa de Notificações
         </h4>
 
-        <Table striped bordered hover>
+        <Table striped bordered hover responsive> 
           <thead>
           <tr>
             <th style={{ width: "25%" }}>

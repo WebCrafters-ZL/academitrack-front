@@ -1,17 +1,17 @@
 import React from "react";
 import BarraLateralAdm from "../../components/BarraLateralAdm/BarraLateralAdm";
-import HomeAdm from "../../components/HomeAdm/HomeAdm";
 import BarraSuperiorAdm from "../../components/BarraSuperiorAdm/BarraSuperiorAdm";
+import CadastroProfessorForm from "../../components/CadastroProfessorForm.js/CadastroProfessorForm";
 
-const AdmHome = () => {
+
+const CadastroProfessor = () => {
   return (
-    <div className="AdmHome">
+    <div className="CadastroProfessor">
       <BarraSuperiorAdm> </BarraSuperiorAdm>
       <BarraLateralAdm></BarraLateralAdm>
-       <HomeAdm></HomeAdm> 
+      <CadastroProfessorForm></CadastroProfessorForm>
     </div>
   );
 };
 
-
-export default AdmHome;
+export default CadastroProfessor;
