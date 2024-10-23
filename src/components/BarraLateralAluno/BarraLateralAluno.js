@@ -75,6 +75,7 @@ const BarraLateralAluno = () => {
           Bigodvisk Ferreira
         </h3>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RA: 3240616058</p>
+        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>Período: Manhã</p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
           Email: bigodvisk.ferreira@fatec.sp.gov.br
         </p>

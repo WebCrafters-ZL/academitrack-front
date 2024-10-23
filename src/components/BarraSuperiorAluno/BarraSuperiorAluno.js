@@ -17,20 +17,19 @@ const BarraSuperiorAluno = () => {
       borderRadius: "10px", 
       zIndex: "999" 
     }}>
-      {/* Bloco de Informações do Aluno */}
       <Row className="w-100 text-center" style={{ flexGrow: 1 }}>
         <Col xs={4} style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <span style={{ fontSize: "1.2rem", marginRight: '10px' }}>
-            Curso: <strong>Bacharelado presencial</strong>
+          <span style={{ fontSize: "1.4rem", marginRight: '10px' }}>
+            <strong>Bacharelado presencial</strong>
           </span>
         </Col>
         <Col xs={4} style={{ display: 'flex', justifyContent: 'center' }}>
-          <span style={{ fontSize: "1.2rem", margin: '0 10px', whiteSpace: 'nowrap' }}>
+          <span style={{ fontSize: "1.4rem", margin: '0 10px', whiteSpace: 'nowrap' }}>
             Curso: <strong>Desenvolvimento de Software Multiplataforma</strong>
           </span>
         </Col>
         <Col xs={4} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <span style={{ fontSize: "1.2rem", marginLeft: '10px' }}>
+          <span style={{ fontSize: "1.4rem", marginLeft: '10px' }}>
             Semestre: <strong>3/6</strong>
           </span>
         </Col>
