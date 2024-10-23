@@ -1,13 +1,12 @@
 import React from "react";
-import BarraCurso from "../../components/BarraCurso/BarraCurso";
-import HomeAluno from "../../components/HomeAluno/HomeAluno";
-import "./AlunoHome.scss";
 import BarraLateralAluno from "../../components/BarraLateralAluno/BarraLateralAluno";
+import BarraSuperiorAluno from "../../components/BarraSuperiorAluno/BarraSuperiorAluno";
+import HomeAluno from "../../components/HomeAluno/HomeAluno";
 
 const AlunoHome = () => {
   return (
     <div className="AlunoHome">
-      <BarraCurso></BarraCurso>
+      <BarraSuperiorAluno></BarraSuperiorAluno>
       <BarraLateralAluno></BarraLateralAluno>
       <HomeAluno></HomeAluno>
     </div>

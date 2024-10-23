@@ -1,42 +1,145 @@
 import React from "react";
-import './HomeAluno.scss';
-import { Card, CardContent, Typography, Grid2 } from '@mui/material';
+import { Container, Row, Col, Card, Table,  } from "react-bootstrap";
+import { FaExclamationTriangle, FaUser, FaEnvelope, FaCalendarAlt } from "react-icons/fa";
 
 const HomeAluno = () => {
   return (
-    <div className="pagina-aluno">
-      <div className="conteudo-aluno">
-        <Grid2 container spacing={0} className="cards-aluno"> {/* Alterado spacing para 0 */}
-          <Grid2 item xs={12} sm={4}> 
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}> {/* Flexbox para garantir o preenchimento */}
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography variant="h5">Card 1</Typography>
-                <Typography variant="body2">Conteúdo do primeiro card</Typography>
-              </CardContent>
+    <Container
+      fluid
+      style={{
+        marginTop: "70px",
+        marginLeft: "315px",
+        padding: "20px",
+        maxWidth: "calc(100% - 320px)",
+        height: `calc(100vh - 75px)`,
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+        overflowY: "auto",
+        border: "2px solid blue",
+      }}
+    >
+      <Container
+        style={{
+          border: "2px solid blue",
+          maxWidth: "100%",
+          maxHeight: "35%",
+          padding: "10px",
+          borderRadius: "10px",
+        }}
+      >
+        <h4 style={{ textAlign: "center", marginBottom: "15px" }}>
+          Próximas Avaliações
+        </h4>
+        <Row>
+          <Col>
+            <Card style={{ border: "2px solid blue", height: "100%" }}>
+              <Card.Body style={{ display: "flex", alignItems: "center" }}>
+                <FaExclamationTriangle
+                  style={{
+                    fontSize: "40px",
+                    color: "red",
+                    marginRight: "15px",
+                  }}
+                />
+                <div>
+                  <Card.Title>Estrutura de Dados</Card.Title>
+                  <Card.Text>
+                    <strong>Data:</strong> 28/10/2024
+                  </Card.Text>
+                </div>
+              </Card.Body>
             </Card>
-          </Grid2>
-          <Grid2 item xs={12} sm={4}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography variant="h5">Card 2</Typography>
-                <Typography variant="body2">Conteúdo do segundo card</Typography>
-              </CardContent>
-            </Card>
-          </Grid2>
-          <Grid2 item xs={12} sm={4}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography variant="h5">Card 3</Typography>
-                <Typography variant="body2">Conteúdo do terceiro card</Typography>
-              </CardContent>
-            </Card>
-          </Grid2>
-        </Grid2>
+          </Col>
 
-        <h1>Bem-vindo à página Home de Aluno, Nelson!</h1>
-        <p>Aqui ficarão as informações principais do Aluno Nelson</p>
-      </div>
-    </div>
+          <Col>
+            <Card style={{ border: "2px solid blue", height: "100%" }}>
+              <Card.Body style={{ display: "flex", alignItems: "center" }}>
+                <FaExclamationTriangle
+                  style={{
+                    fontSize: "40px",
+                    color: "red",
+                    marginRight: "15px",
+                  }}
+                />
+                <div>
+                  <Card.Title>Gestão Ágil de Projetos de Software</Card.Title>
+                  <Card.Text>
+                    <strong>Data:</strong> 29/10/2024
+                  </Card.Text>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          <Col>
+            <Card style={{ border: "2px solid blue", height: "100%" }}>
+              <Card.Body style={{ display: "flex", alignItems: "center" }}>
+                <FaExclamationTriangle
+                  style={{
+                    fontSize: "40px",
+                    color: "red",
+                    marginRight: "15px",
+                  }}
+                />
+                <div>
+                  <Card.Title>Desenvolvimento Web III</Card.Title>
+                  <Card.Text>
+                    <strong>Data:</strong> 30/10/2024
+                  </Card.Text>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+      <Container
+        style={{
+          border: "2px solid blue",
+          padding: "10px",
+          borderRadius: "10px",
+          maxWidth: "100%",
+          height: "80%",
+        }}
+      >
+        <h4 style={{ textAlign: "center", marginBottom: "15px" }}>
+          Caixa de Mensagens
+        </h4>
+
+        <Table striped bordered hover>
+          <thead>
+          <tr>
+            <th style={{ width: "25%" }}>
+              <FaUser style={{ marginRight: "5px" }} /> Remetente
+            </th>
+            <th style={{ width: "60%" }}>
+              <FaEnvelope style={{ marginRight: "5px" }} /> Assunto
+            </th>
+            <th style={{ width: "15%" }}>
+              <FaCalendarAlt style={{ marginRight: "5px" }} /> Data
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Coordenador</td>
+              <td>Boas vindas ao sistema!</td>
+              <td>20 Out</td> 
+            </tr>
+            <tr>
+              <td>Professor</td>
+              <td>Lembrete datas de avaliações do semestre</td>
+              <td>21 Out</td>
+            </tr>
+            <tr>
+              <td>Coordenador</td>
+              <td>Atualização do Sistema</td>
+              <td>22 Out</td>
+            </tr>
+          </tbody>
+        </Table>
+      </Container>
+    </Container>
   );
 };
 

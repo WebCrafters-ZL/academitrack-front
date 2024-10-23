@@ -25,7 +25,7 @@ const BarraSuperiorAdm = () => {
             fontWeight: "bold", 
             color: "white" 
           }}>
-            Administrador
+            Coordenador
           </div>
         </Col>
       </Row>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
 import { FaSignOutAlt, FaQuestionCircle } from "react-icons/fa"; 
-import fotoPerfil from "../../assets/professor.avif";
+import fotoPerfil from "../../assets/avatarAdm1.avif";
 
 const BarraLateralAdm = () => {
   const [openPessoas, setOpenPessoas] = useState(false);
@@ -72,11 +72,11 @@ const BarraLateralAdm = () => {
           round={true}
         />
         <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
-          Nelson Firmino Arantes Figado
+          Fabiana Alvarenga Silva
         </h3>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RP: 0000000058</p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          Email: nelsinho.frutifero@fatec.sp.gov.br
+          Email: fabiana.silva@fatec.sp.gov.br
         </p>
       </div>
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { FaExclamationTriangle } from "react-icons/fa"; // Importar ícone de aviso
+import { FaExclamationTriangle } from "react-icons/fa"; 
 
 const HomeAdmTeste = () => {
   return (
@@ -19,8 +19,10 @@ const HomeAdmTeste = () => {
       
       <Container style={{
         border: "2px solid blue",
-        height: "30%", // Ocupar 25% da altura do contêiner geral
-        padding: "10px",
+        maxWidth: "100%",
+        height: "35%", 
+        padding: "5px",
+        borderRadius: "10px"
       }}>
          <h4 style={{ textAlign: "center", marginBottom: "15px" }}>Avaliações Próximas</h4>
         <Row>
@@ -52,7 +54,6 @@ const HomeAdmTeste = () => {
             </Card>
           </Col>
           
-          {/* Novo Card de Aviso */}
           <Col>
             <Card style={{ border: "2px solid blue", height: "100%" }}>
               <Card.Body style={{ display: "flex", alignItems: "center" }}>
