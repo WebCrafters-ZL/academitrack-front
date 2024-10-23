@@ -126,7 +126,7 @@ const BarraLateralAluno = () => {
         <ListGroupItem
           action
           as={Link}
-          to="/inicio"
+          to="/aluno-home"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaHome style={{ marginRight: "10px" }} />

@@ -2,20 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
-import { FaSignOutAlt, FaQuestionCircle } from "react-icons/fa"; 
+import { FaSignOutAlt, FaQuestionCircle } from "react-icons/fa";
 import fotoPerfil from "../../assets/avatarAdm1.avif";
 import CadastroAluno from "../CadastroAlunoForm/CadastroAlunoForm";
 
 const BarraLateralAdm = () => {
   const [openPessoas, setOpenPessoas] = useState(false);
-  const [showCadastroForm, setShowCadastroForm] = useState(false)
 
   const handleClickPessoas = () => {
     setOpenPessoas(!openPessoas);
   };
-  const handleShowCadastroForm = () => setShowCadastroForm(true);
-  const handleCloseCadastroForm = () => setShowCadastroForm(false);
-
   return (
     <div
       style={{
@@ -87,7 +83,7 @@ const BarraLateralAdm = () => {
       <div
         style={{
           display: "flex",
-          justifyContent: "center", 
+          justifyContent: "center",
           alignItems: "center",
           marginBottom: "5px",
         }}
@@ -96,7 +92,7 @@ const BarraLateralAdm = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "55px", 
+            marginRight: "55px",
           }}
           size={30}
         />
@@ -129,7 +125,7 @@ const BarraLateralAdm = () => {
         <ListGroupItem
           action
           as={Link}
-          to="/inicio"
+          to="/admhome"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <i className="bi bi-house-door" style={{ marginRight: "10px" }}></i>
@@ -152,39 +148,38 @@ const BarraLateralAdm = () => {
         </ListGroupItem>
 
         <Collapse in={openPessoas}>
-        <div>
-          <ListGroupItem
-            action
-            onClick={() => {
-              handleShowCadastroForm(); // Mostrar o formulário ao clicar
-              handleCloseCadastroForm(); // Fecha quando gerenciar alunos é clicado
-            }}
-            style={{
-              backgroundColor: "transparent",
-              color: "white",
-              paddingLeft: "30px",
-            }}
-          >
-            <i className="bi bi-person" style={{ marginRight: "10px" }}></i>
-            Gerenciar Alunos
-          </ListGroupItem>
-          <ListGroupItem
-            action
-            style={{
-              backgroundColor: "transparent",
-              color: "white",
-              paddingLeft: "30px",
-            }}
-          >
-            <i
-              className="bi bi-person-badge"
-              style={{ marginRight: "10px" }}
-            ></i>
-            Gerenciar Professores
-          </ListGroupItem>
-        </div>
-      </Collapse>
-      {showCadastroForm && <CadastroAluno handleClose={handleCloseCadastroForm} />}
+          <div>
+            <ListGroupItem
+              action
+              as={Link} 
+              to="/adm/pessoas/cadastrar-aluno" 
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+              }}
+            >
+              <i className="bi bi-person" style={{ marginRight: "10px" }}></i>
+              Gerenciar Alunos
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link} 
+              to="/adm/pessoas/cadastrar-professor" 
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+              }}
+            >
+              <i
+                className="bi bi-person-badge"
+                style={{ marginRight: "10px" }}
+              ></i>
+              Gerenciar Professores
+            </ListGroupItem>
+          </div>
+        </Collapse>
       </ListGroup>
     </div>
   );
