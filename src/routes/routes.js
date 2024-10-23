@@ -5,6 +5,7 @@ import AlunoHome from "../pages/AlunoHome/AlunoHome";
 import AdmHome from "../pages/AdmHome/AdmHome"; 
 import CadastroAluno from "../pages/CadastroAluno/CadastroAluno"; 
 import CadastroProfessor from "../pages/CadastroProfessor/CadastroProfessor";
+import ProfessorHome from "../pages/ProfessorHome/ProfessorHome";
 
 const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
       <Route path="/admhome" element={<AdmHome />} />
       <Route path="/adm/pessoas/cadastrar-aluno" element={<CadastroAluno />} />
       <Route path="/adm/pessoas/cadastrar-professor" element={<CadastroProfessor/>} />
+      <Route path="/professor-home" element={<ProfessorHome />} />
     </Routes>
   );
 };

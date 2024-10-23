@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
-import { FaSignOutAlt, FaQuestionCircle, FaHome, FaUsers, FaUser, FaUserGraduate, FaClipboardList } from "react-icons/fa"; 
-import fotoPerfil from "../../assets/professor.avif";
+import {
+  FaSignOutAlt,
+  FaQuestionCircle,
+  FaHome,
+  FaUsers,
+  FaUser,
+  FaUserGraduate,
+  FaClipboardList,
+} from "react-icons/fa";
+import fotoPerfil from "../../assets/aluno.jpeg";
 
 const BarraLateralAluno = () => {
   const [openDisciplinas, setOpenDisciplinas] = useState(false);
@@ -84,7 +92,7 @@ const BarraLateralAluno = () => {
       <div
         style={{
           display: "flex",
-          justifyContent: "center", 
+          justifyContent: "center",
           alignItems: "center",
           marginBottom: "5px",
         }}
@@ -93,7 +101,16 @@ const BarraLateralAluno = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "55px", 
+            marginRight: "35px", // Ajuste o espaçamento conforme necessário
+          }}
+          size={30}
+        />
+
+        <FaUser
+          style={{
+            color: "white",
+            cursor: "pointer",
+            marginRight: "35px", // Espaço entre os ícones
           }}
           size={30}
         />

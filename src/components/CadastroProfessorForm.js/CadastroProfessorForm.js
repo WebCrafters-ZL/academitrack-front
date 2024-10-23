@@ -71,7 +71,7 @@ const CadastroProfessorForm = ({ handleClose }) => {
         </Form.Group>
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
-          <Button variant="secondary" onClick={handleClose} style={{ marginRight: "10px" }}>
+          <Button variant="danger" onClick={handleClose} style={{ marginRight: "20px" }}>
             Fechar
           </Button>
           <Button variant="primary" onClick={() => { /* Lógica de salvar pode ser inserida aqui */ }}>

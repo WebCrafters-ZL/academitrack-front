@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
 import { FaSignOutAlt, FaQuestionCircle, FaUser } from "react-icons/fa";
-import fotoPerfil from "../../assets/coordenadora.jpeg";
+import fotoPerfil from "../../assets/professor.jpeg";
 
-const BarraLateralAdm = () => {
+const BarraLateralProfessor = () => {
   const [openPessoas, setOpenPessoas] = useState(false);
 
   const handleClickPessoas = () => {
@@ -71,11 +71,11 @@ const BarraLateralAdm = () => {
           round={true}
         />
         <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
-          Fabiana Alvarenga Silva
+          Mario Sergio de Paula
         </h3>
-        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RP: 0000000058</p>
+        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RP: 0000000059</p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          Email: fabiana.silva@fatec.sp.gov.br
+          Email: mario.paula@fatec.sp.gov.br
         </p>
       </div>
 
@@ -193,4 +193,4 @@ const BarraLateralAdm = () => {
   );
 };
 
-export default BarraLateralAdm;
+export default BarraLateralProfessor;

@@ -22,7 +22,7 @@ const BarraSuperiorAdm = () => {
       }}
     >
        <Row className="w-100 text-center" style={{ flexGrow: 1 }}>
-      <Col xs={3} style={{ display: 'flex', justifyContent: 'flex-start' }}>
+      <Col xs={2} style={{ display: 'flex', justifyContent: 'flex-start' }}>
         <span style={{ fontSize: "1.5rem", marginRight: '10px', whiteSpace: 'nowrap' }}>
           <strong>Coordenador</strong>
         </span>
@@ -32,7 +32,7 @@ const BarraSuperiorAdm = () => {
           Unidade: <strong>Fatec Zona Leste</strong>
         </span>
       </Col>
-      <Col xs={5} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <Col xs={6} style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <span style={{ fontSize: "1.5rem", marginLeft: '10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           Curso: <strong>Desenvolvimento de Software Multiplataforma</strong>
         </span>
