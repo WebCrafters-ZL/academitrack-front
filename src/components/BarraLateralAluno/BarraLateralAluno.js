@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
-import { FaSignOutAlt, FaQuestionCircle } from "react-icons/fa"; 
+import { FaSignOutAlt, FaQuestionCircle, FaHome, FaUsers, FaUser, FaUserGraduate, FaClipboardList } from "react-icons/fa"; 
 import fotoPerfil from "../../assets/professor.avif";
 
-const BarraLateralAdm = () => {
-  const [openPessoas, setOpenPessoas] = useState(false);
+const BarraLateralAluno = () => {
+  const [openDisciplinas, setOpenDisciplinas] = useState(false);
 
-  const handleClickPessoas = () => {
-    setOpenPessoas(!openPessoas);
+  const handleClickDisciplinas = () => {
+    setOpenDisciplinas(!openDisciplinas);
   };
 
   return (
@@ -72,11 +72,11 @@ const BarraLateralAdm = () => {
           round={true}
         />
         <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
-          Nelson Firmino Arantes Figado
+          Bigodvisk Ferreira
         </h3>
-        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RP: 0000000058</p>
+        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RA: 3240616058</p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          Email: nelsinho.frutifero@fatec.sp.gov.br
+          Email: bigodvisk.ferreira@fatec.sp.gov.br
         </p>
       </div>
 
@@ -128,61 +128,68 @@ const BarraLateralAdm = () => {
           to="/inicio"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <i className="bi bi-house-door" style={{ marginRight: "10px" }}></i>
+          <FaHome style={{ marginRight: "10px" }} />
           Início
         </ListGroupItem>
 
         <ListGroupItem
           action
-          onClick={handleClickPessoas}
+          onClick={handleClickDisciplinas}
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <i className="bi bi-people" style={{ marginRight: "10px" }}></i>
-          Pessoas
+          <FaUsers style={{ marginRight: "10px" }} />
+          Disciplinas
           <i
             className={`bi ${
-              openPessoas ? "bi-chevron-up" : "bi-chevron-down"
+              openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"
             }`}
             style={{ float: "right" }}
           ></i>
         </ListGroupItem>
 
-        <Collapse in={openPessoas}>
+        <Collapse in={openDisciplinas}>
           <div>
             <ListGroupItem
               action
               as={Link}
-              to="/pessoas/gerenciarAlunos"
+              to="/disciplinas/materia1"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
                 paddingLeft: "30px",
               }}
             >
-              <i className="bi bi-person" style={{ marginRight: "10px" }}></i>
-              Gerenciar Alunos
+              <FaUser style={{ marginRight: "10px" }} />
+              Matéria 1
             </ListGroupItem>
             <ListGroupItem
               action
               as={Link}
-              to="/pessoas/gerenciarProfessores"
+              to="/disciplinas/materia2"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
                 paddingLeft: "30px",
               }}
             >
-              <i
-                className="bi bi-person-badge"
-                style={{ marginRight: "10px" }}
-              ></i>
-              Gerenciar Professores
+              <FaUserGraduate style={{ marginRight: "10px" }} />
+              Matéria 2
             </ListGroupItem>
           </div>
         </Collapse>
+
+        <ListGroupItem
+          action
+          as={Link}
+          to="/notas"
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaClipboardList style={{ marginRight: "10px" }} />
+          Notas
+        </ListGroupItem>
       </ListGroup>
     </div>
   );
 };
 
-export default BarraLateralAdm;
+export default BarraLateralAluno;

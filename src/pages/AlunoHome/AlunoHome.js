@@ -1,16 +1,14 @@
 import React from "react";
-import Header from "../../components/Header/Header";
-import BarraLateral from "../../components/BarraLateral/BarraLateral";
 import BarraCurso from "../../components/BarraCurso/BarraCurso";
 import HomeAluno from "../../components/HomeAluno/HomeAluno";
-import './AlunoHome.scss';
+import "./AlunoHome.scss";
+import BarraLateralAluno from "../../components/BarraLateralAluno/BarraLateralAluno";
 
 const AlunoHome = () => {
   return (
     <div className="AlunoHome">
-      <Header></Header>
       <BarraCurso></BarraCurso>
-      <BarraLateral></BarraLateral>
+      <BarraLateralAluno></BarraLateralAluno>
       <HomeAluno></HomeAluno>
     </div>
   );
