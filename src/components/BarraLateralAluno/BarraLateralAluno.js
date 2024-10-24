@@ -12,12 +12,32 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 import fotoPerfil from "../../assets/aluno.jpeg";
+import axios from "axios"; 
 
 const BarraLateralAluno = () => {
   const [openDisciplinas, setOpenDisciplinas] = useState(false);
 
   const handleClickDisciplinas = () => {
     setOpenDisciplinas(!openDisciplinas);
+  };
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        "http://localhost:3000/api/v1/auth/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Envia o token se estiver utilizando JWT
+          },
+        }
+      );
+      localStorage.removeItem("token"); // Remover token após logout
+      // Redirecionar para a página de login ou inicial
+      window.location.href = "/"; // Certifique-se de ajustar o caminho se necessário
+    } catch (error) {
+      console.error("Erro ao fazer logout: ", error);
+      // Aqui você poderia exibir uma mensagem de erro para o usuário
+    }
   };
 
   return (
@@ -115,7 +135,7 @@ const BarraLateralAluno = () => {
           size={30}
         />
 
-        <Button
+<Button
           variant="danger"
           style={{
             display: "flex",
@@ -123,7 +143,7 @@ const BarraLateralAluno = () => {
             fontWeight: "bold",
             cursor: "pointer",
           }}
-          // Pode adicionar o onClick lógico aqui depois
+          onClick={handleLogout} 
         >
           <FaSignOutAlt style={{ marginRight: "8px" }} /> Sair
         </Button>

@@ -4,7 +4,7 @@ import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
 import { FaSignOutAlt, FaQuestionCircle, FaUser } from "react-icons/fa";
 import fotoPerfil from "../../assets/coordenadora.jpeg";
-import axios from "axios"; // Adiciona a biblioteca axios
+import axios from "axios"; 
 
 const BarraLateralAdm = () => {
   const [openPessoas, setOpenPessoas] = useState(false);
@@ -12,6 +12,7 @@ const BarraLateralAdm = () => {
   const handleClickPessoas = () => {
     setOpenPessoas(!openPessoas);
   };
+
   const handleLogout = async () => {
     try {
       await axios.post(
@@ -31,6 +32,7 @@ const BarraLateralAdm = () => {
       // Aqui você poderia exibir uma mensagem de erro para o usuário
     }
   };
+  
   return (
     <div
       style={{
@@ -111,7 +113,7 @@ const BarraLateralAdm = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "35px", // Ajuste o espaçamento conforme necessário
+            marginRight: "35px", 
           }}
           size={30}
         />
@@ -120,7 +122,7 @@ const BarraLateralAdm = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "35px", // Espaço entre os ícones
+            marginRight: "35px", 
           }}
           size={30}
         />
@@ -133,7 +135,7 @@ const BarraLateralAdm = () => {
             fontWeight: "bold",
             cursor: "pointer",
           }}
-          onClick={handleLogout} // Lógica de logout ao clicar
+          onClick={handleLogout} 
         >
           <FaSignOutAlt style={{ marginRight: "8px" }} /> Sair
         </Button>
