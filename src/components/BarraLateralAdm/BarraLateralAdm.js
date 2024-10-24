@@ -12,7 +12,7 @@ import {
   FaUserCog,
 } from "react-icons/fa";
 import fotoPerfil from "../../assets/coordenadora.jpeg";
-import '../../styles/index.css';
+import "../../styles/index.css";
 import axios from "axios";
 
 const BarraLateralAdm = () => {
@@ -170,9 +170,9 @@ const BarraLateralAdm = () => {
         variant="flush"
         className="custom-list-group"
         style={{
-          maxHeight: "450px", 
-          overflowY: "auto", 
-          backgroundColor: "transparent", 
+          maxHeight: "450px",
+          overflowY: "auto",
+          backgroundColor: "transparent",
           border: "none",
         }}
       >
@@ -241,7 +241,7 @@ const BarraLateralAdm = () => {
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaBook style={{ marginRight: "10px" }} />
-          Disciplinas
+          Acadêmico
           <i
             className={`bi ${
               openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"
@@ -252,6 +252,21 @@ const BarraLateralAdm = () => {
 
         <Collapse in={openDisciplinas}>
           <div>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/adm/disciplinas/cadastrar-curso"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaUserCog style={{ marginRight: "10px" }} />
+              Gerenciar Cursos
+            </ListGroupItem>
             <ListGroupItem
               action
               as={Link}

@@ -8,6 +8,7 @@ import CadastroProfessor from "../pages/CadastroProfessor/CadastroProfessor";
 import ProfessorHome from "../pages/ProfessorHome/ProfessorHome";
 import CadastroDisciplina from "../pages/CadastroDisciplina/CadastroDisciplina";
 import NotasAluno from "../pages/NotasAluno/NotasAluno";
+import CadastroCurso from "../pages/CadastroCurso/CadastroCurso";
 
 
 const AppRoutes = () => {
@@ -20,6 +21,7 @@ const AppRoutes = () => {
       <Route path="/adm/pessoas/cadastrar-aluno" element={<CadastroAluno />} />
       <Route path="/adm/pessoas/cadastrar-professor" element={<CadastroProfessor/>} />
       <Route path="/adm/disciplinas/cadastrar-disciplina" element={<CadastroDisciplina />} />
+      <Route path="/adm/disciplinas/cadastrar-curso" element={<CadastroCurso />} />
       <Route path="/professor-home" element={<ProfessorHome />} />
     </Routes>
   );
