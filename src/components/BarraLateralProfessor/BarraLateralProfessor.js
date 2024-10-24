@@ -95,7 +95,7 @@ const BarraLateralProfessor = () => {
       />
       <div style={{ textAlign: "center", marginBottom: "15px" }}>
         <Avatar
-          alt="Nelson Firmino Arantes Figado"
+          alt="Mario Sergio de Paula"
           src={fotoPerfil}
           size="135"
           round={true}

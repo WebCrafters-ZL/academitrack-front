@@ -1,80 +1,102 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
 const CadastroDisciplinaForm = ({ handleClose }) => {
+  const [curso, setCurso] = useState("");
+  const [materia, setMateria] = useState("");
+  const [cargaHoraria, setCargaHoraria] = useState("");
+  const [descricao, setDescricao] = useState("");
+
+  const cursos = [
+    "Desenvolvimento de Software Multiplataforma",
+    "Análise e Desenvolvimento de Software",
+  ];
+
   return (
-    <div style={{
-      marginTop: "70px", 
-      marginLeft: "315px", 
-      padding: "20px",
-      maxWidth: "calc(100% - 320px)", 
-      height: `calc(100vh - 75px)`, 
-      display: "flex", 
-      flexDirection: "column", 
-      gap: "20px",
-      overflowY: "auto",
-      border: "2px solid blue",
-      borderRadius: "10px"
-    }}>
-      <h2 style={{ textAlign: "center" }}>Cadastro de Professor</h2>
-      
+    <div
+      style={{
+        marginTop: "70px",
+        marginLeft: "315px",
+        padding: "20px",
+        maxWidth: "calc(100% - 320px)",
+        height: `calc(100vh - 75px)`,
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+        overflowY: "auto",
+        border: "2px solid blue",
+        borderRadius: "10px",
+      }}
+    >
+      <h2 style={{ textAlign: "center" }}>Cadastrar Disciplina</h2>
+
       <Form>
-        <Form.Group controlId="formNomeProfessor">
-          <Form.Label>Nome Completo</Form.Label>
-          <Form.Control type="text" placeholder="Digite o nome completo do professor" />
-        </Form.Group>
-
-        <Form.Group controlId="formEmailProfessor">
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="email" placeholder="Digite o email do professor" />
-        </Form.Group>
-
-        <Form.Group controlId="formCpfProfessor">
-          <Form.Label>CPF</Form.Label>
-          <Form.Control type="text" placeholder="Digite o CPF do professor" />
-        </Form.Group>
-
-        <Form.Group controlId="formDepartamento">
-          <Form.Label>Departamento</Form.Label>
-          <Form.Control as="select">
-            <option>Selecione o departamento</option>
-            <option>Matemática</option>
-            <option>Física</option>
-            <option>Tecnologia da Informação</option>
-            <option>Química</option>
+        <Form.Group controlId="formCurso">
+          <Form.Label>Curso</Form.Label>
+          <Form.Control
+            as="select"
+            value={curso}
+            onChange={(e) => setCurso(e.target.value)}
+          >
+            <option value="">Selecione um curso</option>
+            {cursos.map((curso, index) => (
+              <option key={index} value={curso}>
+                {curso}
+              </option>
+            ))}
           </Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="formDataNascimentoProfessor">
-          <Form.Label>Data de Nascimento</Form.Label>
-          <Form.Control type="date" />
+        <Form.Group controlId="formMateria">
+          <Form.Label>Disciplina</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Digite o nome da disciplina"
+            value={materia}
+            onChange={(e) => setMateria(e.target.value)}
+            required
+          />
         </Form.Group>
 
-        <Form.Group controlId="formTelefoneProfessor">
-          <Form.Label>Telefone</Form.Label>
-          <Form.Control type="text" placeholder="Digite o telefone do professor" />
+        <Form.Group controlId="formCargaHoraria">
+          <Form.Label>Carga Horária</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Digite a carga horária em horas"
+            value={cargaHoraria}
+            onChange={(e) => setCargaHoraria(e.target.value)}
+            required
+            min="1"
+            max="60"
+          />
         </Form.Group>
 
-        <Form.Group controlId="formDisciplinasProfessor">
-          <Form.Label>Disciplinas</Form.Label>
-          <Form.Control as="select" multiple>
-            <option>Análise e Desenvolvimento de Sistemas</option>
-            <option>Desenvolvimento de Software Multiplataforma</option>
-            <option>Engenharia de Software</option>
-            <option>Recursos Humanos</option>
-            <option>Polímeros</option>
-            <option>Comércio Exterior</option>
-          </Form.Control>
-          <Form.Text className="text-muted">
-            Segure a tecla Ctrl (ou Command no Mac) para selecionar várias disciplinas.
-          </Form.Text>
+        <Form.Group controlId="formDescricao">
+          <Form.Label>Descrição</Form.Label>
+          <Form.Control
+            as="textarea" 
+            placeholder="Digite a descrição da disciplina"
+            value={descricao}
+            onChange={(e) => setDescricao(e.target.value)}
+            required
+          />
         </Form.Group>
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
-          <Button variant="danger" onClick={handleClose} style={{ marginRight: "20px" }}>
+          <Button
+            variant="danger"
+            onClick={handleClose}
+            style={{ marginRight: "20px" }}
+          >
             Fechar
           </Button>
-          <Button variant="primary" onClick={() => { /* Lógica de salvar pode ser inserida aqui */ }}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              console.log(`Adicionando ${materia} ao curso ${curso}.`);
+              // Aqui você pode adicionar lógica para salvar a nova disciplina
+            }}
+          >
             Salvar
           </Button>
         </div>

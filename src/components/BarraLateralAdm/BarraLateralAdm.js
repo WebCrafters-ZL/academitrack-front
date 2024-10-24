@@ -179,7 +179,7 @@ const BarraLateralAdm = () => {
         <ListGroupItem
           action
           as={Link}
-          to="/admhome"
+          to="/adm-home"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaHome style={{ marginRight: "10px" }} />

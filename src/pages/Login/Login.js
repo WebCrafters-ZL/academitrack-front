@@ -24,7 +24,7 @@ const Login = () => {
 
       const { token } = response.data;
       localStorage.setItem("token", token);
-      navigate("/admhome");
+      navigate("/adm-home");
     } catch (err) {
       setError("Credenciais inválidas! Tente novamente.");
       console.error(err);

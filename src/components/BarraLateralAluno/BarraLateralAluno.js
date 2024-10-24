@@ -228,7 +228,7 @@ const BarraLateralAluno = () => {
               }}
             >
               <FaLaptopCode style={{ marginRight: "10px" }} />
-              Desenlvolvimento web III
+              Desenvolvimento web III
             </ListGroupItem>
             <ListGroupItem
               action
@@ -311,7 +311,7 @@ const BarraLateralAluno = () => {
         <ListGroupItem
           action
           as={Link}
-          to="/notas"
+          to="/aluno-home/notas"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaClipboardList style={{ marginRight: "10px" }} />
