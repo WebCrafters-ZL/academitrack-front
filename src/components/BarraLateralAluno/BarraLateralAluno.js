@@ -6,7 +6,6 @@ import {
   FaSignOutAlt,
   FaQuestionCircle,
   FaHome,
-  FaUsers,
   FaUser,
   FaClipboardList,
   FaLaptopCode,
@@ -16,8 +15,12 @@ import {
   FaDatabase,
   FaCogs,
   FaBook,
+  FaTable,
+  FaCalendar,
+  FaTimes,
 } from "react-icons/fa";
 import fotoPerfil from "../../assets/aluno.jpeg";
+import '../../styles/index.css';
 import axios from "axios";
 
 const BarraLateralAluno = () => {
@@ -106,12 +109,12 @@ const BarraLateralAluno = () => {
           round={true}
         />
         <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
-          Bigodvisk Ferreira
+          Bigodvisk Ferreira Alcaçuz
         </h3>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RA: 3240616058</p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>Período: Manhã</p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          Email: bigodvisk.ferreira@fatec.sp.gov.br
+          Email: bigodvisk.alcacuz@fatec.sp.gov.br
         </p>
       </div>
 
@@ -166,7 +169,15 @@ const BarraLateralAluno = () => {
         }}
       />
       <h4 style={{ fontSize: "1rem", marginBottom: "10px" }}>Menu</h4>
-      <ListGroup variant="flush">
+      <ListGroup
+        variant="flush"
+        className="custom-list-group"
+        style={{
+          maxHeight: "450px", 
+          overflowY: "auto", 
+          backgroundColor: "transparent", 
+        }}
+      >
         <ListGroupItem
           action
           as={Link}
@@ -175,6 +186,16 @@ const BarraLateralAluno = () => {
         >
           <FaHome style={{ marginRight: "10px" }} />
           Início
+        </ListGroupItem>
+
+        <ListGroupItem
+          action
+          as={Link}
+          to="/aluno-home"
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaTable style={{ marginRight: "10px" }} />
+          Grade
         </ListGroupItem>
 
         <ListGroupItem
@@ -252,7 +273,7 @@ const BarraLateralAluno = () => {
               }}
             >
               <FaClipboardCheck style={{ marginRight: "10px" }} />
-              Gestão Ágil de Projetos 
+              Gestão Ágil de Projetos
             </ListGroupItem>
             <ListGroupItem
               action
@@ -295,6 +316,26 @@ const BarraLateralAluno = () => {
         >
           <FaClipboardList style={{ marginRight: "10px" }} />
           Notas
+        </ListGroupItem>
+
+        <ListGroupItem
+          action
+          as={Link}
+          to="/notas"
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaTimes style={{ marginRight: "10px" }} />
+          Faltas
+        </ListGroupItem>
+
+        <ListGroupItem
+          action
+          as={Link}
+          to="/notas"
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaCalendar style={{ marginRight: "10px" }} />
+          Calendario Academico
         </ListGroupItem>
       </ListGroup>
     </div>

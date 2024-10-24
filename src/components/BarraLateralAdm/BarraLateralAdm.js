@@ -8,12 +8,11 @@ import {
   FaUser,
   FaHome,
   FaUsers,
-  FaUserGraduate,
-  FaClipboardList,
   FaBook,
   FaUserCog,
 } from "react-icons/fa";
 import fotoPerfil from "../../assets/coordenadora.jpeg";
+import '../../styles/index.css';
 import axios from "axios";
 
 const BarraLateralAdm = () => {
@@ -167,7 +166,16 @@ const BarraLateralAdm = () => {
         }}
       />
       <h4 style={{ fontSize: "1rem", marginBottom: "10px" }}>Menu</h4>
-      <ListGroup variant="flush">
+      <ListGroup
+        variant="flush"
+        className="custom-list-group"
+        style={{
+          maxHeight: "450px", 
+          overflowY: "auto", 
+          backgroundColor: "transparent", 
+          border: "none",
+        }}
+      >
         <ListGroupItem
           action
           as={Link}

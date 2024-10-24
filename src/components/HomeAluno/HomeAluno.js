@@ -1,6 +1,11 @@
 import React from "react";
-import { Container, Row, Col, Card, Table,  } from "react-bootstrap";
-import { FaExclamationTriangle, FaUser, FaEnvelope, FaCalendarAlt } from "react-icons/fa";
+import { Container, Row, Col, Card, Table } from "react-bootstrap";
+import {
+  FaExclamationTriangle,
+  FaUser,
+  FaEnvelope,
+  FaCalendarAlt,
+} from "react-icons/fa";
 
 const HomeAluno = () => {
   return (
@@ -99,42 +104,82 @@ const HomeAluno = () => {
           borderRadius: "10px",
           maxWidth: "100%",
           height: "80%",
-          overflowY: "auto", 
+          overflowY: "auto",
         }}
       >
         <h4 style={{ textAlign: "center", marginBottom: "15px" }}>
           Caixa de Notificações
         </h4>
 
-        <Table striped bordered hover responsive> 
+        <Table striped bordered hover responsive>
           <thead>
-          <tr>
-            <th style={{ width: "25%" }}>
-              <FaUser style={{ marginRight: "5px" }} /> Remetente
-            </th>
-            <th style={{ width: "60%" }}>
-              <FaEnvelope style={{ marginRight: "5px" }} /> Assunto
-            </th>
-            <th style={{ width: "15%" }}>
-              <FaCalendarAlt style={{ marginRight: "5px" }} /> Data
-            </th>
-          </tr>
+            <tr>
+              <th style={{ width: "25%" }}>
+                <FaUser style={{ marginRight: "5px" }} /> De
+              </th>
+              <th style={{ width: "60%" }}>
+                <FaEnvelope style={{ marginRight: "5px" }} /> Assunto
+              </th>
+              <th style={{ width: "15%" }}>
+                <FaCalendarAlt style={{ marginRight: "5px" }} /> Recebido(a)
+              </th>
+            </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Coordenador</td>
-              <td>Boas vindas ao sistema!</td>
-              <td>20 Out</td> 
+              <td>Mario Sergio</td>
+              <td>
+                Boas-vindas ao sistema! Estamos felizes em tê-lo conosco.
+                Explore as funcionalidades e aproveite a sua jornada acadêmica.
+              </td>
+              <td>20 Out</td>
             </tr>
             <tr>
-              <td>Professor</td>
-              <td>Lembrete datas de avaliações do semestre</td>
+              <td>Mario Sergio</td>
+              <td>
+                Bem-vindo à sua primeira aula! Lembre-se de verificar as datas
+                de avaliações do semestre no calendário acadêmico.
+              </td>
               <td>21 Out</td>
             </tr>
             <tr>
-              <td>Coordenador</td>
-              <td>Atualização do Sistema</td>
+              <td>Fabiana Alvarenga</td>
+              <td>
+                Acesse o novo guia de iniciação ao campus. 
+              </td>
               <td>22 Out</td>
+            </tr>
+            <tr>
+              <td>Fabiana Alvarenga</td>
+              <td>
+                Participe da sessão de orientação para novos alunos! Uma ótima
+                oportunidade para tirar dúvidas e se integrar à comunidade.
+              </td>
+              <td>23 Out</td>
+            </tr>
+            <tr>
+              <td>Fabiana Alvarenga</td>
+              <td>
+                Atualização do Sistema: Nova funcionalidade de feedback foi
+                adicionada. 
+              </td>
+              <td>24 Out</td>
+            </tr>
+            <tr>
+              <td>Mario Sergio</td>
+              <td>
+                Não se esqueça de acessar os materiais de aula na plataforma.
+                Eles são essenciais para o seu aprendizado!
+              </td>
+              <td>25 Out</td>
+            </tr>
+            <tr>
+              <td>Fabiana Alvarenga</td>
+              <td>
+                Inscreva-se nas atividades extracurriculares que estão por vir!
+                Uma excelente maneira de se envolver mais com a universidade.
+              </td>
+              <td>26 Out</td>
             </tr>
           </tbody>
         </Table>

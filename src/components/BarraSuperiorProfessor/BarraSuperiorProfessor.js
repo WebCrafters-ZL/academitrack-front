@@ -18,19 +18,14 @@ const BarraSuperiorProfessor = () => {
       zIndex: "999" 
     }}>
       <Row className="w-100 text-center" style={{ flexGrow: 1 }}>
-        <Col xs={4} style={{ display: 'flex', justifyContent: 'flex-start' }}>
+        <Col xs={6} style={{ display: 'flex', justifyContent: 'flex-start' }}>
           <span style={{ fontSize: "1.4rem", marginRight: '10px' }}>
             <strong>Professor</strong>
           </span>
         </Col>
-        <Col xs={4} style={{ display: 'flex', justifyContent: 'center' }}>
-          <span style={{ fontSize: "1.4rem", margin: '0 10px', whiteSpace: 'nowrap' }}>
-            Unidade: <strong>Fatec Zona Leste</strong>
-          </span>
-        </Col>
-        <Col xs={4} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <span style={{ fontSize: "1.4rem", marginLeft: '10px' }}>
-            Turma: <strong>3º DSM</strong>
+        <Col xs={6} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <span style={{ fontSize: "1.4rem", margin: '0', whiteSpace: 'nowrap' }}>
+             Unidade: <strong>Fatec Zona Leste</strong>
           </span>
         </Col>
       </Row>

@@ -8,10 +8,10 @@ import {
   FaUser,
   FaUsers,
   FaHome,
-  FaUserGraduate,
   FaUserCog,
 } from "react-icons/fa";
 import fotoPerfil from "../../assets/professor.jpeg";
+import "../../styles/index.css";
 import axios from "axios";
 
 const BarraLateralProfessor = () => {
@@ -121,7 +121,7 @@ const BarraLateralProfessor = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "35px", // Ajuste o espaçamento conforme necessário
+            marginRight: "35px",
           }}
           size={30}
         />
@@ -130,7 +130,7 @@ const BarraLateralProfessor = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "35px", // Espaço entre os ícones
+            marginRight: "35px",
           }}
           size={30}
         />
@@ -160,7 +160,15 @@ const BarraLateralProfessor = () => {
         }}
       />
       <h4 style={{ fontSize: "1rem", marginBottom: "10px" }}>Menu</h4>
-      <ListGroup variant="flush">
+      <ListGroup
+        variant="flush"
+        className="custom-list-group"
+        style={{
+          maxHeight: "450px", 
+          overflowY: "auto", 
+          backgroundColor: "transparent", 
+        }}
+      >
         <ListGroupItem
           action
           as={Link}
