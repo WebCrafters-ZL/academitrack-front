@@ -6,6 +6,8 @@ import AdmHome from "../pages/AdmHome/AdmHome";
 import CadastroAluno from "../pages/CadastroAluno/CadastroAluno"; 
 import CadastroProfessor from "../pages/CadastroProfessor/CadastroProfessor";
 import ProfessorHome from "../pages/ProfessorHome/ProfessorHome";
+import CadastroDisciplina from "../pages/CadastroDisciplina/CadastroDisciplina";
+
 
 const AppRoutes = () => {
   return (
@@ -15,6 +17,7 @@ const AppRoutes = () => {
       <Route path="/admhome" element={<AdmHome />} />
       <Route path="/adm/pessoas/cadastrar-aluno" element={<CadastroAluno />} />
       <Route path="/adm/pessoas/cadastrar-professor" element={<CadastroProfessor/>} />
+      <Route path="/adm/disciplinas/cadastrar-disciplina" element={<CadastroDisciplina />} />
       <Route path="/professor-home" element={<ProfessorHome />} />
     </Routes>
   );

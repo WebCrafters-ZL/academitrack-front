@@ -2,15 +2,30 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
-import { FaSignOutAlt, FaQuestionCircle, FaUser } from "react-icons/fa";
+import {
+  FaSignOutAlt,
+  FaQuestionCircle,
+  FaUser,
+  FaHome,
+  FaUsers,
+  FaUserGraduate,
+  FaClipboardList,
+  FaBook,
+  FaUserCog,
+} from "react-icons/fa";
 import fotoPerfil from "../../assets/coordenadora.jpeg";
-import axios from "axios"; 
+import axios from "axios";
 
 const BarraLateralAdm = () => {
   const [openPessoas, setOpenPessoas] = useState(false);
+  const [openDisciplinas, setOpenDisciplinas] = useState(false);
 
   const handleClickPessoas = () => {
     setOpenPessoas(!openPessoas);
+  };
+
+  const handleClickDisciplinas = () => {
+    setOpenDisciplinas(!openDisciplinas);
   };
 
   const handleLogout = async () => {
@@ -32,7 +47,7 @@ const BarraLateralAdm = () => {
       // Aqui você poderia exibir uma mensagem de erro para o usuário
     }
   };
-  
+
   return (
     <div
       style={{
@@ -113,7 +128,7 @@ const BarraLateralAdm = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "35px", 
+            marginRight: "35px",
           }}
           size={30}
         />
@@ -122,20 +137,21 @@ const BarraLateralAdm = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "35px", 
+            marginRight: "35px",
           }}
           size={30}
         />
 
         <Button
           variant="danger"
+          size="sm"
           style={{
             display: "flex",
             alignItems: "center",
             fontWeight: "bold",
             cursor: "pointer",
           }}
-          onClick={handleLogout} 
+          onClick={handleLogout}
         >
           <FaSignOutAlt style={{ marginRight: "8px" }} /> Sair
         </Button>
@@ -158,7 +174,7 @@ const BarraLateralAdm = () => {
           to="/admhome"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <i className="bi bi-house-door" style={{ marginRight: "10px" }}></i>
+          <FaHome style={{ marginRight: "10px" }} />
           Início
         </ListGroupItem>
 
@@ -167,7 +183,7 @@ const BarraLateralAdm = () => {
           onClick={handleClickPessoas}
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <i className="bi bi-people" style={{ marginRight: "10px" }}></i>
+          <FaUsers style={{ marginRight: "10px" }} />
           Pessoas
           <i
             className={`bi ${
@@ -187,9 +203,11 @@ const BarraLateralAdm = () => {
                 backgroundColor: "transparent",
                 color: "white",
                 paddingLeft: "30px",
+                margin: 0,
+                border: "none",
               }}
             >
-              <i className="bi bi-person" style={{ marginRight: "10px" }}></i>
+              <FaUserCog style={{ marginRight: "10px" }} />
               Gerenciar Alunos
             </ListGroupItem>
             <ListGroupItem
@@ -200,13 +218,46 @@ const BarraLateralAdm = () => {
                 backgroundColor: "transparent",
                 color: "white",
                 paddingLeft: "30px",
+                border: "none",
               }}
             >
-              <i
-                className="bi bi-person-badge"
-                style={{ marginRight: "10px" }}
-              ></i>
+              <FaUserCog style={{ marginRight: "10px" }} />
               Gerenciar Professores
+            </ListGroupItem>
+          </div>
+        </Collapse>
+
+        <ListGroupItem
+          action
+          onClick={handleClickDisciplinas}
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaBook style={{ marginRight: "10px" }} />
+          Disciplinas
+          <i
+            className={`bi ${
+              openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"
+            }`}
+            style={{ float: "right" }}
+          ></i>
+        </ListGroupItem>
+
+        <Collapse in={openDisciplinas}>
+          <div>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/adm/disciplinas/cadastrar-disciplina"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaUserCog style={{ marginRight: "10px" }} />
+              Gerenciar Disciplinas
             </ListGroupItem>
           </div>
         </Collapse>

@@ -8,11 +8,17 @@ import {
   FaHome,
   FaUsers,
   FaUser,
-  FaUserGraduate,
   FaClipboardList,
+  FaLaptopCode,
+  FaCode,
+  FaCalculator,
+  FaClipboardCheck,
+  FaDatabase,
+  FaCogs,
+  FaBook,
 } from "react-icons/fa";
 import fotoPerfil from "../../assets/aluno.jpeg";
-import axios from "axios"; 
+import axios from "axios";
 
 const BarraLateralAluno = () => {
   const [openDisciplinas, setOpenDisciplinas] = useState(false);
@@ -121,7 +127,7 @@ const BarraLateralAluno = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "35px", 
+            marginRight: "35px",
           }}
           size={30}
         />
@@ -130,20 +136,21 @@ const BarraLateralAluno = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "35px", 
+            marginRight: "35px",
           }}
           size={30}
         />
 
-<Button
+        <Button
           variant="danger"
+          size="sm"
           style={{
             display: "flex",
             alignItems: "center",
             fontWeight: "bold",
             cursor: "pointer",
           }}
-          onClick={handleLogout} 
+          onClick={handleLogout}
         >
           <FaSignOutAlt style={{ marginRight: "8px" }} /> Sair
         </Button>
@@ -175,7 +182,7 @@ const BarraLateralAluno = () => {
           onClick={handleClickDisciplinas}
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <FaUsers style={{ marginRight: "10px" }} />
+          <FaBook style={{ marginRight: "10px" }} />
           Disciplinas
           <i
             className={`bi ${
@@ -195,10 +202,12 @@ const BarraLateralAluno = () => {
                 backgroundColor: "transparent",
                 color: "white",
                 paddingLeft: "30px",
+                margin: 0,
+                border: "none",
               }}
             >
-              <FaUser style={{ marginRight: "10px" }} />
-              Matéria 1
+              <FaLaptopCode style={{ marginRight: "10px" }} />
+              Desenlvolvimento web III
             </ListGroupItem>
             <ListGroupItem
               action
@@ -208,10 +217,72 @@ const BarraLateralAluno = () => {
                 backgroundColor: "transparent",
                 color: "white",
                 paddingLeft: "30px",
+                margin: 0,
+                border: "none",
               }}
             >
-              <FaUserGraduate style={{ marginRight: "10px" }} />
-              Matéria 2
+              <FaCode style={{ marginRight: "10px" }} />
+              Técnicas de Programação II
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/disciplinas/materia3"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaCalculator style={{ marginRight: "10px" }} />
+              Algebra Linear
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/disciplinas/materia3"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaClipboardCheck style={{ marginRight: "10px" }} />
+              Gestão Ágil de Projetos 
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/disciplinas/materia3"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaDatabase style={{ marginRight: "10px" }} />
+              Banco de Dados - Não Relacional
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/disciplinas/materia3"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaCogs style={{ marginRight: "10px" }} />
+              Engenharia de Software II
             </ListGroupItem>
           </div>
         </Collapse>

@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
-import { FaSignOutAlt, FaQuestionCircle, FaUser } from "react-icons/fa";
+import {
+  FaSignOutAlt,
+  FaQuestionCircle,
+  FaUser,
+  FaUsers,
+  FaHome,
+  FaUserGraduate,
+  FaUserCog,
+} from "react-icons/fa";
 import fotoPerfil from "../../assets/professor.jpeg";
 import axios from "axios";
 
@@ -129,6 +137,7 @@ const BarraLateralProfessor = () => {
 
         <Button
           variant="danger"
+          size="sm"
           style={{
             display: "flex",
             alignItems: "center",
@@ -158,7 +167,7 @@ const BarraLateralProfessor = () => {
           to="/admhome"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <i className="bi bi-house-door" style={{ marginRight: "10px" }}></i>
+          <FaHome style={{ marginRight: "10px" }} />
           Início
         </ListGroupItem>
 
@@ -167,7 +176,7 @@ const BarraLateralProfessor = () => {
           onClick={handleClickPessoas}
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <i className="bi bi-people" style={{ marginRight: "10px" }}></i>
+          <FaUsers style={{ marginRight: "10px" }} />
           Pessoas
           <i
             className={`bi ${
@@ -187,9 +196,11 @@ const BarraLateralProfessor = () => {
                 backgroundColor: "transparent",
                 color: "white",
                 paddingLeft: "30px",
+                margin: 0,
+                border: "none",
               }}
             >
-              <i className="bi bi-person" style={{ marginRight: "10px" }}></i>
+              <FaUserCog style={{ marginRight: "10px" }} />
               Gerenciar Alunos
             </ListGroupItem>
             <ListGroupItem
@@ -200,12 +211,11 @@ const BarraLateralProfessor = () => {
                 backgroundColor: "transparent",
                 color: "white",
                 paddingLeft: "30px",
+                margin: 0,
+                border: "none",
               }}
             >
-              <i
-                className="bi bi-person-badge"
-                style={{ marginRight: "10px" }}
-              ></i>
+              <FaUserCog style={{ marginRight: "10px" }} />
               Gerenciar Professores
             </ListGroupItem>
           </div>
