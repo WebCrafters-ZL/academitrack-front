@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; 
-import { FaUser, FaEnvelope } from "react-icons/fa"; 
+import {FaEnvelope, FaLock } from "react-icons/fa"; 
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,11 +22,8 @@ const Login = () => {
         }
       );
 
-      // Se a autenticação for bem-sucedida, armazene o token
-      const { token } = response.data; // Supondo que o token seja retornado assim
+      const { token } = response.data;
       localStorage.setItem("token", token);
-
-      // Redireciona para a página inicial do administrador
       navigate("/admhome");
     } catch (err) {
       setError("Credenciais inválidas! Tente novamente.");
@@ -36,27 +33,24 @@ const Login = () => {
 
   return (
     <div
-      className="login-background"
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
+        backgroundColor: "#f7f9fc",
       }}
     >
       <Container
         style={{
           maxWidth: "400px",
-          padding: "20px",
+          padding: "30px",
           borderRadius: "10px",
-          border: "2px solid blue",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           backgroundColor: "white",
         }}
       >
-        <h1
-          className="text-center"
-          style={{ fontWeight: "bold", marginBottom: "20px" }}
-        >
+        <h1 className="text-center" style={{ fontWeight: "bold", marginBottom: "20px" }}>
           Academi<span style={{ color: "#1976d2" }}>Track</span>
         </h1>
 
@@ -70,7 +64,9 @@ const Login = () => {
 
         <Form onSubmit={enviarFormulario}>
           <Form.Group controlId="formEmail">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>
+              <FaEnvelope /> Email
+            </Form.Label>
             <Form.Control
               type="email"
               placeholder="Digite seu email"
@@ -81,7 +77,9 @@ const Login = () => {
           </Form.Group>
 
           <Form.Group controlId="formSenha">
-            <Form.Label>Senha</Form.Label>
+            <Form.Label>
+              <FaLock /> Senha
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Digite sua senha"
