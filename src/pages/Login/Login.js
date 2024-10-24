@@ -1,84 +1,117 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
-import {
-  Button,
-  TextField,
-  Typography,
-  Container,
-  Box,
-  Grid2,
-} from "@mui/material";
-import '../Login/Login.scss';  
+import React, { useState } from "react";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; 
+import { FaUser, FaEnvelope } from "react-icons/fa"; 
 
 const Login = () => {
-  const enviarFormulario = (event) => {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); 
+
+  const enviarFormulario = async (event) => {
     event.preventDefault();
-    const dados = new FormData(event.currentTarget);
-    const dadosLogin = {
-      email: dados.get("email"),
-      senha: dados.get("password"),
-    };
-    console.log(dadosLogin);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/auth/login",
+        {
+          email,
+          senha,
+        }
+      );
+
+      // Se a autenticação for bem-sucedida, armazene o token
+      const { token } = response.data; // Supondo que o token seja retornado assim
+      localStorage.setItem("token", token);
+
+      // Redireciona para a página inicial do administrador
+      navigate("/admhome");
+    } catch (err) {
+      setError("Credenciais inválidas! Tente novamente.");
+      console.error(err);
+    }
   };
 
   return (
-    <div className="login-background"> 
-      <Container component="main" maxWidth="xs">
-        <Box className="login-container">
-          <Typography component="h1" variant="h3" className="login-title">
-            Academi<span style={{ color: "#1976d2" }}>Track</span>
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={enviarFormulario}
-            noValidate
-            sx={{ mt: 1 }}
+    <div
+      className="login-background"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <Container
+        style={{
+          maxWidth: "400px",
+          padding: "20px",
+          borderRadius: "10px",
+          border: "2px solid blue",
+          backgroundColor: "white",
+        }}
+      >
+        <h1
+          className="text-center"
+          style={{ fontWeight: "bold", marginBottom: "20px" }}
+        >
+          Academi<span style={{ color: "#1976d2" }}>Track</span>
+        </h1>
+
+        {error && (
+          <div
+            style={{ color: "red", textAlign: "center", marginBottom: "10px" }}
           >
-            <TextField
-              margin="normal"
+            {error}
+          </div>
+        )}
+
+        <Form onSubmit={enviarFormulario}>
+          <Form.Group controlId="formEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Digite seu email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              aria-label="Campo de email"
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Senha"
+          </Form.Group>
+
+          <Form.Group controlId="formSenha">
+            <Form.Label>Senha</Form.Label>
+            <Form.Control
               type="password"
-              id="password"
-              aria-label="Campo de senha"
+              placeholder="Digite sua senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              required
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              className="login-button" 
+          </Form.Group>
+
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            style={{ width: "100%", marginTop: "20px" }}
+          >
+            Entrar
+          </Button>
+        </Form>
+
+        <Row style={{ marginTop: "15px" }}>
+          <Col className="text-center">
+            <a
+              href="#"
+              style={{ textDecoration: "none", color: "#1976d2" }}
+              aria-label="Link para recuperar senha"
             >
-              Entrar
-            </Button>
-            <Grid2 container>
-              <Grid2 item>
-                <a
-                  href="#"
-                  style={{
-                    textDecoration: 'none',
-                    color: '#1976d2',
-                  }}
-                  aria-label="Link para recuperar senha"
-                >
-                  Esqueci minha senha.
-                </a>
-              </Grid2>
-            </Grid2>
-          </Box>
-        </Box>
+              Esqueci minha senha.
+            </a>
+          </Col>
+        </Row>
       </Container>
     </div>
   );

@@ -101,7 +101,7 @@ const BarraLateralAluno = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "35px", // Ajuste o espaçamento conforme necessário
+            marginRight: "35px", 
           }}
           size={30}
         />
@@ -110,7 +110,7 @@ const BarraLateralAluno = () => {
           style={{
             color: "white",
             cursor: "pointer",
-            marginRight: "35px", // Espaço entre os ícones
+            marginRight: "35px", 
           }}
           size={30}
         />
