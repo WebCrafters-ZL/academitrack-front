@@ -126,14 +126,14 @@ const CadastroAlunoForm = ({ handleClose }) => {
 
         <Form.Group
           controlId="formSenhaAluno"
-          style={{ display: "none" }} // Form.Group ocultado, apenas para armazenas a senha
+          style={{ display: "none" }} 
         >
           <Form.Label>Senha</Form.Label>
           <Form.Control
             type="text"
             placeholder="Senha gerada"
-            value={senha} // Valor gerado automaticamente
-            disabled // Campo de senha desabilitado
+            value={senha} 
+            disabled 
           />
         </Form.Group>
 

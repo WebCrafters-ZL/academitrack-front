@@ -15,8 +15,8 @@ const HomeProfessor = () => {
         flexDirection: "column", 
         gap: "20px",
         overflowY: "auto",
-        border: "2px solid blue", // Borda azul
-        borderRadius: "10px" // Bordas arredondadas
+        border: "2px solid blue",
+        borderRadius: "10px"
       }}
     >
       <h1 style={{ textAlign: "center", marginBottom: "20px" }}>

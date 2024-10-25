@@ -1,11 +1,41 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import axios from "axios";
 
 const CadastroCursoForm = ({ handleClose }) => {
-  const [curso, setCurso] = useState("");
+  const [nome, setNome] = useState("");
   const [cargaHoraria, setCargaHoraria] = useState("");
   const [descricao, setDescricao] = useState("");
   const [categoria, setCategoria] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const cursoData = {
+      nome: nome,          
+      descricao: descricao,  
+      cargaHoraria: Number(cargaHoraria), 
+      categoria: categoria,  
+    };
+
+    try {
+      // Obter o token do localStorage
+      const token = localStorage.getItem("token");
+  
+      // Enviar os dados ao back-end
+      const response = await axios.post("http://localhost:3000/api/v1/administrador/cursos", cursoData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Inclui o token na header da requisição
+        },
+      });
+  
+      console.log("Curso cadastrado com sucesso:", response.data);
+      handleClose(); // Fecha o formulário após o sucesso
+    } catch (error) {
+      console.error("Erro ao cadastrar curso:", error);
+      // Aqui você pode adicionar lógica para exibir mensagens de erro ao usuário
+    }
+  };
 
   return (
     <div
@@ -25,14 +55,14 @@ const CadastroCursoForm = ({ handleClose }) => {
     >
       <h2 style={{ textAlign: "center" }}>Cadastrar Curso</h2>
 
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formCurso">
           <Form.Label>Curso</Form.Label>
           <Form.Control
             type="text"
             placeholder="Digite o nome do Curso"
-            value={curso}
-            onChange={(e) => setCurso(e.target.value)}
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
             required
           />
         </Form.Group>
@@ -54,7 +84,7 @@ const CadastroCursoForm = ({ handleClose }) => {
           <Form.Label>Descrição</Form.Label>
           <Form.Control
             as="textarea" 
-            placeholder="Digite a descrição da disciplina"
+            placeholder="Digite a descrição do curso"
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
             required
@@ -82,10 +112,7 @@ const CadastroCursoForm = ({ handleClose }) => {
           </Button>
           <Button
             variant="primary"
-            onClick={() => {
-              console.log(`Adicionando o curso ${curso}.`);
-              // Aqui você pode adicionar lógica para salvar a nova disciplina
-            }}
+            type="submit" // Garantir que o botão "Salvar" submit o formulário
           >
             Salvar
           </Button>
