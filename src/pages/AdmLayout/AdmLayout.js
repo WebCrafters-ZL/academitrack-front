@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom"; // Usando Outlet para rotas dinâmicas
-import BarraLateralAdm from "../../components/BarraLateralAdm/BarraLateralAdm";
-import BarraSuperiorAdm from "../../components/BarraSuperiorAdm/BarraSuperiorAdm";
+import BarraLateralAdm from "../../components/AdmComponentes/BarraLateralAdm/BarraLateralAdm";
+import BarraSuperiorAdm from "../../components/AdmComponentes/BarraSuperiorAdm/BarraSuperiorAdm";
 
 const AdmLayout = () => {
   return (

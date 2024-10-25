@@ -6,19 +6,25 @@ import {
   FaSignOutAlt,
   FaQuestionCircle,
   FaUser,
-  FaUsers,
   FaHome,
+  FaUsers,
+  FaBook,
   FaUserCog,
 } from "react-icons/fa";
-import fotoPerfil from "../../assets/professor.jpeg";
-import "../../styles/index.css";
+import fotoPerfil from "../../../assets/coordenadora.jpeg";
+import "../../../styles/index.css";
 import axios from "axios";
 
-const BarraLateralProfessor = () => {
+const BarraLateralAdm = () => {
   const [openPessoas, setOpenPessoas] = useState(false);
+  const [openDisciplinas, setOpenDisciplinas] = useState(false);
 
   const handleClickPessoas = () => {
     setOpenPessoas(!openPessoas);
+  };
+
+  const handleClickDisciplinas = () => {
+    setOpenDisciplinas(!openDisciplinas);
   };
 
   const handleLogout = async () => {
@@ -95,17 +101,17 @@ const BarraLateralProfessor = () => {
       />
       <div style={{ textAlign: "center", marginBottom: "15px" }}>
         <Avatar
-          alt="Mario Sergio de Paula"
+          alt="Nelson Firmino Arantes Figado"
           src={fotoPerfil}
           size="135"
           round={true}
         />
         <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
-          Mario Sergio de Paula
+          Fabiana Alvarenga Silva
         </h3>
-        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RP: 0000000059</p>
+        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RP: 0000000058</p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          Email: mario.paula@fatec.sp.gov.br
+          Email: fabiana.silva@fatec.sp.gov.br
         </p>
       </div>
 
@@ -164,15 +170,16 @@ const BarraLateralProfessor = () => {
         variant="flush"
         className="custom-list-group"
         style={{
-          maxHeight: "450px", 
-          overflowY: "auto", 
-          backgroundColor: "transparent", 
+          maxHeight: "450px",
+          overflowY: "auto",
+          backgroundColor: "transparent",
+          border: "none",
         }}
       >
         <ListGroupItem
           action
           as={Link}
-          to="/professor-home"
+          to="/adm-home"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaHome style={{ marginRight: "10px" }} />
@@ -199,7 +206,7 @@ const BarraLateralProfessor = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/adm/pessoas/cadastrar-aluno"
+              to="/adm-home/pessoas/cadastrar-aluno"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -211,10 +218,45 @@ const BarraLateralProfessor = () => {
               <FaUserCog style={{ marginRight: "10px" }} />
               Gerenciar Alunos
             </ListGroupItem>
+
             <ListGroupItem
               action
               as={Link}
-              to="/adm/pessoas/cadastrar-professor"
+              to="/adm-home/pessoas/cadastrar-professor"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                border: "none",
+              }}
+            >
+              <FaUserCog style={{ marginRight: "10px" }} />
+              Gerenciar Professores
+            </ListGroupItem>
+          </div>
+        </Collapse>
+
+        <ListGroupItem
+          action
+          onClick={handleClickDisciplinas}
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaBook style={{ marginRight: "10px" }} />
+          Acadêmico
+          <i
+            className={`bi ${
+              openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"
+            }`}
+            style={{ float: "right" }}
+          ></i>
+        </ListGroupItem>
+
+        <Collapse in={openDisciplinas}>
+          <div>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/adm-home/academico/cadastrar-curso"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -224,23 +266,28 @@ const BarraLateralProfessor = () => {
               }}
             >
               <FaUserCog style={{ marginRight: "10px" }} />
-              Gerenciar Professores
+              Gerenciar Cursos
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/adm-home/academico/cadastrar-disciplina"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaUserCog style={{ marginRight: "10px" }} />
+              Gerenciar Disciplinas
             </ListGroupItem>
           </div>
         </Collapse>
-        
-        <ListGroupItem
-          action
-          as={Link}
-          to="/professor-home/teste"
-          style={{ backgroundColor: "transparent", color: "white" }}
-        >
-          <FaHome style={{ marginRight: "10px" }} />
-          Teste
-        </ListGroupItem>
       </ListGroup>
     </div>
   );
 };
 
-export default BarraLateralProfessor;
+export default BarraLateralAdm;

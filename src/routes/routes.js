@@ -2,16 +2,16 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "../pages/Login/Login";
 import ProfessorLayout from "../pages/ProfessorLayout/ProfessorLayout"; 
-import HomeProfessor from "../components/HomeProfessor/HomeProfessor"; 
-import AlunoNotas from "../components/AlunoNotas/AlunoNotas"; 
+import HomeProfessor from "../components/ProfessorComponents/HomeProfessor/HomeProfessor"; 
+import AlunoNotas from "../components/AlunoComponents/AlunoNotas/AlunoNotas"; 
 import AlunoLayout from "../pages/AlunoLayout/AlunoLayout"; 
-import HomeAluno from "../components/HomeAluno/HomeAluno"; 
-import HomeAdm from "../components/HomeAdm/HomeAdm";
+import HomeAluno from "../components/AlunoComponents/HomeAluno/HomeAluno"; 
+import HomeAdm from "../components/AdmComponentes/HomeAdm/HomeAdm";
 import AdmLayout from "../pages/AdmLayout/AdmLayout";
-import CadastroAlunoForm from "../components/CadastroAlunoForm/CadastroAlunoForm";
-import CadastroProfessorForm from "../components/CadastroProfessorForm.js/CadastroProfessorForm";
-import CadastroDisciplinaForm from "../components/CadastroDisciplinaForm/CadastroDisciplinaForm";
-import CadastroCursoForm from "../components/CadastroCursoForm/CadastroCursoForm";
+import CadastroAlunoForm from "../components/AdmComponentes/CadastroAlunoForm/CadastroAlunoForm";
+import CadastroProfessorForm from "../components/AdmComponentes/CadastroProfessorForm.js/CadastroProfessorForm";
+import CadastroDisciplinaForm from "../components/AdmComponentes/CadastroDisciplinaForm/CadastroDisciplinaForm";
+import CadastroCursoForm from "../components/AdmComponentes/CadastroCursoForm/CadastroCursoForm";
 
 const AppRoutes = () => {
   return (

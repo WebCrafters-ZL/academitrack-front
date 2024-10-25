@@ -5,28 +5,30 @@ import Avatar from "react-avatar";
 import {
   FaSignOutAlt,
   FaQuestionCircle,
-  FaUser,
   FaHome,
-  FaUsers,
+  FaUser,
+  FaClipboardList,
+  FaLaptopCode,
+  FaCode,
+  FaCalculator,
+  FaClipboardCheck,
+  FaDatabase,
+  FaCogs,
   FaBook,
-  FaUserCog,
+  FaTable,
+  FaCalendar,
+  FaTimes,
 } from "react-icons/fa";
-import fotoPerfil from "../../assets/coordenadora.jpeg";
-import "../../styles/index.css";
+import fotoPerfil from "../../../assets/aluno.jpeg";
+import '../../../styles/index.css';
 import axios from "axios";
 
-const BarraLateralAdm = () => {
-  const [openPessoas, setOpenPessoas] = useState(false);
+const BarraLateralAluno = () => {
   const [openDisciplinas, setOpenDisciplinas] = useState(false);
-
-  const handleClickPessoas = () => {
-    setOpenPessoas(!openPessoas);
-  };
 
   const handleClickDisciplinas = () => {
     setOpenDisciplinas(!openDisciplinas);
   };
-
   const handleLogout = async () => {
     try {
       await axios.post(
@@ -107,11 +109,12 @@ const BarraLateralAdm = () => {
           round={true}
         />
         <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
-          Fabiana Alvarenga Silva
+          Bigodvisk Ferreira Alcaçuz
         </h3>
-        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RP: 0000000058</p>
+        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RA: 3240616058</p>
+        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>Período: Manhã</p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          Email: fabiana.silva@fatec.sp.gov.br
+          Email: bigodvisk.alcacuz@fatec.sp.gov.br
         </p>
       </div>
 
@@ -170,16 +173,15 @@ const BarraLateralAdm = () => {
         variant="flush"
         className="custom-list-group"
         style={{
-          maxHeight: "450px",
-          overflowY: "auto",
-          backgroundColor: "transparent",
-          border: "none",
+          maxHeight: "450px", 
+          overflowY: "auto", 
+          backgroundColor: "transparent", 
         }}
       >
         <ListGroupItem
           action
           as={Link}
-          to="/adm-home"
+          to="/aluno-home"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaHome style={{ marginRight: "10px" }} />
@@ -188,53 +190,13 @@ const BarraLateralAdm = () => {
 
         <ListGroupItem
           action
-          onClick={handleClickPessoas}
+          as={Link}
+          to="/aluno-home"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <FaUsers style={{ marginRight: "10px" }} />
-          Pessoas
-          <i
-            className={`bi ${
-              openPessoas ? "bi-chevron-up" : "bi-chevron-down"
-            }`}
-            style={{ float: "right" }}
-          ></i>
+          <FaTable style={{ marginRight: "10px" }} />
+          Grade
         </ListGroupItem>
-
-        <Collapse in={openPessoas}>
-          <div>
-            <ListGroupItem
-              action
-              as={Link}
-              to="/adm-home/pessoas/cadastrar-aluno"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-                margin: 0,
-                border: "none",
-              }}
-            >
-              <FaUserCog style={{ marginRight: "10px" }} />
-              Gerenciar Alunos
-            </ListGroupItem>
-
-            <ListGroupItem
-              action
-              as={Link}
-              to="/adm-home/pessoas/cadastrar-professor"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-                border: "none",
-              }}
-            >
-              <FaUserCog style={{ marginRight: "10px" }} />
-              Gerenciar Professores
-            </ListGroupItem>
-          </div>
-        </Collapse>
 
         <ListGroupItem
           action
@@ -242,7 +204,7 @@ const BarraLateralAdm = () => {
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaBook style={{ marginRight: "10px" }} />
-          Acadêmico
+          Disciplinas
           <i
             className={`bi ${
               openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"
@@ -256,7 +218,7 @@ const BarraLateralAdm = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/adm-home/academico/cadastrar-curso"
+              to="/disciplinas/materia1"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -265,13 +227,13 @@ const BarraLateralAdm = () => {
                 border: "none",
               }}
             >
-              <FaUserCog style={{ marginRight: "10px" }} />
-              Gerenciar Cursos
+              <FaLaptopCode style={{ marginRight: "10px" }} />
+              Desenvolvimento web III
             </ListGroupItem>
             <ListGroupItem
               action
               as={Link}
-              to="/adm-home/academico/cadastrar-disciplina"
+              to="/disciplinas/materia2"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -280,14 +242,104 @@ const BarraLateralAdm = () => {
                 border: "none",
               }}
             >
-              <FaUserCog style={{ marginRight: "10px" }} />
-              Gerenciar Disciplinas
+              <FaCode style={{ marginRight: "10px" }} />
+              Técnicas de Programação II
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/disciplinas/materia3"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaCalculator style={{ marginRight: "10px" }} />
+              Algebra Linear
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/disciplinas/materia3"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaClipboardCheck style={{ marginRight: "10px" }} />
+              Gestão Ágil de Projetos
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/disciplinas/materia3"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaDatabase style={{ marginRight: "10px" }} />
+              Banco de Dados - Não Relacional
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/disciplinas/materia3"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaCogs style={{ marginRight: "10px" }} />
+              Engenharia de Software II
             </ListGroupItem>
           </div>
         </Collapse>
+
+        <ListGroupItem
+          action
+          as={Link}
+          to="/aluno-home/notas"
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaClipboardList style={{ marginRight: "10px" }} />
+          Notas
+        </ListGroupItem>
+
+        <ListGroupItem
+          action
+          as={Link}
+          to="/notas"
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaTimes style={{ marginRight: "10px" }} />
+          Faltas
+        </ListGroupItem>
+
+        <ListGroupItem
+          action
+          as={Link}
+          to="/notas"
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaCalendar style={{ marginRight: "10px" }} />
+          Calendario Academico
+        </ListGroupItem>
       </ListGroup>
     </div>
   );
 };
 
-export default BarraLateralAdm;
+export default BarraLateralAluno;

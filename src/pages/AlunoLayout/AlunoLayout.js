@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom"; // Usando Outlet para rotas dinâmicas
-import BarraSuperiorAluno from "../../components/BarraSuperiorAluno/BarraSuperiorAluno";
-import BarraLateralAluno from "../../components/BarraLateralAluno/BarraLateralAluno";
+import BarraSuperiorAluno from "../../components/AlunoComponents/BarraSuperiorAluno/BarraSuperiorAluno";
+import BarraLateralAluno from "../../components/AlunoComponents/BarraLateralAluno/BarraLateralAluno";
 
 const AlunoLayout = () => {
   return (

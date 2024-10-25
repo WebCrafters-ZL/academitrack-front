@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom"; // Usando Outlet para rotas dinâmicas
-import BarraSuperiorProfessor from "../../components/BarraSuperiorProfessor/BarraSuperiorProfessor";
-import BarraLateralProfessor from "../../components/BarraLateralProfessor/BarraLateralProfessor";
+import BarraSuperiorProfessor from "../../components/ProfessorComponents/BarraSuperiorProfessor/BarraSuperiorProfessor";
+import BarraLateralProfessor from "../../components/ProfessorComponents/BarraLateralProfessor/BarraLateralProfessor";
 
 const ProfessorLayout = () => {
   return (
