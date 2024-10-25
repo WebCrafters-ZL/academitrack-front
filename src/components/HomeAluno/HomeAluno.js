@@ -181,6 +181,7 @@ const HomeAluno = () => {
               </td>
               <td>26 Out</td>
             </tr>
+
           </tbody>
         </Table>
       </Container>

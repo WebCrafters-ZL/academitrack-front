@@ -172,7 +172,7 @@ const BarraLateralProfessor = () => {
         <ListGroupItem
           action
           as={Link}
-          to="/admhome"
+          to="/professor-home"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaHome style={{ marginRight: "10px" }} />
@@ -228,6 +228,16 @@ const BarraLateralProfessor = () => {
             </ListGroupItem>
           </div>
         </Collapse>
+        
+        <ListGroupItem
+          action
+          as={Link}
+          to="/professor-home/teste"
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaHome style={{ marginRight: "10px" }} />
+          Teste
+        </ListGroupItem>
       </ListGroup>
     </div>
   );

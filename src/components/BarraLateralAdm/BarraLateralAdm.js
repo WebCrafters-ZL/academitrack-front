@@ -206,7 +206,7 @@ const BarraLateralAdm = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/adm/pessoas/cadastrar-aluno"
+              to="/adm-home/pessoas/cadastrar-aluno"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -218,10 +218,11 @@ const BarraLateralAdm = () => {
               <FaUserCog style={{ marginRight: "10px" }} />
               Gerenciar Alunos
             </ListGroupItem>
+
             <ListGroupItem
               action
               as={Link}
-              to="/adm/pessoas/cadastrar-professor"
+              to="/adm-home/pessoas/cadastrar-professor"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -255,7 +256,7 @@ const BarraLateralAdm = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/adm/disciplinas/cadastrar-curso"
+              to="/adm-home/academico/cadastrar-curso"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -270,7 +271,7 @@ const BarraLateralAdm = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/adm/disciplinas/cadastrar-disciplina"
+              to="/adm-home/academico/cadastrar-disciplina"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
