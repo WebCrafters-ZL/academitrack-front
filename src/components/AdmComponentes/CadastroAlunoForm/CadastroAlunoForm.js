@@ -9,8 +9,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
   const [cpf, setCpf] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [curso, setCurso] = useState("");
-  const [periodo, setPeriodo] = useState("1");
+  const [endereco, setEndereco] = useState("");
   const [matricula, setMatricula] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
@@ -34,9 +33,8 @@ const CadastroAlunoForm = ({ handleClose }) => {
       cpf,
       dataNascimento,
       telefone,
-      curso,
-      periodo,
       dataMatricula,
+      endereco
     };
 
     try {
@@ -130,8 +128,8 @@ const CadastroAlunoForm = ({ handleClose }) => {
                 background: "transparent",
                 border: "none",
                 cursor: "pointer",
-                opacity: 0.6, // Transparência
-                color: "black", // Cor do ícone
+                opacity: 0.6, 
+                color: "black", 
               }}
             >
               {senhaVisivel ? <FaEyeSlash /> : <FaEye />}
@@ -178,31 +176,15 @@ const CadastroAlunoForm = ({ handleClose }) => {
           />
         </Form.Group>
 
-        <Form.Group controlId="formCursoAluno">
-          <Form.Label>Curso</Form.Label>
+        <Form.Group controlId="formEnderecoAluno">
+          <Form.Label>Endereço</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Digite o curso do aluno"
-            value={curso}
-            onChange={(e) => setCurso(e.target.value)}
+            placeholder="Digite o endereço do aluno"
+            value={endereco}
+            onChange={(e) => setEndereco(e.target.value)}
           />
         </Form.Group>
-
-        <Form.Group controlId="formPeriodoAluno">
-          <Form.Label>Período</Form.Label>
-          <Form.Control
-            as="select"
-            value={periodo}
-            onChange={(e) => setPeriodo(e.target.value)}
-          >
-            <option value="1">Manhã</option>
-            <option value="2">Tarde</option>
-            <option value="3">Noite</option>
-          </Form.Control>
-        </Form.Group>
-
-        {/* Campo oculto para dataMatricula */}
-        <input type="hidden" value={new Date().toISOString().split("T")[0]} />
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
