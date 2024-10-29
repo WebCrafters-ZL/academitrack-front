@@ -1,20 +1,9 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const CadastroAlunoForm = ({ handleClose }) => {
-  // Definição da função para gerar senha aleatória
-  const gerarSenhaAleatoria = (tamanho) => {
-    const caracteres =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
-    let senha = "";
-    for (let i = 0; i < tamanho; i++) {
-      const indice = Math.floor(Math.random() * caracteres.length);
-      senha += caracteres[indice];
-    }
-    return senha;
-  };
-
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
@@ -23,21 +12,16 @@ const CadastroAlunoForm = ({ handleClose }) => {
   const [curso, setCurso] = useState("");
   const [periodo, setPeriodo] = useState("1");
   const [matricula, setMatricula] = useState("");
-  const [senha, setSenha] = useState(gerarSenhaAleatoria(8));
+  const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
 
-  const dataMatricula = new Date().toISOString().split("T")[0];
+  const [senhaVisivel, setSenhaVisivel] = useState(false); // Estado para controlar a visibilidade da senha
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    // Verifica se o campo de email não está vazio e gera a senha
-    if (e.target.value) {
-      const novaSenha = gerarSenhaAleatoria(8); // Gera uma nova senha com 8 caracteres
-      setSenha(novaSenha);
-    } else {
-      setSenha(""); // Limpa a senha se o email for removido
-    }
+  const toggleSenhaVisivel = () => {
+    setSenhaVisivel(!senhaVisivel);
   };
+
+  const dataMatricula = new Date().toISOString().split("T")[0];
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -119,22 +103,40 @@ const CadastroAlunoForm = ({ handleClose }) => {
             type="email"
             placeholder="Digite o email do aluno"
             value={email}
-            onChange={handleEmailChange} // Usando a função que gera a senha ao preencher o email
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </Form.Group>
 
-        <Form.Group
-          controlId="formSenhaAluno"
-          style={{ display: "none" }} 
-        >
+        <Form.Group controlId="formSenhaAluno">
           <Form.Label>Senha</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Senha gerada"
-            value={senha} 
-            disabled 
-          />
+          <div style={{ position: "relative" }}>
+            <Form.Control
+              type={senhaVisivel ? "text" : "password"}
+              placeholder="Digite a senha do aluno"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              required
+              style={{ paddingRight: "40px" }} // Adiciona espaçamento à direita para o ícone
+            />
+            <button
+              type="button"
+              onClick={toggleSenhaVisivel}
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                opacity: 0.6, // Transparência
+                color: "black", // Cor do ícone
+              }}
+            >
+              {senhaVisivel ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
         </Form.Group>
 
         <Form.Group controlId="formMatricula">
