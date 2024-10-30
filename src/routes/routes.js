@@ -12,6 +12,9 @@ import CadastroAlunoForm from "../components/AdmComponentes/CadastroAlunoForm/Ca
 import CadastroProfessorForm from "../components/AdmComponentes/CadastroProfessorForm.js/CadastroProfessorForm";
 import CadastroDisciplinaForm from "../components/AdmComponentes/CadastroDisciplinaForm/CadastroDisciplinaForm";
 import CadastroCursoForm from "../components/AdmComponentes/CadastroCursoForm/CadastroCursoForm";
+import FAQAdm from "../components/AdmComponentes/FaqAdm/FaqAdm";
+import PerfilAdm from "../components/AdmComponentes/PerfilAdm/PerfilAdm";
+
 
 const AppRoutes = () => {
   return (
@@ -31,6 +34,8 @@ const AppRoutes = () => {
         <Route path="pessoas/cadastrar-professor" element={<CadastroProfessorForm />} />
         <Route path="academico/cadastrar-curso" element={<CadastroCursoForm />} />
         <Route path="academico/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
+        <Route path="faqadm" element={<FAQAdm/>} />
+        <Route path="perfiladm" element={<PerfilAdm/>} />
 
         {/* Outras rotas específicas do ADM */}
       </Route>

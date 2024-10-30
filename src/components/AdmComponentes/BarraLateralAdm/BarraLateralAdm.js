@@ -123,15 +123,19 @@ const BarraLateralAdm = () => {
           marginBottom: "5px",
         }}
       >
-        <FaQuestionCircle
-          style={{
-            color: "white",
-            cursor: "pointer",
-            marginRight: "35px",
-          }}
-          size={30}
-        />
-
+        
+          <Link to="/adm-home/faqadm" style={{ textDecoration: "none" }}>
+            <FaQuestionCircle
+              style={{
+                color: "white",
+                cursor: "pointer",
+                marginRight: "35px",
+              }}
+              size={30}
+            />
+          </Link>
+        
+        <Link to="/adm-home/perfiladm" style={{ textDecoration: "none" }}>
         <FaUser
           style={{
             color: "white",
@@ -140,6 +144,7 @@ const BarraLateralAdm = () => {
           }}
           size={30}
         />
+        </Link>
 
         <Button
           variant="danger"
