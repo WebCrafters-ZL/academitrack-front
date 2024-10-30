@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { Button, Form } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const CadastroAlunoForm = ({ handleClose }) => {
@@ -13,7 +13,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
   const [matricula, setMatricula] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
-
   const [senhaVisivel, setSenhaVisivel] = useState(false); // Estado para controlar a visibilidade da senha
 
   const toggleSenhaVisivel = () => {
