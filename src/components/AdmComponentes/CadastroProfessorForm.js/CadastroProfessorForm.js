@@ -10,7 +10,6 @@ const CadastroProfessorForm = ({ handleClose }) => {
   const [matricula, setMatricula] = useState("");
   const [cpf, setCpf] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const [telefone, setTelefone] = useState("");
   const [formacaoAcademica, setFormacaoAcademica] = useState("");
   const [especialidade, setEspecialidade] = useState("");
   const [error, setError] = useState("");
@@ -19,8 +18,6 @@ const CadastroProfessorForm = ({ handleClose }) => {
   const toggleSenhaVisivel = () => {
     setSenhaVisivel(!senhaVisivel);
   };
-
-  const dataMatricula = new Date().toISOString().split("T")[0];
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -32,8 +29,6 @@ const CadastroProfessorForm = ({ handleClose }) => {
       matricula,
       cpf,
       dataNascimento,
-      telefone,
-      dataMatricula,
       formacaoAcademica,
       especialidade,
     };
@@ -167,15 +162,6 @@ const CadastroProfessorForm = ({ handleClose }) => {
           />
         </Form.Group>
 
-        <Form.Group controlId="formTelefoneProfessor">
-          <Form.Label>Telefone</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite o telefone do professor"
-            value={telefone}
-            onChange={(e) => setTelefone(e.target.value)}
-          />
-        </Form.Group>
 
         <Form.Group controlId="formFormacaoAcademica">
           <Form.Label>Formação Academica</Form.Label>
