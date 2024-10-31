@@ -3,33 +3,38 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Grid } from "gridjs-react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import "gridjs/dist/theme/mermaid.css"; // Importando tema do Grid.js
 
 const GerenciarAluno = ({ handleClose }) => {
   const [alunos, setAlunos] = useState([]);
 
-  useEffect(() => {
+  useEffect(() => { 
     const fetchAlunos = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/administrador/alunos");
-        setAlunos(response.data); // Presumindo que a resposta contém a lista de alunos
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:3000/api/v1/administrador/alunos",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+      });
+        setAlunos(response.data);
       } catch (error) {
         console.error("Erro ao buscar alunos:", error);
       }
     };
 
-    fetchAlunos(); // Chama a função para buscar os dados quando o componente é montado
+    fetchAlunos();
   }, []);
 
   const data = alunos.map((aluno) => [
     aluno.nomeCompleto,
     aluno.email,
     aluno.cpf,
-    aluno.situacaoMatricula,
+    aluno.status.charAt(0).toUpperCase() + aluno.status.slice(1), 
     aluno.matricula,
-    `<button style="color: blue; background: none; border: none; cursor: pointer;">Ver mais</button>
-     <button style="background: none; border: none; cursor: pointer;">✏️</button>
-     <button style="background: none; border: none; cursor: pointer;">🗑️</button>`,
   ]);
 
   return (
@@ -53,12 +58,22 @@ const GerenciarAluno = ({ handleClose }) => {
       <Grid
         data={data}
         columns={['Nome', 'Email', 'CPF', 'Situação', 'Matrícula', 'Ação']}
-        sort={true} 
+        sort={true}
         search={{
-          placeholder: '🔍 Procurar...' 
+          placeholder: '🔍 Procurar...'
         }}
         pagination={{
           limit: 5,
+          previous: () => (
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              <FontAwesomeIcon icon={faChevronLeft} /> Anterior
+            </span>
+          ),
+          next: () => (
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              Próximo <FontAwesomeIcon icon={faChevronRight} />
+            </span>
+          )
         }}
         language={{
           search: {
@@ -66,9 +81,11 @@ const GerenciarAluno = ({ handleClose }) => {
           },
           pagination: {
             previous: 'Anterior',
-            next: 'Proxima',
-            results: () => 'Registros',
-          }
+            next: 'Próximo',
+            showing: (from, to, total) => `Exibindo ${from} a ${to} de ${total}`,
+            results: () => 'Registros'
+          },
+          noRecords: "Nenhum registro encontrado",
         }}
         style={{
           table: {},

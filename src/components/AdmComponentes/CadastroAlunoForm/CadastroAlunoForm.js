@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Button, Form } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const CadastroAlunoForm = ({ handleClose }) => {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -218,12 +219,14 @@ const CadastroAlunoForm = ({ handleClose }) => {
         </Form.Group>
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
-          <Button
+        <Button
+            as={Link}
+            to="/adm-home/pessoas/gerenciar-aluno"
             variant="danger"
-            onClick={() => handleClose && handleClose()}
+            onClick={handleClose}
             style={{ marginRight: "20px" }}
           >
-            Fechar
+            Voltar
           </Button>
           <Button variant="primary" type="submit">
             Salvar
