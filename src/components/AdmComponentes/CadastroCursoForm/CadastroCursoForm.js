@@ -1,39 +1,72 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { Button, Form } from "react-bootstrap";
 
 const CadastroCursoForm = ({ handleClose }) => {
   const [nome, setNome] = useState("");
-  const [cargaHoraria, setCargaHoraria] = useState("");
+  const [codigo, setCodigo] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [cargaHoraria, setCargaHoraria] = useState("");
   const [categoria, setCategoria] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setMessage("");
+    setMessageType("");
 
     const cursoData = {
-      nome: nome,          
-      descricao: descricao,  
-      cargaHoraria: Number(cargaHoraria), 
-      categoria: categoria,  
+      nome,
+      codigo,
+      descricao,
+      cargaHoraria,
+      categoria, // Certifique-se de que a categoria está sendo incluída nos dados do curso
     };
 
     try {
-      // Obter o token do localStorage
       const token = localStorage.getItem("token");
-  
-      // Enviar os dados ao back-end
-      const response = await axios.post("http://localhost:3000/api/v1/administrador/cursos", cursoData, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Inclui o token na header da requisição
-        },
-      });
-  
-      console.log("Curso cadastrado com sucesso:", response.data);
-      handleClose(); // Fecha o formulário após o sucesso
-    } catch (error) {
-      console.error("Erro ao cadastrar curso:", error);
-      // Aqui você pode adicionar lógica para exibir mensagens de erro ao usuário
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/administrador/cursos",
+        cursoData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        setMessageType("success");
+        setMessage(response.data.message || "Curso cadastrado com sucesso!");
+
+        if (typeof handleClose === "function") handleClose();
+
+        setNome("");
+        setCodigo("");
+        setDescricao("");
+        setCargaHoraria("");
+        setCategoria(""); // Resetando o campo de categoria
+      }
+    } catch (err) {
+      console.error("Erro ao enviar o formulário:", err);
+      setMessageType("error");
+
+      if (err.response) {
+        if (err.response.status === 400) {
+          setMessage("Todos os campos obrigatórios devem ser preenchidos.");
+        } else if (err.response.status === 401) {
+          setMessage("Não autorizado. Verifique suas credenciais.");
+        } else if (err.response.status === 500) {
+          setMessage("Erro interno do servidor. Tente novamente mais tarde.");
+        } else {
+          setMessage(`Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."}`);
+        }
+      } else if (err.request) {
+        setMessage("Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.");
+      } else {
+        setMessage(`Erro inesperado: ${err.message}`);
+      }
     }
   };
 
@@ -44,7 +77,7 @@ const CadastroCursoForm = ({ handleClose }) => {
         marginLeft: "315px",
         padding: "20px",
         maxWidth: "calc(100% - 320px)",
-        height: `calc(100vh - 75px)`,
+        height: "calc(100vh - 75px)",
         display: "flex",
         flexDirection: "column",
         gap: "20px",
@@ -53,37 +86,47 @@ const CadastroCursoForm = ({ handleClose }) => {
         borderRadius: "10px",
       }}
     >
-      <h2 style={{ textAlign: "center" }}>Cadastrar Curso</h2>
+      <h2 style={{ textAlign: "center" }}>Cadastro de Curso</h2>
+
+      {message && (
+        <div
+          style={{
+            color: messageType === "success" ? "green" : "red",
+            textAlign: "center",
+          }}
+        >
+          {message}
+        </div>
+      )}
 
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formCurso">
-          <Form.Label>Curso</Form.Label>
+        <Form.Group controlId="formNomeCurso">
+          <Form.Label>Nome do Curso</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Digite o nome do Curso"
+            placeholder="Digite o nome do curso"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
             required
           />
         </Form.Group>
 
-        <Form.Group controlId="formCargaHoraria">
-          <Form.Label>Carga Horária</Form.Label>
+        <Form.Group controlId="formCodigoCurso">
+          <Form.Label>Código do Curso</Form.Label>
           <Form.Control
-            type="number"
-            placeholder="Digite a carga horária em horas"
-            value={cargaHoraria}
-            onChange={(e) => setCargaHoraria(e.target.value)}
+            type="text"
+            placeholder="Digite o código do curso"
+            value={codigo}
+            onChange={(e) => setCodigo(e.target.value)}
             required
-            min="1"
-            max="2000"
           />
         </Form.Group>
 
-        <Form.Group controlId="formDescricao">
-          <Form.Label>Descrição</Form.Label>
+        <Form.Group controlId="formDescricaoCurso">
+          <Form.Label>Descrição do Curso</Form.Label>
           <Form.Control
-            as="textarea" 
+            as="textarea"
+            rows={3}
             placeholder="Digite a descrição do curso"
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
@@ -91,29 +134,41 @@ const CadastroCursoForm = ({ handleClose }) => {
           />
         </Form.Group>
 
-        <Form.Group controlId="formCategoria">
-          <Form.Label>Categoria</Form.Label>
+        <Form.Group controlId="formCargaHorariaCurso">
+          <Form.Label>Carga Horária do Curso</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="Digite a categoria do curso"
+            type="number"
+            placeholder="Digite a carga horária do curso"
+            value={cargaHoraria}
+            onChange={(e) => setCargaHoraria(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formCategoriaCurso">
+          <Form.Label>Categoria do Curso</Form.Label>
+          <Form.Control
+            as="select"
             value={categoria}
             onChange={(e) => setCategoria(e.target.value)}
             required
-          />
+          >
+            <option value="">Selecione uma categoria</option>
+            <option value="Bacharelado">Bacharelado</option>
+            <option value="Tecnólogo">Tecnólogo</option>
+            <option value="Licenciatura">Licenciatura</option>
+          </Form.Control>
         </Form.Group>
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
             variant="danger"
-            onClick={handleClose}
+            onClick={() => handleClose && handleClose()}
             style={{ marginRight: "20px" }}
           >
             Fechar
           </Button>
-          <Button
-            variant="primary"
-            type="submit" // Garantir que o botão "Salvar" submit o formulário
-          >
+          <Button variant="primary" type="submit">
             Salvar
           </Button>
         </div>
