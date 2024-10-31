@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
@@ -298,4 +296,3 @@ const BarraLateralAdm = () => {
 };
 
 export default BarraLateralAdm;
->>>>>>> parent of ac909ea (wait)

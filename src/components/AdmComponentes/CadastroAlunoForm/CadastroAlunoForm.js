@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import React, { useState } from "react";
 import axios from "axios";
 import { Button, Form } from "react-bootstrap";
@@ -14,17 +12,19 @@ const CadastroAlunoForm = ({ handleClose }) => {
   const [endereco, setEndereco] = useState("");
   const [matricula, setMatricula] = useState("");
   const [senha, setSenha] = useState("");
-  const [error, setError] = useState("");
-  const [senhaVisivel, setSenhaVisivel] = useState(false); // Estado para controlar a visibilidade da senha
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [senhaVisivel, setSenhaVisivel] = useState(false);
 
   const toggleSenhaVisivel = () => {
     setSenhaVisivel(!senhaVisivel);
   };
 
-  const dataMatricula = new Date().toISOString().split("T")[0];
-
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    setMessage("");
+    setMessageType("");
 
     const alunoData = {
       nomeCompleto,
@@ -34,32 +34,55 @@ const CadastroAlunoForm = ({ handleClose }) => {
       cpf,
       dataNascimento,
       telefone,
-      dataMatricula,
-      endereco
+      endereco,
     };
 
     try {
-      // Obter o token do localStorage
       const token = localStorage.getItem("token");
-
-      // Substitua esta URL pela URL correta para o seu back-end
       const response = await axios.post(
         "http://localhost:3000/api/v1/administrador/alunos",
         alunoData,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Inclui o token na header da requisição
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      console.log(response.data); // Aqui você pode adicionar lógica após o cadastro
-      handleClose(); // Fecha o formulário após o sucesso
+      if (response.status === 201) {
+        setMessageType("success");
+        setMessage(response.data.message || "Aluno cadastrado com sucesso!");
+
+        if (typeof handleClose === "function") handleClose();
+
+        setNomeCompleto("");
+        setEmail("");
+        setCpf("");
+        setDataNascimento("");
+        setTelefone("");
+        setEndereco("");
+        setMatricula("");
+        setSenha("");
+      }
     } catch (err) {
-      console.error(err);
-      setError(
-        "Erro ao cadastrar aluno. Verifique os dados e tente novamente."
-      );
+      console.error("Erro ao enviar o formulário:", err);
+      setMessageType("error");
+
+      if (err.response) {
+        if (err.response.status === 400) {
+          setMessage("Todos os campos obrigatórios devem ser preenchidos.");
+        } else if (err.response.status === 401) {
+          setMessage("Não autorizado. Verifique suas credenciais.");
+        } else if (err.response.status === 500) {
+          setMessage("Erro interno do servidor. Tente novamente mais tarde.");
+        } else {
+          setMessage(`Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."}`);
+        }
+      } else if (err.request) {
+        setMessage("Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.");
+      } else {
+        setMessage(`Erro inesperado: ${err.message}`);
+      }
     }
   };
 
@@ -70,7 +93,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
         marginLeft: "315px",
         padding: "20px",
         maxWidth: "calc(100% - 320px)",
-        height: `calc(100vh - 75px)`,
+        height: "calc(100vh - 75px)",
         display: "flex",
         flexDirection: "column",
         gap: "20px",
@@ -81,8 +104,15 @@ const CadastroAlunoForm = ({ handleClose }) => {
     >
       <h2 style={{ textAlign: "center" }}>Cadastro de Aluno</h2>
 
-      {error && (
-        <div style={{ color: "red", textAlign: "center" }}>{error}</div>
+      {message && (
+        <div
+          style={{
+            color: messageType === "success" ? "green" : "red",
+            textAlign: "center",
+          }}
+        >
+          {message}
+        </div>
       )}
 
       <Form onSubmit={handleSubmit}>
@@ -116,7 +146,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               required
-              style={{ paddingRight: "40px" }} // Adiciona espaçamento à direita para o ícone
+              style={{ paddingRight: "40px" }}
             />
             <button
               type="button"
@@ -129,8 +159,8 @@ const CadastroAlunoForm = ({ handleClose }) => {
                 background: "transparent",
                 border: "none",
                 cursor: "pointer",
-                opacity: 0.6, 
-                color: "black", 
+                opacity: 0.6,
+                color: "black",
               }}
             >
               {senhaVisivel ? <FaEyeSlash /> : <FaEye />}
@@ -190,12 +220,12 @@ const CadastroAlunoForm = ({ handleClose }) => {
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
             variant="danger"
-            onClick={handleClose}
+            onClick={() => handleClose && handleClose()}
             style={{ marginRight: "20px" }}
           >
             Fechar
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button variant="primary" type="submit">
             Salvar
           </Button>
         </div>
@@ -205,4 +235,3 @@ const CadastroAlunoForm = ({ handleClose }) => {
 };
 
 export default CadastroAlunoForm;
->>>>>>> parent of ac909ea (wait)
