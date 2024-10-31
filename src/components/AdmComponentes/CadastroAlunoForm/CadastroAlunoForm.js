@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -33,7 +34,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
       dataNascimento,
       telefone,
       dataMatricula,
-      endereco
+      endereco,
     };
 
     try {
@@ -114,7 +115,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               required
-              style={{ paddingRight: "40px" }} // Adiciona espaçamento à direita para o ícone
+              style={{ paddingRight: "40px" }}
             />
             <button
               type="button"
@@ -127,8 +128,8 @@ const CadastroAlunoForm = ({ handleClose }) => {
                 background: "transparent",
                 border: "none",
                 cursor: "pointer",
-                opacity: 0.6, 
-                color: "black", 
+                opacity: 0.6,
+                color: "black",
               }}
             >
               {senhaVisivel ? <FaEyeSlash /> : <FaEye />}
@@ -187,11 +188,13 @@ const CadastroAlunoForm = ({ handleClose }) => {
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
+            as={Link}
+            to="/adm-home/pessoas/gerenciar-aluno"
             variant="danger"
             onClick={handleClose}
             style={{ marginRight: "20px" }}
           >
-            Fechar
+            Voltar
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
             Salvar

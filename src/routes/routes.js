@@ -8,12 +8,13 @@ import AlunoLayout from "../pages/AlunoLayout/AlunoLayout";
 import HomeAluno from "../components/AlunoComponents/HomeAluno/HomeAluno"; 
 import HomeAdm from "../components/AdmComponentes/HomeAdm/HomeAdm";
 import AdmLayout from "../pages/AdmLayout/AdmLayout";
-import CadastroAlunoForm from "../components/AdmComponentes/CadastroAlunoForm/CadastroAlunoForm";
 import CadastroProfessorForm from "../components/AdmComponentes/CadastroProfessorForm.js/CadastroProfessorForm";
 import CadastroDisciplinaForm from "../components/AdmComponentes/CadastroDisciplinaForm/CadastroDisciplinaForm";
 import CadastroCursoForm from "../components/AdmComponentes/CadastroCursoForm/CadastroCursoForm";
 import FAQAdm from "../components/AdmComponentes/FaqAdm/FaqAdm";
 import PerfilAdm from "../components/AdmComponentes/PerfilAdm/PerfilAdm";
+import GerenciarAluno from "../components/AdmComponentes/GerenciarAluno/GerenciarAluno";
+import CadastroAlunoForm from "../components/AdmComponentes/CadastroAlunoForm/CadastroAlunoForm";
 
 
 const AppRoutes = () => {
@@ -30,14 +31,14 @@ const AppRoutes = () => {
       {/* Rotas para ADM */}
       <Route path="/adm-home" element={<AdmLayout />}>
         <Route index element={<HomeAdm />} /> {/* Home do ADM */}
-        <Route path="pessoas/cadastrar-aluno" element={<CadastroAlunoForm />} />
+        <Route path="pessoas/gerenciar-aluno" element={<GerenciarAluno />} />
+        <Route path="pessoas/gerenciar-aluno/cadastro-aluno" element={<CadastroAlunoForm />} />
         <Route path="pessoas/cadastrar-professor" element={<CadastroProfessorForm />} />
         <Route path="academico/cadastrar-curso" element={<CadastroCursoForm />} />
         <Route path="academico/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
         <Route path="faqadm" element={<FAQAdm/>} />
         <Route path="perfiladm" element={<PerfilAdm/>} />
 
-        {/* Outras rotas específicas do ADM */}
       </Route>
 
       {/* Rotas para Professor */}
