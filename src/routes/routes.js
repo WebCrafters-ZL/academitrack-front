@@ -9,43 +9,41 @@ import HomeAluno from "../components/AlunoComponents/HomeAluno/HomeAluno";
 import HomeAdm from "../components/AdmComponentes/HomeAdm/HomeAdm";
 import AdmLayout from "../pages/AdmLayout/AdmLayout";
 import CadastroAlunoForm from "../components/AdmComponentes/CadastroAlunoForm/CadastroAlunoForm";
-import CadastroProfessorForm from "../components/AdmComponentes/CadastroProfessorForm.js/CadastroProfessorForm";
+import CadastroProfessorForm from "../components/AdmComponentes/CadastroProfessorForm/CadastroProfessorForm";
 import CadastroDisciplinaForm from "../components/AdmComponentes/CadastroDisciplinaForm/CadastroDisciplinaForm";
 import CadastroCursoForm from "../components/AdmComponentes/CadastroCursoForm/CadastroCursoForm";
-import FAQAdm from "../components/AdmComponentes/FaqAdm/FaqAdm";
-import PerfilAdm from "../components/AdmComponentes/PerfilAdm/PerfilAdm";
-import GerenciarAluno from "../components/AdmComponentes/GerenciarAluno/GerenciarAluno";
-
+import PrivateRoute from "../pages/Login/PrivateRoute"; 
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<Login />} /> {/* Rota de Login */}
 
       {/* Rotas para Aluno */}
       <Route path="/aluno-home" element={<AlunoLayout />}>
-        <Route index element={<HomeAluno />} /> {/* Componente padrão para o aluno */}
-        <Route path="notas" element={<AlunoNotas />} /> {/* Rota para Notas do Aluno */}
+        <Route element={<PrivateRoute requiredRole="aluno" />}>
+          <Route index element={<HomeAluno />} /> {/* Home do Aluno */}
+          <Route path="notas" element={<AlunoNotas />} /> {/* Rota para Notas do Aluno */}
+        </Route>
       </Route>
 
       {/* Rotas para ADM */}
       <Route path="/adm-home" element={<AdmLayout />}>
-        <Route index element={<HomeAdm />} /> {/* Home do ADM */}
-        <Route path="pessoas/gerenciar-aluno" element={<GerenciarAluno />} />
-        <Route path="pessoas/gerenciar-aluno/cadastro-aluno" element={<CadastroAlunoForm />} />
-        <Route path="pessoas/cadastrar-professor" element={<CadastroProfessorForm />} />
-        <Route path="academico/cadastrar-curso" element={<CadastroCursoForm />} />
-        <Route path="academico/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
-        <Route path="faqadm" element={<FAQAdm/>} />
-        <Route path="perfiladm" element={<PerfilAdm/>} />
-
-        {/* Outras rotas específicas do ADM */}
+        <Route element={<PrivateRoute requiredRole="administrador" />}>
+          <Route index element={<HomeAdm />} /> {/* Home do ADM */}
+          <Route path="pessoas/cadastrar-aluno" element={<CadastroAlunoForm />} />
+          <Route path="pessoas/cadastrar-professor" element={<CadastroProfessorForm />} />
+          <Route path="academico/cadastrar-curso" element={<CadastroCursoForm />} />
+          <Route path="academico/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
+        </Route>
       </Route>
 
       {/* Rotas para Professor */}
       <Route path="/professor-home" element={<ProfessorLayout />}>
-        <Route index element={<HomeProfessor />} /> {/* Componente padrão para o professor */}
-        <Route path="teste" element={<AlunoNotas />} /> {/* Rota para AlunoNotas */}
+        <Route element={<PrivateRoute requiredRole="professor" />}>
+          <Route index element={<HomeProfessor />} /> {/* Home do Professor */}
+          <Route path="teste" element={<AlunoNotas />} /> {/* Rota exemplo para Professor */}
+        </Route>
       </Route>
     </Routes>
   );

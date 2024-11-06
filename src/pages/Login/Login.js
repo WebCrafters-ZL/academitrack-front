@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; 
-import {FaEnvelope, FaLock } from "react-icons/fa"; 
+import { useNavigate } from "react-router-dom";
+import { FaEnvelope, FaLock } from "react-icons/fa";
+import { useAuth } from "../Login/AuthContext"; 
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const { login } = useAuth(); 
 
   const enviarFormulario = async (event) => {
     event.preventDefault();
@@ -23,8 +26,23 @@ const Login = () => {
       );
 
       const { token } = response.data;
-      localStorage.setItem("token", token);
-      navigate("/adm-home");
+
+      login(token); // Chamando a função de login do contexto
+
+      // Decodificando o token para obter a role do usuário
+      const decodedToken = jwtDecode(token);
+      const userType = decodedToken.tipoUsuario; // Obter o tipo de usuário do token
+
+      // Redirecionar com base no tipo de usuário
+      if (userType === "administrador") {
+        navigate("/adm-home");
+      } else if (userType === "professor") {
+        navigate("/professor-home");
+      } else if (userType === "aluno") {
+        navigate("/aluno-home");
+      } else {
+        console.log("User role not recognized, not redirecting.");
+      }
     } catch (err) {
       setError("Credenciais inválidas! Tente novamente.");
       console.error(err);
@@ -50,7 +68,10 @@ const Login = () => {
           backgroundColor: "white",
         }}
       >
-        <h1 className="text-center" style={{ fontWeight: "bold", marginBottom: "20px" }}>
+        <h1
+          className="text-center"
+          style={{ fontWeight: "bold", marginBottom: "20px" }}
+        >
           Academi<span style={{ color: "#1976d2" }}>Track</span>
         </h1>
 

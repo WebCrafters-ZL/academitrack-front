@@ -24,7 +24,7 @@ const BarraSuperiorAdm = () => {
        <Row className="w-100 text-center" style={{ flexGrow: 1 }}>
       <Col xs={2} style={{ display: 'flex', justifyContent: 'flex-start' }}>
         <span style={{ fontSize: "1.5rem", marginRight: '10px', whiteSpace: 'nowrap' }}>
-          <strong>Coordenador</strong>
+          <strong>administrador</strong>
         </span>
       </Col>
       <Col xs={4} style={{ display: 'flex', justifyContent: 'center' }}>
