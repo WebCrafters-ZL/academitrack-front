@@ -1,88 +1,99 @@
-# Projeto Interdisciplinar - AcademiTrack
+# AcademiTrack - Frontend 🎓
 
-### Contribuição
+## Sobre o Projeto
 
-Se você deseja contribuir para o desenvolvimento deste projeto, siga as etapas abaixo:
+AcademiTrack é um sistema de gerenciamento acadêmico desenvolvido como parte de um projeto interdisciplinar. Este repositório contém o frontend da aplicação, construído com React, oferecendo uma interface intuitiva e responsiva para usuários interagirem com o sistema.
 
-1. Faça um fork deste repositório.
-2. Certifique-se de ter o Node.js instalado.
-3. Execute o comando `npm install` para instalar as dependências.
-4. Adicione o repositório remoto upstream ao seu fork: `git remote add upstream https://github.com/WebCrafters-ZL/academitrack-front.git`.
-5. Crie uma branch com o nome da sua feature: `git checkout -b minha-feature`.
-6. Faça as alterações necessárias e adicione os arquivos modificados: `git add .`.
-7. Faça o commit das suas alterações: `git commit -m "Minha feature: descrição das alterações"`.
-8. Faça o push para o repositório remoto: `git push origin minha-feature`.
-9. Abra um pull request para que suas alterações sejam revisadas.
+## Funcionalidades Principais
+
+- 🖥️ Interface de usuário moderna e responsiva
+- 📝 Formulários para cadastro e gerenciamento de alunos
+- 📊 Visualização de notas e frequência
+- 📈 Geração e exibição de relatórios acadêmicos
+- 🔐 Sistema de autenticação de usuários
+
+## Tecnologias Utilizadas
+
+- **React**: Biblioteca JavaScript para construção de interfaces de usuário
+- **React Router**: Para navegação entre componentes
+- **Axios**: Cliente HTTP para fazer requisições à API
+- **Bootstrap**: Framework CSS para design responsivo
+- **Jest**: Framework de testes
+
+## Estrutura do Projeto
+
+```
+academitrack-front/
+├── public/
+│   └── index.html
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── styles/
+│   ├── App.js
+│   └── index.js
+├── package.json
+└── README.md
+```
+
+## Como Iniciar
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/WebCrafters-ZL/academitrack-front.git
+   ```
+
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+
+3. Configure as variáveis de ambiente:
+   - Crie um arquivo `.env` na raiz do projeto
+   - Adicione a URL da API backend: `REACT_APP_API_URL=http://localhost:8080`
+
+4. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm start
+   ```
+
+5. Acesse `http://localhost:8080` no seu navegador
+
+## Scripts Disponíveis
+
+- `npm start`: Inicia o servidor de desenvolvimento
+- `npm test`: Executa os testes
+- `npm run build`: Cria uma versão de produção do app
+
+## Contribuindo
+
+Contribuições são bem-vindas! Se você é um estudante ou desenvolvedor interessado em melhorar o AcademiTrack, siga estas etapas:
+
+1. Faça um fork do repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## Aprendizados do Projeto
+
+O desenvolvimento do frontend do AcademiTrack proporcionou valiosas experiências em:
+
+- Desenvolvimento de aplicações React modernas
+- Gerenciamento de estado em aplicações frontend
+- Integração com APIs RESTful
+- Práticas de UI/UX em sistemas educacionais
+- Testes automatizados em aplicações frontend
+
+## Equipe
+
+Este projeto foi desenvolvido por estudantes da [Fatec Zona Leste](https://fateczl.cps.sp.gov.br/) como parte do curso de [Desenvolvimento de Software Multiplataforma](https://fateczl.cps.sp.gov.br/desenvolvimento-de-software-multiplataforma/).
+
+## Licença
+
+Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ---
 
-## Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-### Available Scripts
-
-In the project directory, you can run:
-
-#### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-#### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-#### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-#### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-### Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-#### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-#### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-#### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-#### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-#### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+📚 Desenvolvido com paixão pela educação e tecnologia 🖥️
