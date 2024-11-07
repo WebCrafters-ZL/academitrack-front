@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button, Form } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import InputMask from 'react-input-mask';
 
 const CadastroAlunoForm = ({ handleClose }) => {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -181,12 +182,13 @@ const CadastroAlunoForm = ({ handleClose }) => {
 
         <Form.Group controlId="formCpfAluno">
           <Form.Label>CPF</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite o CPF do aluno"
+          <InputMask 
+            mask="999.999.999-99"
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
-          />
+          >
+            {() => <Form.Control placeholder="Digite o CPF do aluno" required />}
+          </InputMask>
         </Form.Group>
 
         <Form.Group controlId="formDataNascimentoAluno">
@@ -200,12 +202,13 @@ const CadastroAlunoForm = ({ handleClose }) => {
 
         <Form.Group controlId="formTelefoneAluno">
           <Form.Label>Telefone</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite o telefone do aluno"
+          <InputMask
+            mask="(99) 99999-9999"
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
-          />
+          >
+            {() => <Form.Control placeholder="Digite o telefone do aluno" required />}
+          </InputMask>
         </Form.Group>
 
         <Form.Group controlId="formEnderecoAluno">

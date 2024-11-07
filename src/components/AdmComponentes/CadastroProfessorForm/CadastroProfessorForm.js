@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Button, Form } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import InputMask from 'react-input-mask';
 
 const CadastroProfessorForm = ({ handleClose }) => {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -179,14 +180,14 @@ const CadastroProfessorForm = ({ handleClose }) => {
         </Form.Group>
 
         <Form.Group controlId="formCpfProfessor">
-          <Form.Label>CPF</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite o CPF do professor"
-            onChange={(e) => setCpf(e.target.value)}
+        <Form.Label>CPF</Form.Label>
+          <InputMask 
+            mask="999.999.999-99"
             value={cpf}
-            required
-          />
+            onChange={(e) => setCpf(e.target.value)}
+          >
+            {() => <Form.Control placeholder="Digite o CPF do aluno" required />}
+          </InputMask>
         </Form.Group>
 
         <Form.Group controlId="formDataNascimentoProfessor">
