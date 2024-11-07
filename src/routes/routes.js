@@ -10,6 +10,7 @@ import HomeAdm from "../components/AdmComponentes/HomeAdm/HomeAdm";
 import AdmLayout from "../pages/AdmLayout/AdmLayout";
 import CadastroAlunoForm from "../components/AdmComponentes/CadastroAlunoForm/CadastroAlunoForm";
 import EditarAluno from '../components/AdmComponentes/EditarAluno/EditarAluno';
+// import EditarProfessor from '../components/AdmComponentes/EditarProfessor/EditarProfessor';
 import CadastroProfessorForm from "../components/AdmComponentes/CadastroProfessorForm/CadastroProfessorForm";
 import CadastroDisciplinaForm from "../components/AdmComponentes/CadastroDisciplinaForm/CadastroDisciplinaForm";
 import CadastroCursoForm from "../components/AdmComponentes/CadastroCursoForm/CadastroCursoForm";
@@ -19,6 +20,7 @@ import PerfilAdm from "../components/AdmComponentes/PerfilAdm/PerfilAdm";
 import GerenciarAluno from "../components/AdmComponentes/GerenciarAluno/GerenciarAluno";
 import FaqAluno from "../components/AlunoComponents/FaqAluno/FaqAluno";
 import PerfilAluno from "../components/AlunoComponents/PerfilAluno/PerfilAluno";
+import GerenciarProfessor from "../components/AdmComponentes/GerenciarProfessor/GerenciarProfessor";
 import FaqProfessor from "../components/ProfessorComponents/FaqProfessor/FaqProfessor";
 import PerfilProfessor from "../components/ProfessorComponents/PerfilProfessor/PerfilProfessor";
 
@@ -45,7 +47,9 @@ const AppRoutes = () => {
         <Route path="pessoas/gerenciar-aluno" element={<GerenciarAluno />} />
         <Route path="pessoas/gerenciar-aluno/cadastro-aluno" element={<CadastroAlunoForm />} />
         <Route path="pessoas/gerenciar-aluno/editar/:id" element={<EditarAluno />} /> 
-        <Route path="pessoas/cadastrar-professor" element={<CadastroProfessorForm />} />
+        <Route path="pessoas/gerenciar-professor" element={<GerenciarProfessor />} />
+        <Route path="pessoas/gerenciar-professor/cadastro-professor" element={<CadastroProfessorForm />} />
+        {/* <Route path="pessoas/gerenciar-professor/editar/:id" element={<EditarProfessor />} /> */}
         <Route path="academico/cadastrar-curso" element={<CadastroCursoForm />} />
         <Route path="academico/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
         <Route path="faqadm" element={<FAQAdm/>} />

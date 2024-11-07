@@ -227,7 +227,7 @@ const BarraLateralAdm = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/adm-home/pessoas/cadastrar-professor"
+              to="/adm-home/pessoas/gerenciar-professor"
               style={{
                 backgroundColor: "transparent",
                 color: "white",

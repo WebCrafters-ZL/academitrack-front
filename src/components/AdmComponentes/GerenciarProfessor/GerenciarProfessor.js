@@ -7,29 +7,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'; 
 
 
-const GerenciarAluno = ({ handleClose }) => {
-  const [alunos, setAlunos] = useState([]);
+const GerenciarProfessor = ({ handleClose }) => {
+  const [professores, setProfessores] = useState([]);
   const [showModal, setShowModal] = useState(false); // Controle do modal
-  const [alunoIdToDelete, setAlunoIdToDelete] = useState(null); // ID do aluno a ser deletado
+  const [professorIdToDelete, setProfessorIdToDelete] = useState(null); // ID do professor a ser deletado
 
   useEffect(() => { 
-    const fetchAlunos = async () => {
+    const fetchProfessores = async () => {
       try {
         const token = localStorage.getItem("token");
         console.log("Token being used:", token);
-        const response = await axios.get("http://localhost:3000/api/v1/administrador/alunos", {
+        const response = await axios.get("http://localhost:3000/api/v1/administrador/professores", {
           headers: {
             Authorization: `Bearer ${token}`, 
           },
         });
 
-        setAlunos(response.data); // Armazenar os dados retornados
+        setProfessores(response.data); // Armazenar os dados retornados
       } catch (error) {
-        console.error("Erro ao buscar alunos:", error); // Log de erro
+        console.error("Erro ao buscar professores:", error); // Log de erro
       }
     };
 
-    fetchAlunos(); // Chama a função para buscar os alunos
+    fetchProfessores(); // Chama a função para buscar os professores
   }, []);
 
   // Definindo as colunas da tabela
@@ -66,15 +66,15 @@ const GerenciarAluno = ({ handleClose }) => {
     {
       title: 'Ação', 
       key: 'acao',
-      render: (_, aluno) => (
+      render: (_, professor) => (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Link to={`/adm-home/pessoas/gerenciar-aluno/editar/${aluno._id}`} style={{ marginRight: '10px' }}>
+          <Link to={`/adm-home/pessoas/gerenciar-professor/editar/${professor._id}`} style={{ marginRight: '10px' }}>
             <FontAwesomeIcon icon={faPen} style={{ color: 'blue' }} /> {/* Ícone de lápis */}
           </Link>
           <FontAwesomeIcon 
             icon={faTrash} 
             style={{ color: 'red', cursor: 'pointer' }} 
-            onClick={() => confirmDelete(aluno._id)} // Abre o modal de confirmação ao clicar no ícone de lixeira
+            onClick={() => confirmDelete(professor._id)} // Abre o modal de confirmação ao clicar no ícone de lixeira
           /> {/* Ícone de lixeira */}
         </div>
       ),
@@ -84,24 +84,24 @@ const GerenciarAluno = ({ handleClose }) => {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/api/v1/administrador/alunos/${alunoIdToDelete}`, {
+      await axios.delete(`http://localhost:3000/api/v1/administrador/professores/${professorIdToDelete}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Envio do token na requisição
         },
       });
 
-      // Atualize a lista de alunos após a exclusão
-      setAlunos(alunos.filter(aluno => aluno._id !== alunoIdToDelete));
-      console.log(`Aluno com ID: ${alunoIdToDelete} deletado com sucesso.`);
+      // Atualize a lista de professores após a exclusão
+      setProfessores(professores.filter(professor => professor._id !== professorIdToDelete));
+      console.log(`Professor com ID: ${professorIdToDelete} deletado com sucesso.`);
       setShowModal(false); // Fecha o modal após a confirmação
     } catch (error) {
-      console.error("Erro ao excluir aluno:", error); // Mensagem de erro ao deletar
+      console.error("Erro ao excluir professor:", error); // Mensagem de erro ao deletar
     }
   };
 
   // Função para abrir o modal de confirmação
   const confirmDelete = (id) => {
-    setAlunoIdToDelete(id); // Armazena o ID do aluno a ser deletado
+    setProfessorIdToDelete(id); // Armazena o ID do professor a ser deletado
     setShowModal(true); // Abre o modal
   };
 
@@ -121,12 +121,12 @@ const GerenciarAluno = ({ handleClose }) => {
         borderRadius: "10px",
       }}
     >
-      <h2 style={{ textAlign: "center" }}>Gerenciar Alunos</h2>
+      <h2 style={{ textAlign: "center" }}>Gerenciar Professores</h2>
 
       <Table 
-        dataSource={alunos.map(aluno => ({
-          ...aluno,
-          key: aluno._id, 
+        dataSource={professores.map(professor => ({
+          ...professor,
+          key: professor._id, 
         }))} 
         columns={columns} 
         pagination={{ pageSize: 5 }} // Configurando a paginação
@@ -136,10 +136,10 @@ const GerenciarAluno = ({ handleClose }) => {
         <Button
           variant="primary"
           as={Link}
-          to="/adm-home/pessoas/gerenciar-aluno/cadastro-aluno"
+          to="/adm-home/pessoas/gerenciar-professor/cadastro-professor"
           onClick={handleClose}
         >
-          Adicionar Aluno
+          Adicionar Professor
         </Button>
       </div>
 
@@ -148,7 +148,7 @@ const GerenciarAluno = ({ handleClose }) => {
           <Modal.Title>Confirmar Exclusão</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Você tem certeza de que deseja excluir este aluno?</p>
+          <p>Você tem certeza de que deseja excluir este professor?</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
@@ -163,4 +163,4 @@ const GerenciarAluno = ({ handleClose }) => {
   );
 };
 
-export default GerenciarAluno;
+export default GerenciarProfessor;
