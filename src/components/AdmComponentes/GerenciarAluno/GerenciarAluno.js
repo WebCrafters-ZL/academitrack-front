@@ -1,41 +1,109 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Grid } from "gridjs-react";
+import { Table } from 'antd'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import "gridjs/dist/theme/mermaid.css"; 
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'; 
+
 
 const GerenciarAluno = ({ handleClose }) => {
   const [alunos, setAlunos] = useState([]);
+  const [showModal, setShowModal] = useState(false); // Controle do modal
+  const [alunoIdToDelete, setAlunoIdToDelete] = useState(null); // ID do aluno a ser deletado
 
   useEffect(() => { 
     const fetchAlunos = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3000/api/v1/administrador/alunos",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-      });
-        setAlunos(response.data);
+        console.log("Token being used:", token);
+        const response = await axios.get("http://localhost:3000/api/v1/administrador/alunos", {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        });
+
+        setAlunos(response.data); // Armazenar os dados retornados
       } catch (error) {
-        console.error("Erro ao buscar alunos:", error);
+        console.error("Erro ao buscar alunos:", error); // Log de erro
       }
     };
 
-    fetchAlunos();
+    fetchAlunos(); // Chama a função para buscar os alunos
   }, []);
 
-  const data = alunos.map((aluno) => [
-    aluno.nomeCompleto,
-    aluno.email,
-    aluno.cpf,
-    aluno.status.charAt(0).toUpperCase() + aluno.status.slice(1), 
-    aluno.matricula,
-  ]);
+  // Definindo as colunas da tabela
+  const columns = [
+    {
+      title: 'Nome',
+      dataIndex: 'nomeCompleto',
+      key: 'nomeCompleto',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'CPF',
+      dataIndex: 'cpf',
+      key: 'cpf',
+    },
+    {
+      title: 'Situação',
+      dataIndex: 'status',
+      key: 'status',
+      render: status => {
+        const color = status === 'ativo' ? 'green' : 'red'; // Define a cor com base na situação
+        return <span style={{ color }}>{status.charAt(0).toUpperCase() + status.slice(1)}</span>; // Formatação e exibição
+      }, 
+    },
+    {
+      title: 'Matrícula',
+      dataIndex: 'matricula',
+      key: 'matricula',
+    },
+    {
+      title: 'Ação', 
+      key: 'acao',
+      render: (_, aluno) => (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Link to={`/adm-home/pessoas/gerenciar-aluno/${aluno._id}`} style={{ marginRight: '10px' }}>
+            <FontAwesomeIcon icon={faPen} style={{ color: 'blue' }} /> {/* Ícone de lápis */}
+          </Link>
+          <FontAwesomeIcon 
+            icon={faTrash} 
+            style={{ color: 'red', cursor: 'pointer' }} 
+            onClick={() => confirmDelete(aluno._id)} // Abre o modal de confirmação ao clicar no ícone de lixeira
+          /> {/* Ícone de lixeira */}
+        </div>
+      ),
+    }
+  ];
+
+  const handleDelete = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:3000/api/v1/administrador/alunos/${alunoIdToDelete}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Envio do token na requisição
+        },
+      });
+
+      // Atualize a lista de alunos após a exclusão
+      setAlunos(alunos.filter(aluno => aluno._id !== alunoIdToDelete));
+      console.log(`Aluno com ID: ${alunoIdToDelete} deletado com sucesso.`);
+      setShowModal(false); // Fecha o modal após a confirmação
+    } catch (error) {
+      console.error("Erro ao excluir aluno:", error); // Mensagem de erro ao deletar
+    }
+  };
+
+  // Função para abrir o modal de confirmação
+  const confirmDelete = (id) => {
+    setAlunoIdToDelete(id); // Armazena o ID do aluno a ser deletado
+    setShowModal(true); // Abre o modal
+  };
 
   return (
     <div
@@ -55,44 +123,13 @@ const GerenciarAluno = ({ handleClose }) => {
     >
       <h2 style={{ textAlign: "center" }}>Gerenciar Alunos</h2>
 
-      <Grid
-        data={data}
-        columns={['Nome', 'Email', 'CPF', 'Situação', 'Matrícula', 'Ação']}
-        sort={true}
-        search={{
-          placeholder: '🔍 Procurar...'
-        }}
-        pagination={{
-          limit: 5,
-          previous: () => (
-            <span style={{ display: 'flex', alignItems: 'center' }}>
-              <FontAwesomeIcon icon={faChevronLeft} /> Anterior
-            </span>
-          ),
-          next: () => (
-            <span style={{ display: 'flex', alignItems: 'center' }}>
-              Próximo <FontAwesomeIcon icon={faChevronRight} />
-            </span>
-          )
-        }}
-        language={{
-          search: {
-            placeholder: '🔍 Procurar...'
-          },
-          pagination: {
-            previous: 'Anterior',
-            next: 'Próximo',
-            showing: (from, to, total) => `Exibindo ${from} a ${to} de ${total}`,
-            results: () => 'Registros'
-          },
-          noRecords: "Nenhum registro encontrado",
-        }}
-        style={{
-          table: {},
-          th: {
-            backgroundColor: "#f8f9fa",
-          },
-        }}
+      <Table 
+        dataSource={alunos.map(aluno => ({
+          ...aluno,
+          key: aluno._id, 
+        }))} 
+        columns={columns} 
+        pagination={{ pageSize: 5 }} // Configurando a paginação
       />
 
       <div style={{ textAlign: "right", marginTop: "0px" }}>
@@ -105,6 +142,23 @@ const GerenciarAluno = ({ handleClose }) => {
           Adicionar Aluno
         </Button>
       </div>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Exclusão</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Você tem certeza de que deseja excluir este aluno?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Excluir
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
