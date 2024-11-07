@@ -117,15 +117,18 @@ const BarraLateralProfessor = () => {
           marginBottom: "5px",
         }}
       >
-        <FaQuestionCircle
-          style={{
-            color: "white",
-            cursor: "pointer",
-            marginRight: "35px",
-          }}
-          size={30}
-        />
-
+        <Link to="/professor-home/faqprofessor" style={{ textDecoration: "none" }}>
+            <FaQuestionCircle
+              style={{
+                color: "white",
+                cursor: "pointer",
+                marginRight: "35px",
+              }}
+              size={30}
+            />
+          </Link>
+        
+        <Link to="/professor-home/perfilprofessor" style={{ textDecoration: "none" }}>
         <FaUser
           style={{
             color: "white",
@@ -134,6 +137,7 @@ const BarraLateralProfessor = () => {
           }}
           size={30}
         />
+        </Link>
 
         <Button
           variant="danger"

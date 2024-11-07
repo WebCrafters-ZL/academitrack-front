@@ -20,7 +20,7 @@ const PerfilAdm = () => {
       }}
     >
       <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
-        Perfil 
+        Perfil Administrador 
       </h1>
       
     </Container>

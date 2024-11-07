@@ -16,6 +16,10 @@ import PrivateRoute from "../pages/Login/PrivateRoute";
 import FAQAdm from "../components/AdmComponentes/FaqAdm/FaqAdm";
 import PerfilAdm from "../components/AdmComponentes/PerfilAdm/PerfilAdm";
 import GerenciarAluno from "../components/AdmComponentes/GerenciarAluno/GerenciarAluno";
+import FaqAluno from "../components/AlunoComponents/FaqAluno/FaqAluno";
+import PerfilAluno from "../components/AlunoComponents/PerfilAluno/PerfilAluno";
+import FaqProfessor from "../components/ProfessorComponents/FaqProfessor/FaqProfessor";
+import PerfilProfessor from "../components/ProfessorComponents/PerfilProfessor/PerfilProfessor";
 
 const AppRoutes = () => {
   return (
@@ -27,6 +31,9 @@ const AppRoutes = () => {
         <Route element={<PrivateRoute requiredRole="aluno" />}>
           <Route index element={<HomeAluno />} /> {/* Home do Aluno */}
           <Route path="notas" element={<AlunoNotas />} /> {/* Rota para Notas do Aluno */}
+          <Route path="faqaluno" element={<FaqAluno/>} />
+          <Route path="perfilaluno" element={<PerfilAluno/>} /> 
+
         </Route>
       </Route>
 
@@ -50,6 +57,8 @@ const AppRoutes = () => {
         <Route element={<PrivateRoute requiredRole="professor" />}>
           <Route index element={<HomeProfessor />} /> {/* Home do Professor */}
           <Route path="teste" element={<AlunoNotas />} /> {/* Rota exemplo para Professor */}
+          <Route path="faqprofessor" element={<FaqProfessor/>} />
+          <Route path="perfilprofessor" element={<PerfilProfessor/>} /> 
         </Route>
       </Route>
     </Routes>

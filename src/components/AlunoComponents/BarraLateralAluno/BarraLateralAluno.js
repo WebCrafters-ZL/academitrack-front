@@ -126,15 +126,18 @@ const BarraLateralAluno = () => {
           marginBottom: "5px",
         }}
       >
-        <FaQuestionCircle
-          style={{
-            color: "white",
-            cursor: "pointer",
-            marginRight: "35px",
-          }}
-          size={30}
-        />
-
+        <Link to="/aluno-home/faqaluno" style={{ textDecoration: "none" }}>
+            <FaQuestionCircle
+              style={{
+                color: "white",
+                cursor: "pointer",
+                marginRight: "35px",
+              }}
+              size={30}
+            />
+          </Link>
+        
+        <Link to="/aluno-home/perfilaluno" style={{ textDecoration: "none" }}>
         <FaUser
           style={{
             color: "white",
@@ -143,6 +146,7 @@ const BarraLateralAluno = () => {
           }}
           size={30}
         />
+        </Link>
 
         <Button
           variant="danger"
