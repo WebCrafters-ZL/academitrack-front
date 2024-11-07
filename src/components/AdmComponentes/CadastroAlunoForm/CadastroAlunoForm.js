@@ -180,7 +180,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
           />
         </Form.Group>
 
-        <Form.Group controlId="formCpfAluno">
+           <Form.Group controlId="formCpfAluno">
           <Form.Label>CPF</Form.Label>
           <InputMask 
             mask="999.999.999-99"

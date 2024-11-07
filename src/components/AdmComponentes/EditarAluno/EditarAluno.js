@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import InputMask from "react-input-mask";
 
 const EditarAlunoForm = ({ handleClose }) => {
   const { id } = useParams(); // Obtendo o ID do aluno da URL
@@ -20,11 +21,14 @@ const EditarAlunoForm = ({ handleClose }) => {
     const fetchAluno = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`http://localhost:3000/api/v1/administrador/alunos/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `http://localhost:3000/api/v1/administrador/alunos/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const alunoData = response.data;
         setNomeCompleto(alunoData.nomeCompleto);
@@ -91,7 +95,11 @@ const EditarAlunoForm = ({ handleClose }) => {
         } else if (err.response.status === 500) {
           setMessage("Erro interno do servidor. Tente novamente mais tarde.");
         } else {
-          setMessage(`Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."}`);
+          setMessage(
+            `Erro inesperado: ${
+              err.response.statusText || "Verifique os dados e tente novamente."
+            }`
+          );
         }
       } else {
         setMessage(`Erro inesperado: ${err.message}`);
@@ -153,13 +161,15 @@ const EditarAlunoForm = ({ handleClose }) => {
 
         <Form.Group controlId="formCpfAluno">
           <Form.Label>CPF</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite o CPF do aluno"
+          <InputMask
+            mask="999.999.999-99"
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
-            required
-          />
+          >
+            {() => (
+              <Form.Control placeholder="Digite o CPF do aluno" required />
+            )}
+          </InputMask>
         </Form.Group>
 
         <Form.Group controlId="formDataNascimentoAluno">
@@ -174,13 +184,13 @@ const EditarAlunoForm = ({ handleClose }) => {
 
         <Form.Group controlId="formTelefoneAluno">
           <Form.Label>Telefone</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite o telefone do aluno"
+          <InputMask
+            mask="(99) 99999-9999"
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
-            required
-          />
+          >
+            {() => <Form.Control placeholder="Digite o telefone do aluno" required />}
+          </InputMask>
         </Form.Group>
 
         <Form.Group controlId="formEnderecoAluno">
@@ -206,7 +216,7 @@ const EditarAlunoForm = ({ handleClose }) => {
         </Form.Group>
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
-        <Button
+          <Button
             as={Link}
             to="/adm-home/pessoas/gerenciar-aluno"
             variant="danger"
