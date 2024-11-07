@@ -9,6 +9,7 @@ import HomeAluno from "../components/AlunoComponents/HomeAluno/HomeAluno";
 import HomeAdm from "../components/AdmComponentes/HomeAdm/HomeAdm";
 import AdmLayout from "../pages/AdmLayout/AdmLayout";
 import CadastroAlunoForm from "../components/AdmComponentes/CadastroAlunoForm/CadastroAlunoForm";
+import EditarAluno from '../components/AdmComponentes/EditarAluno/EditarAluno';
 import CadastroProfessorForm from "../components/AdmComponentes/CadastroProfessorForm/CadastroProfessorForm";
 import CadastroDisciplinaForm from "../components/AdmComponentes/CadastroDisciplinaForm/CadastroDisciplinaForm";
 import CadastroCursoForm from "../components/AdmComponentes/CadastroCursoForm/CadastroCursoForm";
@@ -30,7 +31,7 @@ const AppRoutes = () => {
       <Route path="/aluno-home" element={<AlunoLayout />}>
         <Route element={<PrivateRoute requiredRole="aluno" />}>
           <Route index element={<HomeAluno />} /> {/* Home do Aluno */}
-          <Route path="notas" element={<AlunoNotas />} /> {/* Rota para Notas do Aluno */}
+          <Route path="notas" element={<AlunoNotas />} /> 
           <Route path="faqaluno" element={<FaqAluno/>} />
           <Route path="perfilaluno" element={<PerfilAluno/>} /> 
 
@@ -43,6 +44,7 @@ const AppRoutes = () => {
         <Route index element={<HomeAdm />} /> {/* Home do ADM */}
         <Route path="pessoas/gerenciar-aluno" element={<GerenciarAluno />} />
         <Route path="pessoas/gerenciar-aluno/cadastro-aluno" element={<CadastroAlunoForm />} />
+        <Route path="pessoas/gerenciar-aluno/editar/:id" element={<EditarAluno />} /> 
         <Route path="pessoas/cadastrar-professor" element={<CadastroProfessorForm />} />
         <Route path="academico/cadastrar-curso" element={<CadastroCursoForm />} />
         <Route path="academico/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
@@ -56,7 +58,7 @@ const AppRoutes = () => {
       <Route path="/professor-home" element={<ProfessorLayout />}>
         <Route element={<PrivateRoute requiredRole="professor" />}>
           <Route index element={<HomeProfessor />} /> {/* Home do Professor */}
-          <Route path="teste" element={<AlunoNotas />} /> {/* Rota exemplo para Professor */}
+          <Route path="teste" element={<AlunoNotas />} /> 
           <Route path="faqprofessor" element={<FaqProfessor/>} />
           <Route path="perfilprofessor" element={<PerfilProfessor/>} /> 
         </Route>
