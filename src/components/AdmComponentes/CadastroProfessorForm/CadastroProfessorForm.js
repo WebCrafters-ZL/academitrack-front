@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button, Form } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import InputMask from 'react-input-mask';
+import { Link } from "react-router-dom";
 
 const CadastroProfessorForm = ({ handleClose }) => {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -146,7 +147,7 @@ const CadastroProfessorForm = ({ handleClose }) => {
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               required
-              style={{ paddingRight: "40px" }} // Adiciona espaçamento à direita para o ícone
+              style={{ paddingRight: "40px" }} 
             />
             <button
               type="button"
@@ -186,7 +187,7 @@ const CadastroProfessorForm = ({ handleClose }) => {
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
           >
-            {() => <Form.Control placeholder="Digite o CPF do aluno" required />}
+            {() => <Form.Control placeholder="Digite o CPF do professor" required />}
           </InputMask>
         </Form.Group>
 
@@ -224,11 +225,13 @@ const CadastroProfessorForm = ({ handleClose }) => {
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
-            variant="danger"
-            onClick={() => handleClose && handleClose()}
-            style={{ marginRight: "20px" }}
+             as={Link}
+             to="/adm-home/pessoas/gerenciar-professor"
+             variant="danger"
+             onClick={handleClose}
+             style={{ marginRight: "20px" }}
           >
-            Fechar
+            Voltar
           </Button>
           <Button variant="primary" type="submit">
             Salvar
