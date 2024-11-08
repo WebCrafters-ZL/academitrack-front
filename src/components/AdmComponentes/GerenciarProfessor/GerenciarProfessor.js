@@ -82,7 +82,7 @@ const GerenciarProfessor = ({ handleClose }) => {
             icon={faTrash} 
             style={{ color: 'red', cursor: 'pointer' }} 
             onClick={() => confirmDelete(professor._id)} // Abre o modal de confirmação ao clicar no ícone de lixeira
-          /> {/* Ícone de lixeira */}
+          /> 
         </div>
       ),
     }

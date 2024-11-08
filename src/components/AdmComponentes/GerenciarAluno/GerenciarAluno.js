@@ -76,7 +76,7 @@ const GerenciarAluno = ({ handleClose }) => {
       render: (_, aluno) => (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Link to={`/adm-home/pessoas/gerenciar-aluno/editar/${aluno._id}`} style={{ marginRight: '10px' }}>
-            <FontAwesomeIcon icon={faPen} style={{ color: 'blue' }} /> {/* Ícone de lápis */}
+            <FontAwesomeIcon icon={faPen} style={{ color: 'blue' }} /> 
           </Link>
           <FontAwesomeIcon 
             icon={faTrash} 
