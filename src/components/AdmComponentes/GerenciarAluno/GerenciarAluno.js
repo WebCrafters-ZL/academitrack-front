@@ -48,6 +48,13 @@ const GerenciarAluno = ({ handleClose }) => {
       title: 'CPF',
       dataIndex: 'cpf',
       key: 'cpf',
+      render: cpf => {
+        return (
+          <span>
+            {cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}
+          </span>
+        );
+      },
     },
     {
       title: 'Situação',

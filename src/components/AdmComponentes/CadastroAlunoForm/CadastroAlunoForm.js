@@ -3,7 +3,7 @@ import axios from "axios";
 import { Button, Form } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import InputMask from 'react-input-mask';
+import InputMask from "react-input-mask";
 
 const CadastroAlunoForm = ({ handleClose }) => {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -28,14 +28,18 @@ const CadastroAlunoForm = ({ handleClose }) => {
     setMessage("");
     setMessageType("");
 
+    // Remover a formatação do CPF e telefone
+    const cleanCpf = cpf.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
+    const cleanTelefone = telefone.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
+
     const alunoData = {
       nomeCompleto,
       email,
       senha,
       matricula,
-      cpf,
+      cpf: cleanCpf, // Enviando apenas números
       dataNascimento,
-      telefone,
+      telefone: cleanTelefone, // Enviando apenas números
       endereco,
     };
 
@@ -78,10 +82,16 @@ const CadastroAlunoForm = ({ handleClose }) => {
         } else if (err.response.status === 500) {
           setMessage("Erro interno do servidor. Tente novamente mais tarde.");
         } else {
-          setMessage(`Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."}`);
+          setMessage(
+            `Erro inesperado: ${
+              err.response.statusText || "Verifique os dados e tente novamente."
+            }`
+          );
         }
       } else if (err.request) {
-        setMessage("Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.");
+        setMessage(
+          "Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede."
+        );
       } else {
         setMessage(`Erro inesperado: ${err.message}`);
       }
@@ -180,14 +190,16 @@ const CadastroAlunoForm = ({ handleClose }) => {
           />
         </Form.Group>
 
-           <Form.Group controlId="formCpfAluno">
+        <Form.Group controlId="formCpfAluno">
           <Form.Label>CPF</Form.Label>
-          <InputMask 
+          <InputMask
             mask="999.999.999-99"
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
           >
-            {() => <Form.Control placeholder="Digite o CPF do aluno" required />}
+            {() => (
+              <Form.Control placeholder="Digite o CPF do aluno" required />
+            )}
           </InputMask>
         </Form.Group>
 
@@ -207,7 +219,9 @@ const CadastroAlunoForm = ({ handleClose }) => {
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
           >
-            {() => <Form.Control placeholder="Digite o telefone do aluno" required />}
+            {() => (
+              <Form.Control placeholder="Digite o telefone do aluno" required />
+            )}
           </InputMask>
         </Form.Group>
 
@@ -222,7 +236,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
         </Form.Group>
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
-        <Button
+          <Button
             as={Link}
             to="/adm-home/pessoas/gerenciar-aluno"
             variant="danger"

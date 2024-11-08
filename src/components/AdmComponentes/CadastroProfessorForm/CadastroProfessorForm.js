@@ -28,12 +28,14 @@ const CadastroProfessorForm = ({ handleClose }) => {
     setMessage("");
     setMessageType("");
 
+    const cleanCpf = cpf.replace(/[^\d]/g, ""); 
+
     const professorData = {
       nomeCompleto,
       email,
       senha,
       matricula,
-      cpf,
+      cpf: cleanCpf,
       dataNascimento,
       formacaoAcademica,
       especialidade,

@@ -17,6 +17,9 @@ const EditarAlunoForm = ({ handleClose }) => {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
 
+  const cleanCpf = cpf.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
+  const cleanTelefone = telefone.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
+
   useEffect(() => {
     const fetchAluno = async () => {
       try {
@@ -55,9 +58,9 @@ const EditarAlunoForm = ({ handleClose }) => {
     const alunoData = {
       nomeCompleto,
       email,
-      cpf,
+      cpf: cleanCpf,
       dataNascimento,
-      telefone,
+      telefone: cleanTelefone,
       endereco,
       matricula,
       // Não incluí a senha neste caso, pois não pode ser alterada
