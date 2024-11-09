@@ -136,7 +136,7 @@ const GerenciarAluno = ({ handleClose }) => {
           key: aluno._id, 
         }))} 
         columns={columns} 
-        pagination={{ pageSize: 5 }} // Configurando a paginação
+        pagination={{ pageSize: 10 }} // Configurando a paginação
       />
 
       <div style={{ textAlign: "right", marginTop: "0px" }}>

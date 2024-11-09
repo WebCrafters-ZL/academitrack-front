@@ -4,6 +4,7 @@ import { Button, Form } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import InputMask from "react-input-mask";
+import { toast, ToastContainer } from "react-toastify";
 
 const CadastroAlunoForm = ({ handleClose }) => {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -14,8 +15,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
   const [endereco, setEndereco] = useState("");
   const [matricula, setMatricula] = useState("");
   const [senha, setSenha] = useState("");
-  const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState("");
   const [senhaVisivel, setSenhaVisivel] = useState(false);
 
   const toggleSenhaVisivel = () => {
@@ -24,25 +23,22 @@ const CadastroAlunoForm = ({ handleClose }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    setMessage("");
-    setMessageType("");
-
+  
     // Remover a formatação do CPF e telefone
     const cleanCpf = cpf.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
     const cleanTelefone = telefone.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
-
+  
     const alunoData = {
       nomeCompleto,
       email,
       senha,
       matricula,
-      cpf: cleanCpf, // Enviando apenas números
+      cpf: cleanCpf, // Enviando apenas números limpos
       dataNascimento,
-      telefone: cleanTelefone, // Enviando apenas números
+      telefone: cleanTelefone, // Enviando apenas números limpos
       endereco,
     };
-
+  
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
@@ -50,17 +46,29 @@ const CadastroAlunoForm = ({ handleClose }) => {
         alunoData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, // Envio do token na requisição
           },
         }
       );
-
+  
       if (response.status === 201) {
-        setMessageType("success");
-        setMessage(response.data.message || "Aluno cadastrado com sucesso!");
-
+        // Exibe uma notificação de sucesso
+        toast.success(response.data.message || "Aluno cadastrado com sucesso!", {
+          position: "bottom-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: "bounce",
+        });
+  
+        // Fechar o formulário se a função handleClose estiver disponível
         if (typeof handleClose === "function") handleClose();
-
+  
+        // Limpa os campos do formulário
         setNomeCompleto("");
         setEmail("");
         setCpf("");
@@ -72,31 +80,74 @@ const CadastroAlunoForm = ({ handleClose }) => {
       }
     } catch (err) {
       console.error("Erro ao enviar o formulário:", err);
-      setMessageType("error");
-
+  
+      // Exibe mensagens de erro com Toastify
       if (err.response) {
         if (err.response.status === 400) {
-          setMessage("Todos os campos obrigatórios devem ser preenchidos.");
+          toast.warn("Todos os campos obrigatórios devem ser preenchidos.", {
+            position: "bottom-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: "bounce",
+          });
         } else if (err.response.status === 401) {
-          setMessage("Não autorizado. Verifique suas credenciais.");
+          toast.error("Não autorizado. Verifique suas credenciais.", {
+            position: "bottom-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: "bounce",
+          });
         } else if (err.response.status === 500) {
-          setMessage("Erro interno do servidor. Tente novamente mais tarde.");
+          toast.error("Erro interno do servidor. Tente novamente mais tarde.", {
+            position: "bottom-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: "bounce",
+          });
         } else {
-          setMessage(
-            `Erro inesperado: ${
-              err.response.statusText || "Verifique os dados e tente novamente."
-            }`
-          );
+          toast.error(`Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."}`, {
+            position: "bottom-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: "bounce",
+          });
         }
-      } else if (err.request) {
-        setMessage(
-          "Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede."
-        );
       } else {
-        setMessage(`Erro inesperado: ${err.message}`);
+        toast.error(`Erro inesperado: ${err.message}`, {
+          position: "bottom-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: "bounce",
+        });
       }
     }
   };
+  
 
   return (
     <div
@@ -114,19 +165,9 @@ const CadastroAlunoForm = ({ handleClose }) => {
         borderRadius: "10px",
       }}
     >
+      <ToastContainer /> {/* Adiciona o contêiner de notificações */}
+      
       <h2 style={{ textAlign: "center" }}>Cadastro de Aluno</h2>
-
-      {message && (
-        <div
-          style={{
-            color: messageType === "success" ? "green" : "red",
-            textAlign: "center",
-          }}
-        >
-          {message}
-        </div>
-      )}
-
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formNomeAluno">
           <Form.Label>Nome Completo</Form.Label>
