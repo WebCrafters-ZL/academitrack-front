@@ -2,26 +2,29 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Table } from 'antd'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'; 
-
+import { Table, Input } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const GerenciarAluno = ({ handleClose }) => {
   const [alunos, setAlunos] = useState([]);
+  const [searchText, setSearchText] = useState(""); // Adicionar estado para o campo de pesquisa
   const [showModal, setShowModal] = useState(false); // Controle do modal
   const [alunoIdToDelete, setAlunoIdToDelete] = useState(null); // ID do aluno a ser deletado
 
-  useEffect(() => { 
+  useEffect(() => {
     const fetchAlunos = async () => {
       try {
         const token = localStorage.getItem("token");
         console.log("Token being used:", token);
-        const response = await axios.get("http://localhost:3000/api/v1/administrador/alunos", {
-          headers: {
-            Authorization: `Bearer ${token}`, 
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/administrador/alunos",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         setAlunos(response.data); // Armazenar os dados retornados
       } catch (error) {
@@ -35,20 +38,20 @@ const GerenciarAluno = ({ handleClose }) => {
   // Definindo as colunas da tabela
   const columns = [
     {
-      title: 'Nome',
-      dataIndex: 'nomeCompleto',
-      key: 'nomeCompleto',
+      title: "Nome",
+      dataIndex: "nomeCompleto",
+      key: "nomeCompleto",
     },
     {
-      title: 'E-mail',
-      dataIndex: 'email',
-      key: 'email',
+      title: "E-mail",
+      dataIndex: "email",
+      key: "email",
     },
     {
-      title: 'CPF',
-      dataIndex: 'cpf',
-      key: 'cpf',
-      render: cpf => {
+      title: "CPF",
+      dataIndex: "cpf",
+      key: "cpf",
+      render: (cpf) => {
         return (
           <span>
             {cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}
@@ -57,48 +60,65 @@ const GerenciarAluno = ({ handleClose }) => {
       },
     },
     {
-      title: 'Situação',
-      dataIndex: 'status',
-      key: 'status',
-      render: status => {
-        const color = status === 'ativo' ? 'green' : 'red'; // Define a cor com base na situação
-        return <span style={{ color }}>{status.charAt(0).toUpperCase() + status.slice(1)}</span>; // Formatação e exibição
-      }, 
+      title: "Situação",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => {
+        const color = status === "ativo" ? "green" : "red";
+        return (
+          <span style={{ color }}>
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </span>
+        );
+      },
     },
     {
-      title: 'Matrícula',
-      dataIndex: 'matricula',
-      key: 'matricula',
+      title: "Matrícula",
+      dataIndex: "matricula",
+      key: "matricula",
     },
     {
-      title: 'Ação', 
-      key: 'acao',
+      title: "Ação",
+      key: "acao",
       render: (_, aluno) => (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Link to={`/adm-home/pessoas/gerenciar-aluno/editar/${aluno._id}`} style={{ marginRight: '10px' }}>
-            <FontAwesomeIcon icon={faPen} style={{ color: 'blue' }} /> 
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Link
+            to={`/adm-home/pessoas/gerenciar-aluno/editar/${aluno._id}`}
+            style={{ marginRight: "10px" }}
+          >
+            <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
           </Link>
-          <FontAwesomeIcon 
-            icon={faTrash} 
-            style={{ color: 'red', cursor: 'pointer' }} 
+          <FontAwesomeIcon
+            icon={faTrash}
+            style={{ color: "red", cursor: "pointer" }}
             onClick={() => confirmDelete(aluno._id)} // Abre o modal de confirmação ao clicar no ícone de lixeira
-          /> {/* Ícone de lixeira */}
+          />{" "}
+          {/* Ícone de lixeira */}
         </div>
       ),
-    }
+    },
   ];
 
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/api/v1/administrador/alunos/${alunoIdToDelete}`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Envio do token na requisição
-        },
-      });
+      await axios.delete(
+        `http://localhost:3000/api/v1/administrador/alunos/${alunoIdToDelete}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Envio do token na requisição
+          },
+        }
+      );
 
       // Atualize a lista de alunos após a exclusão
-      setAlunos(alunos.filter(aluno => aluno._id !== alunoIdToDelete));
+      setAlunos(alunos.filter((aluno) => aluno._id !== alunoIdToDelete));
       console.log(`Aluno com ID: ${alunoIdToDelete} deletado com sucesso.`);
       setShowModal(false); // Fecha o modal após a confirmação
     } catch (error) {
@@ -111,6 +131,13 @@ const GerenciarAluno = ({ handleClose }) => {
     setAlunoIdToDelete(id); // Armazena o ID do aluno a ser deletado
     setShowModal(true); // Abre o modal
   };
+
+  const filteredAlunos = alunos.filter(
+    (aluno) =>
+      aluno.nomeCompleto.toLowerCase().includes(searchText.toLowerCase()) ||
+      aluno.email.toLowerCase().includes(searchText.toLowerCase()) ||
+      aluno.cpf.includes(searchText)
+  );
 
   return (
     <div
@@ -129,14 +156,21 @@ const GerenciarAluno = ({ handleClose }) => {
       }}
     >
       <h2 style={{ textAlign: "center" }}>Gerenciar Alunos</h2>
+      
+      <Input
+        placeholder="Pesquisar alunos..."
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)} // Atualiza o estado com o texto da pesquisa
+        style={{ marginBottom: "0px", width: "300px", alignSelf: "center" }} // Estilo do input
+      />
 
-      <Table 
-        dataSource={alunos.map(aluno => ({
+      <Table
+        dataSource={filteredAlunos.map((aluno) => ({
           ...aluno,
-          key: aluno._id, 
-        }))} 
-        columns={columns} 
-        pagination={{ pageSize: 10 }} // Configurando a paginação
+          key: aluno._id,
+        }))}
+        columns={columns}
+        pagination={{ pageSize: 8 }} // Configurando a paginação
       />
 
       <div style={{ textAlign: "right", marginTop: "0px" }}>
