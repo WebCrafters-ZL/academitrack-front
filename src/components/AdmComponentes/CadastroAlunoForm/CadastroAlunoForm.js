@@ -23,11 +23,11 @@ const CadastroAlunoForm = ({ handleClose }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     // Remover a formatação do CPF e telefone
     const cleanCpf = cpf.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
     const cleanTelefone = telefone.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
-  
+
     const alunoData = {
       nomeCompleto,
       email,
@@ -38,7 +38,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
       telefone: cleanTelefone, // Enviando apenas números limpos
       endereco,
     };
-  
+
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
@@ -50,24 +50,27 @@ const CadastroAlunoForm = ({ handleClose }) => {
           },
         }
       );
-  
+
       if (response.status === 201) {
         // Exibe uma notificação de sucesso
-        toast.success(response.data.message || "Aluno cadastrado com sucesso!", {
-          position: "bottom-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: "bounce",
-        });
-  
+        toast.success(
+          response.data.message || "Aluno cadastrado com sucesso!",
+          {
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: "bounce",
+          }
+        );
+
         // Fechar o formulário se a função handleClose estiver disponível
         if (typeof handleClose === "function") handleClose();
-  
+
         // Limpa os campos do formulário
         setNomeCompleto("");
         setEmail("");
@@ -80,7 +83,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
       }
     } catch (err) {
       console.error("Erro ao enviar o formulário:", err);
-  
+
       // Exibe mensagens de erro com Toastify
       if (err.response) {
         if (err.response.status === 400) {
@@ -120,17 +123,22 @@ const CadastroAlunoForm = ({ handleClose }) => {
             transition: "bounce",
           });
         } else {
-          toast.error(`Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."}`, {
-            position: "bottom-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: "bounce",
-          });
+          toast.error(
+            `Erro inesperado: ${
+              err.response.statusText || "Verifique os dados e tente novamente."
+            }`,
+            {
+              position: "bottom-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: "bounce",
+            }
+          );
         }
       } else {
         toast.error(`Erro inesperado: ${err.message}`, {
@@ -147,7 +155,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
       }
     }
   };
-  
 
   return (
     <div
@@ -165,8 +172,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
         borderRadius: "10px",
       }}
     >
-      <ToastContainer /> {/* Adiciona o contêiner de notificações */}
-      
       <h2 style={{ textAlign: "center" }}>Cadastro de Aluno</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formNomeAluno">
@@ -291,6 +296,17 @@ const CadastroAlunoForm = ({ handleClose }) => {
           </Button>
         </div>
       </Form>
+
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+        transition="bounce"
+      />
     </div>
   );
 };

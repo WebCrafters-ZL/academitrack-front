@@ -23,6 +23,8 @@ import PerfilAluno from "../components/AlunoComponents/PerfilAluno/PerfilAluno";
 import GerenciarProfessor from "../components/AdmComponentes/GerenciarProfessor/GerenciarProfessor";
 import FaqProfessor from "../components/ProfessorComponents/FaqProfessor/FaqProfessor";
 import PerfilProfessor from "../components/ProfessorComponents/PerfilProfessor/PerfilProfessor";
+import GerenciarTurma from "../components/AdmComponentes/GerenciarTurma/GerenciarTurma";
+import CadastroTurmaForm from "../components/CadastroTurmaForm/CadastroTurmaForm";
 
 const AppRoutes = () => {
   return (
@@ -52,6 +54,8 @@ const AppRoutes = () => {
         {/* <Route path="pessoas/gerenciar-professor/editar/:id" element={<EditarProfessor />} /> */}
         <Route path="academico/cadastrar-curso" element={<CadastroCursoForm />} />
         <Route path="academico/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
+        <Route path="academico/gerenciar-turma" element={<GerenciarTurma /> } />
+        <Route path="academico/gerenciar-turma/cadastro-turma" element={<CadastroTurmaForm /> } />
         <Route path="faqadm" element={<FAQAdm/>} />
         <Route path="perfiladm" element={<PerfilAdm/>} />
 

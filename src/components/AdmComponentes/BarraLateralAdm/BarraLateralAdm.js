@@ -288,6 +288,21 @@ const BarraLateralAdm = () => {
               <FaUserCog style={{ marginRight: "10px" }} />
               Gerenciar Disciplinas
             </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/adm-home/academico/gerenciar-turma"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaUserCog style={{ marginRight: "10px" }} />
+              Gerenciar Turmas
+            </ListGroupItem>
           </div>
         </Collapse>
       </ListGroup>
