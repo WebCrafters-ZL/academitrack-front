@@ -200,7 +200,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
             as={Link}
-            to="/adm-home/turmas"
+            to="/adm-home/academico/gerenciar-turma"
             variant="danger"
             onClick={handleClose}
             style={{ marginRight: "20px" }}
