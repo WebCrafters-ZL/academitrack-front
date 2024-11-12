@@ -50,6 +50,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
           },
         }
       );
+      
 
       if (response.status === 201) {
         // Exibe uma notificação de sucesso
@@ -59,9 +60,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
             position: "bottom-center",
             autoClose: 4000,
             hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
+            closeOnClick: false,
             progress: undefined,
             theme: "colored",
             transition: "bounce",

@@ -18,11 +18,34 @@ const CadastroTurmaForm = ({ handleClose }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [disciplinasResponse, professoresResponse, alunosResponse] = await Promise.all([
-          axios.get("/api/v1/disciplinas"), // Certifique-se que o endpoint está correto
-          axios.get("/api/v1/professores"),
-          axios.get("/api/v1/alunos"),
-        ]);
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          console.error("Token não encontrado");
+          return;
+        }
+
+        const headers = { headers: { Authorization: `Bearer ${token}` } };
+
+        const [disciplinasResponse, professoresResponse, alunosResponse] =
+          await Promise.all([
+            axios.get(
+              "http://localhost:3000/api/v1/administrador/disciplinas",
+              headers
+            ),
+            axios.get(
+              "http://localhost:3000/api/v1/administrador/professores",
+              headers
+            ),
+            axios.get(
+              "http://localhost:3000/api/v1/administrador/alunos",
+              headers
+            ),
+          ]);
+
+        console.log("Disciplinas Recebidas:", disciplinasResponse.data);
+        console.log("Professores Recebidos:", professoresResponse.data);
+        console.log("Alunos Recebidos:", alunosResponse.data);
 
         setDisciplinas(disciplinasResponse.data);
         setProfessores(professoresResponse.data);
@@ -64,14 +87,14 @@ const CadastroTurmaForm = ({ handleClose }) => {
           draggable: true,
           theme: "colored",
         });
-        
+
         // Limpa os campos do formulário
         setDisciplina("");
         setProfessor("");
         setSelectedAlunos([]);
         setAno(new Date().getFullYear());
         setSemestre(1);
-        
+
         if (typeof handleClose === "function") handleClose();
       }
     } catch (err) {
@@ -120,7 +143,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
             ))}
           </Form.Control>
         </Form.Group>
-  
+
         <Form.Group controlId="formProfessor">
           <Form.Label>Professor</Form.Label>
           <Form.Control
@@ -132,12 +155,12 @@ const CadastroTurmaForm = ({ handleClose }) => {
             <option value="">Selecione um professor</option>
             {professores.map((p) => (
               <option key={p._id} value={p._id}>
-                {p.nome}
+                {p.nomeCompleto}
               </option>
             ))}
           </Form.Control>
         </Form.Group>
-  
+
         <Form.Group controlId="formAlunos">
           <Form.Label>Alunos</Form.Label>
           <Form.Control
@@ -162,12 +185,12 @@ const CadastroTurmaForm = ({ handleClose }) => {
           >
             {todosAlunos.map((a) => (
               <option key={a._id} value={a._id}>
-                {a.nome}
+                {a.nomeCompleto}
               </option>
             ))}
           </Form.Control>
         </Form.Group>
-  
+
         <Form.Group controlId="formAno">
           <Form.Label>Ano</Form.Label>
           <Form.Control
@@ -179,7 +202,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
             max={new Date().getFullYear() + 10} // Permita até 10 anos no futuro
           />
         </Form.Group>
-  
+
         <Form.Group controlId="formSemestre">
           <Form.Label>Semestre</Form.Label>
           <Form.Control
@@ -196,7 +219,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
             <option value={6}>6º Semestre</option>
           </Form.Control>
         </Form.Group>
-  
+
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
             as={Link}
@@ -212,7 +235,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
           </Button>
         </div>
       </Form>
-  
+
       <ToastContainer
         position="bottom-center"
         autoClose={2000}
@@ -227,4 +250,4 @@ const CadastroTurmaForm = ({ handleClose }) => {
   );
 };
 
-  export default CadastroTurmaForm;
+export default CadastroTurmaForm;
