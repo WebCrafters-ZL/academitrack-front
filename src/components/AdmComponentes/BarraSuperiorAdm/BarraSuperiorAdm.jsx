@@ -22,19 +22,14 @@ const BarraSuperiorAdm = () => {
       }}
     >
        <Row className="w-100 text-center" style={{ flexGrow: 1 }}>
-      <Col xs={2} style={{ display: 'flex', justifyContent: 'flex-start' }}>
+      <Col xs={6} style={{ display: 'flex', justifyContent: 'flex-start' }}>
         <span style={{ fontSize: "1.5rem", marginRight: '10px', whiteSpace: 'nowrap' }}>
-          <strong>administrador</strong>
+          <strong>Administrador</strong>
         </span>
       </Col>
-      <Col xs={4} style={{ display: 'flex', justifyContent: 'center' }}>
+      <Col xs={6} style={{ display: 'flex', justifyContent: 'right' }}>
         <span style={{ fontSize: "1.5rem", margin: '0 10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           Unidade: <strong>Fatec Zona Leste</strong>
-        </span>
-      </Col>
-      <Col xs={6} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <span style={{ fontSize: "1.5rem", marginLeft: '10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-          Curso: <strong>Desenvolvimento de Software Multiplataforma</strong>
         </span>
       </Col>
     </Row>
