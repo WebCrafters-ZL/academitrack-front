@@ -39,8 +39,8 @@ const GerenciarTurma = ({ handleClose }) => {
       title: "Semestre",
       dataIndex: "semestre",
       key: "semestre",
-      align: 'center',
       render: (semestre) => `${semestre}º`, 
+      width: 100, // Ajuste o tamanho conforme necessário (em pixels)
     },
     {
       title: "Disciplina",
@@ -56,12 +56,12 @@ const GerenciarTurma = ({ handleClose }) => {
       title: "Ano",
       dataIndex: "ano",
       key: "ano",
-      align: 'center',
+      width: 100, // Ajuste o tamanho conforme necessário (em pixels)
     },
     {
       title: "Ação",
       key: "acao",
-      align: 'center',
+      width: 100, // Ajuste o tamanho conforme necessário (em pixels)
       render: (_, turma) => (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Link to={`/adm-home/turmas/editar/${turma._id}`} style={{ marginRight: "10px" }}>
@@ -72,6 +72,7 @@ const GerenciarTurma = ({ handleClose }) => {
             style={{ color: "red", cursor: "pointer" }}
             onClick={() => confirmDelete(turma._id)}
           />
+          
         </div>
       ),
     },
@@ -103,7 +104,7 @@ const GerenciarTurma = ({ handleClose }) => {
 
   const filteredTurmas = turmas.filter((turma) => 
     turma.disciplina.nome.toLowerCase().includes(searchText.toLowerCase()) ||
-    turma.professor.nome.toLowerCase().includes(searchText.toLowerCase()) ||
+    turma.professor.nomeCompleto.toLowerCase().includes(searchText.toLowerCase()) ||
     turma.ano.toString().includes(searchText) ||
     turma.semestre.toString().includes(searchText)
   );

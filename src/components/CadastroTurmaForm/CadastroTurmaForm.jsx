@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { Table } from "antd";
+
 
 const CadastroTurmaForm = ({ handleClose }) => {
   const [disciplina, setDisciplina] = useState("");
   const [professor, setProfessor] = useState("");
-  const [alunos, setAlunos] = useState([]);
   const [selectedAlunos, setSelectedAlunos] = useState([]);
   const [ano, setAno] = useState(new Date().getFullYear());
   const [semestre, setSemestre] = useState(1);
@@ -43,10 +44,6 @@ const CadastroTurmaForm = ({ handleClose }) => {
             ),
           ]);
 
-        console.log("Disciplinas Recebidas:", disciplinasResponse.data);
-        console.log("Professores Recebidos:", professoresResponse.data);
-        console.log("Alunos Recebidos:", alunosResponse.data);
-
         setDisciplinas(disciplinasResponse.data);
         setProfessores(professoresResponse.data);
         setTodosAlunos(alunosResponse.data);
@@ -71,7 +68,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post("/api/v1/turmas", novaTurma, {
+      const response = await axios.post("http://localhost:3000/api/v1/administrador/turmas", novaTurma, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -88,7 +85,6 @@ const CadastroTurmaForm = ({ handleClose }) => {
           theme: "colored",
         });
 
-        // Limpa os campos do formulário
         setDisciplina("");
         setProfessor("");
         setSelectedAlunos([]);
@@ -109,6 +105,36 @@ const CadastroTurmaForm = ({ handleClose }) => {
       });
     }
   };
+
+  const columns = [
+    {
+      title: "Nome Completo",
+      dataIndex: "nomeCompleto",
+      key: "nomeCompleto",
+    },
+    {
+      title: "CPF",
+      dataIndex: "cpf",
+      key: "cpf",
+    },
+    {
+      title: "Matrícula",
+      dataIndex: "matricula",
+      key: "matricula",
+    },
+  ];
+
+  const rowSelection = {
+    selectedRowKeys: selectedAlunos,
+    onChange: (selectedRowKeys) => {
+      if (selectedRowKeys.length <= 40) {
+        setSelectedAlunos(selectedRowKeys);
+      } else {
+        toast.warn("Você só pode selecionar até 40 alunos.");
+      }
+    },
+  };
+
   return (
     <div
       style={{
@@ -127,97 +153,88 @@ const CadastroTurmaForm = ({ handleClose }) => {
     >
       <h2 style={{ textAlign: "center" }}>Cadastro de Turma</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formDisciplina">
-          <Form.Label>Disciplina</Form.Label>
-          <Form.Control
-            as="select"
-            value={disciplina}
-            onChange={(e) => setDisciplina(e.target.value)}
-            required
-          >
-            <option value="">Selecione uma disciplina</option>
-            {disciplinas.map((d) => (
-              <option key={d._id} value={d._id}>
-                {d.nome}
-              </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
+        <Row>
+          <Col sm={8}>
+            <Form.Group controlId="formDisciplina">
+              <Form.Label>Disciplina</Form.Label>
+              <Form.Control
+                as="select"
+                value={disciplina}
+                onChange={(e) => setDisciplina(e.target.value)}
+                required
+                size="sm"
+              >
+                <option value="">Selecione uma disciplina</option>
+                {disciplinas.map((d) => (
+                  <option key={d._id} value={d._id}>
+                    {d.nome}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
 
-        <Form.Group controlId="formProfessor">
-          <Form.Label>Professor</Form.Label>
-          <Form.Control
-            as="select"
-            value={professor}
-            onChange={(e) => setProfessor(e.target.value)}
-            required
-          >
-            <option value="">Selecione um professor</option>
-            {professores.map((p) => (
-              <option key={p._id} value={p._id}>
-                {p.nomeCompleto}
-              </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
+            <Form.Group controlId="formProfessor">
+              <Form.Label>Professor</Form.Label>
+              <Form.Control
+                as="select"
+                value={professor}
+                onChange={(e) => setProfessor(e.target.value)}
+                required
+                size="sm"
+              >
+                <option value="">Selecione um professor</option>
+                {professores.map((p) => (
+                  <option key={p._id} value={p._id}>
+                    {p.nomeCompleto}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+          </Col>
 
-        <Form.Group controlId="formAlunos">
-          <Form.Label>Alunos</Form.Label>
-          <Form.Control
-            as="select"
-            multiple
-            value={selectedAlunos}
-            onChange={(e) => {
-              const options = e.target.options;
-              const value = [];
-              for (let i = 0; i < options.length; i++) {
-                if (options[i].selected) {
-                  value.push(options[i].value);
-                }
-              }
-              if (value.length <= 40) {
-                setSelectedAlunos(value);
-              } else {
-                alert("Você só pode selecionar até 40 alunos.");
-              }
-            }}
-            required
-          >
-            {todosAlunos.map((a) => (
-              <option key={a._id} value={a._id}>
-                {a.nomeCompleto}
-              </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
+          <Col sm={4}>
+            <Form.Group controlId="formAno">
+              <Form.Label>Ano</Form.Label>
+              <Form.Control
+                type="number"
+                value={ano}
+                onChange={(e) => setAno(e.target.value)}
+                required
+                min={2024}
+                max={new Date().getFullYear() + 3}
+                size="sm"
+              />
+            </Form.Group>
 
-        <Form.Group controlId="formAno">
-          <Form.Label>Ano</Form.Label>
-          <Form.Control
-            type="number"
-            value={ano}
-            onChange={(e) => setAno(e.target.value)}
-            required
-            min={2022} // Ajuste conforme necessário
-            max={new Date().getFullYear() + 10} // Permita até 10 anos no futuro
+            <Form.Group controlId="formSemestre">
+              <Form.Label>Semestre</Form.Label>
+              <Form.Control
+                as="select"
+                value={semestre}
+                onChange={(e) => setSemestre(e.target.value)}
+                required
+                size="sm"
+              >
+                <option value={1}>1º Semestre</option>
+                <option value={2}>2º Semestre</option>
+                <option value={3}>3º Semestre</option>
+                <option value={4}>4º Semestre</option>
+                <option value={5}>5º Semestre</option>
+                <option value={6}>6º Semestre</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Form.Group controlId="formAlunos" style={{ marginTop: "20px" }}>
+          <Form.Label>Selecione Alunos (até 40)</Form.Label>
+          <Table
+            rowSelection={rowSelection}
+            columns={columns}
+            dataSource={todosAlunos.map((a) => ({ ...a, key: a._id }))}
+            pagination={{ pageSize: 5 }}
+            size="small"
           />
-        </Form.Group>
-
-        <Form.Group controlId="formSemestre">
-          <Form.Label>Semestre</Form.Label>
-          <Form.Control
-            as="select"
-            value={semestre}
-            onChange={(e) => setSemestre(e.target.value)}
-            required
-          >
-            <option value={1}>1º Semestre</option>
-            <option value={2}>2º Semestre</option>
-            <option value={3}>3º Semestre</option>
-            <option value={4}>4º Semestre</option>
-            <option value={5}>5º Semestre</option>
-            <option value={6}>6º Semestre</option>
-          </Form.Control>
         </Form.Group>
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>

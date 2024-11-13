@@ -51,6 +51,8 @@ const GerenciarProfessor = ({ handleClose }) => {
       title: "CPF",
       dataIndex: "cpf",
       key: "cpf",
+      width: 150, 
+      align: 'center',
       render: (cpf) => {
         return (
           <span>
@@ -63,6 +65,8 @@ const GerenciarProfessor = ({ handleClose }) => {
       title: "Situação",
       dataIndex: "status",
       key: "status",
+      width: 100, 
+      align: 'center',
       render: (status) => {
         const color = status === "ativo" ? "green" : "red"; // Define a cor com base na situação
         return (
@@ -76,10 +80,14 @@ const GerenciarProfessor = ({ handleClose }) => {
       title: "Matrícula",
       dataIndex: "matricula",
       key: "matricula",
+      width: 150, 
+      align: 'center',
     },
     {
       title: "Ação",
       key: "acao",
+      width: 100, 
+      align: 'center',
       render: (_, professor) => (
         <div
           style={{
