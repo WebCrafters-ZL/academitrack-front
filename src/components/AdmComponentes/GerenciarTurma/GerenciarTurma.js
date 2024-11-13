@@ -39,6 +39,7 @@ const GerenciarTurma = ({ handleClose }) => {
       title: "Semestre",
       dataIndex: "semestre",
       key: "semestre",
+      render: (semestre) => `${semestre}º`, 
     },
     {
       title: "Disciplina",
