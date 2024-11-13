@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Row, Col } from "react-bootstrap";
 
 const CadastroCursoForm = ({ handleClose }) => {
   const [nome, setNome] = useState("");
@@ -60,10 +60,16 @@ const CadastroCursoForm = ({ handleClose }) => {
         } else if (err.response.status === 500) {
           setMessage("Erro interno do servidor. Tente novamente mais tarde.");
         } else {
-          setMessage(`Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."}`);
+          setMessage(
+            `Erro inesperado: ${
+              err.response.statusText || "Verifique os dados e tente novamente."
+            }`
+          );
         }
       } else if (err.request) {
-        setMessage("Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.");
+        setMessage(
+          "Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede."
+        );
       } else {
         setMessage(`Erro inesperado: ${err.message}`);
       }
@@ -111,16 +117,50 @@ const CadastroCursoForm = ({ handleClose }) => {
           />
         </Form.Group>
 
-        <Form.Group controlId="formCodigoCurso">
-          <Form.Label>Código do Curso</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite o código do curso"
-            value={codigo}
-            onChange={(e) => setCodigo(e.target.value)}
-            required
-          />
-        </Form.Group>
+        <Row>
+          <Col sm={4}>
+            <Form.Group controlId="formCodigoCurso">
+              <Form.Label>Código do Curso</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Digite o código do curso"
+                value={codigo}
+                onChange={(e) => setCodigo(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
+
+          <Col sm={4}>
+            <Form.Group controlId="formCategoriaCurso">
+              <Form.Label>Categoria do Curso</Form.Label>
+              <Form.Control
+                as="select"
+                value={categoria}
+                onChange={(e) => setCategoria(e.target.value)}
+                required
+              >
+                <option value="">Selecione uma categoria</option>
+                <option value="Bacharelado">Bacharelado</option>
+                <option value="Tecnólogo">Tecnólogo</option>
+                <option value="Licenciatura">Licenciatura</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
+
+          <Col sm={4}>
+            <Form.Group controlId="formCargaHorariaCurso">
+              <Form.Label>Carga Horária do Curso</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Digite a carga horária do curso"
+                value={cargaHoraria}
+                onChange={(e) => setCargaHoraria(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
         <Form.Group controlId="formDescricaoCurso">
           <Form.Label>Descrição do Curso</Form.Label>
@@ -132,32 +172,6 @@ const CadastroCursoForm = ({ handleClose }) => {
             onChange={(e) => setDescricao(e.target.value)}
             required
           />
-        </Form.Group>
-
-        <Form.Group controlId="formCargaHorariaCurso">
-          <Form.Label>Carga Horária do Curso</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Digite a carga horária do curso"
-            value={cargaHoraria}
-            onChange={(e) => setCargaHoraria(e.target.value)}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formCategoriaCurso">
-          <Form.Label>Categoria do Curso</Form.Label>
-          <Form.Control
-            as="select"
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-            required
-          >
-            <option value="">Selecione uma categoria</option>
-            <option value="Bacharelado">Bacharelado</option>
-            <option value="Tecnólogo">Tecnólogo</option>
-            <option value="Licenciatura">Licenciatura</option>
-          </Form.Control>
         </Form.Group>
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>

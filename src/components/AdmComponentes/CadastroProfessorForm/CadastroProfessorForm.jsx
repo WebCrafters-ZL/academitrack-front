@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Row, Col } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import InputMask from 'react-input-mask';
+import InputMask from "react-input-mask";
 import { Link } from "react-router-dom";
 
 const CadastroProfessorForm = ({ handleClose }) => {
@@ -28,7 +28,7 @@ const CadastroProfessorForm = ({ handleClose }) => {
     setMessage("");
     setMessageType("");
 
-    const cleanCpf = cpf.replace(/[^\d]/g, ""); 
+    const cleanCpf = cpf.replace(/[^\d]/g, "");
 
     const professorData = {
       nomeCompleto,
@@ -56,7 +56,9 @@ const CadastroProfessorForm = ({ handleClose }) => {
 
       if (response.status === 201) {
         setMessageType("success");
-        setMessage(response.data.message || "Professor cadastrado com sucesso!");
+        setMessage(
+          response.data.message || "Professor cadastrado com sucesso!"
+        );
 
         // Chama handleClose se for uma função
         if (typeof handleClose === "function") handleClose();
@@ -83,10 +85,16 @@ const CadastroProfessorForm = ({ handleClose }) => {
         } else if (err.response.status === 500) {
           setMessage("Erro interno do servidor. Tente novamente mais tarde.");
         } else {
-          setMessage(`Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."}`);
+          setMessage(
+            `Erro inesperado: ${
+              err.response.statusText || "Verifique os dados e tente novamente."
+            }`
+          );
         }
       } else if (err.request) {
-        setMessage("Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.");
+        setMessage(
+          "Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede."
+        );
       } else {
         setMessage(`Erro inesperado: ${err.message}`);
       }
@@ -112,7 +120,12 @@ const CadastroProfessorForm = ({ handleClose }) => {
       <h2 style={{ textAlign: "center" }}>Cadastro de Professor</h2>
 
       {message && (
-        <div style={{ color: messageType === "success" ? "green" : "red", textAlign: "center" }}>
+        <div
+          style={{
+            color: messageType === "success" ? "green" : "red",
+            textAlign: "center",
+          }}
+        >
           {message}
         </div>
       )}
@@ -149,7 +162,7 @@ const CadastroProfessorForm = ({ handleClose }) => {
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               required
-              style={{ paddingRight: "40px" }} 
+              style={{ paddingRight: "40px" }}
             />
             <button
               type="button"
@@ -171,48 +184,65 @@ const CadastroProfessorForm = ({ handleClose }) => {
           </div>
         </Form.Group>
 
-        <Form.Group controlId="formMatricula">
-          <Form.Label>Matrícula</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite a matrícula do professor"
-            value={matricula}
-            onChange={(e) => setMatricula(e.target.value)}
-            required
-          />
-        </Form.Group>
+        <Row>
+          <Col sm={6}>
+            <Form.Group controlId="formMatricula">
+              <Form.Label>Matrícula</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Digite a matrícula do professor"
+                value={matricula}
+                onChange={(e) => setMatricula(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
 
-        <Form.Group controlId="formCpfProfessor">
-        <Form.Label>CPF</Form.Label>
-          <InputMask 
-            mask="999.999.999-99"
-            value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
-          >
-            {() => <Form.Control placeholder="Digite o CPF do professor" required />}
-          </InputMask>
-        </Form.Group>
+          <Col sm={6}>
+            <Form.Group controlId="formCpfProfessor">
+              <Form.Label>CPF</Form.Label>
+              <InputMask
+                mask="999.999.999-99"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+              >
+                {() => (
+                  <Form.Control
+                    placeholder="Digite o CPF do professor"
+                    required
+                  />
+                )}
+              </InputMask>
+            </Form.Group>
+          </Col>
+        </Row>
 
-        <Form.Group controlId="formDataNascimentoProfessor">
-          <Form.Label>Data de Nascimento</Form.Label>
-          <Form.Control
-            type="date"
-            value={dataNascimento}
-            onChange={(e) => setDataNascimento(e.target.value)}
-            required
-          />
-        </Form.Group>
+        <Row>
+          <Col sm={6}>
+            <Form.Group controlId="formDataNascimentoProfessor">
+              <Form.Label>Data de Nascimento</Form.Label>
+              <Form.Control
+                type="date"
+                value={dataNascimento}
+                onChange={(e) => setDataNascimento(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
 
-        <Form.Group controlId="formFormacaoAcademica">
-          <Form.Label>Formação Acadêmica</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite a formação acadêmica do professor"
-            value={formacaoAcademica}
-            onChange={(e) => setFormacaoAcademica(e.target.value)}
-            required
-          />
-        </Form.Group>
+          <Col sm={6}>
+            <Form.Group controlId="formFormacaoAcademica">
+              <Form.Label>Formação Acadêmica</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Digite a formação acadêmica do professor"
+                value={formacaoAcademica}
+                onChange={(e) => setFormacaoAcademica(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
         <Form.Group controlId="formEspecialidade">
           <Form.Label>Especialidade</Form.Label>
@@ -227,11 +257,11 @@ const CadastroProfessorForm = ({ handleClose }) => {
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
-             as={Link}
-             to="/adm-home/pessoas/gerenciar-professor"
-             variant="danger"
-             onClick={handleClose}
-             style={{ marginRight: "20px" }}
+            as={Link}
+            to="/adm-home/pessoas/gerenciar-professor"
+            variant="danger"
+            onClick={handleClose}
+            style={{ marginRight: "20px" }}
           >
             Voltar
           </Button>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Row, Col } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import InputMask from "react-input-mask";
@@ -50,7 +50,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
           },
         }
       );
-      
 
       if (response.status === 201) {
         // Exibe uma notificação de sucesso
@@ -180,6 +179,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
             placeholder="Digite o nome completo do aluno"
             value={nomeCompleto}
             onChange={(e) => setNomeCompleto(e.target.value)}
+            required
           />
         </Form.Group>
 
@@ -225,50 +225,67 @@ const CadastroAlunoForm = ({ handleClose }) => {
           </div>
         </Form.Group>
 
-        <Form.Group controlId="formMatricula">
-          <Form.Label>Matrícula</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite a matrícula do aluno"
-            value={matricula}
-            onChange={(e) => setMatricula(e.target.value)}
-          />
-        </Form.Group>
+        <Row>
+          <Col sm={6}>
+            <Form.Group controlId="formCpfAluno">
+              <Form.Label>CPF</Form.Label>
+              <InputMask
+                mask="999.999.999-99"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+              >
+                {() => (
+                  <Form.Control placeholder="Digite o CPF do aluno" required />
+                )}
+              </InputMask>
+            </Form.Group>
+          </Col>
 
-        <Form.Group controlId="formCpfAluno">
-          <Form.Label>CPF</Form.Label>
-          <InputMask
-            mask="999.999.999-99"
-            value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
-          >
-            {() => (
-              <Form.Control placeholder="Digite o CPF do aluno" required />
-            )}
-          </InputMask>
-        </Form.Group>
+          <Col sm={6}>
+            <Form.Group controlId="formMatricula">
+              <Form.Label>Matrícula</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Digite a matrícula do aluno"
+                value={matricula}
+                onChange={(e) => setMatricula(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
-        <Form.Group controlId="formDataNascimentoAluno">
-          <Form.Label>Data de Nascimento</Form.Label>
-          <Form.Control
-            type="date"
-            value={dataNascimento}
-            onChange={(e) => setDataNascimento(e.target.value)}
-          />
-        </Form.Group>
+        <Row>
+          <Col sm={6}>
+            <Form.Group controlId="formTelefoneAluno">
+              <Form.Label>Telefone</Form.Label>
+              <InputMask
+                mask="(99) 99999-9999"
+                value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
+              >
+                {() => (
+                  <Form.Control
+                    placeholder="Digite o telefone do aluno"
+                    required
+                  />
+                )}
+              </InputMask>
+            </Form.Group>
+          </Col>
 
-        <Form.Group controlId="formTelefoneAluno">
-          <Form.Label>Telefone</Form.Label>
-          <InputMask
-            mask="(99) 99999-9999"
-            value={telefone}
-            onChange={(e) => setTelefone(e.target.value)}
-          >
-            {() => (
-              <Form.Control placeholder="Digite o telefone do aluno" required />
-            )}
-          </InputMask>
-        </Form.Group>
+          <Col sm={6}>
+            <Form.Group controlId="formDataNascimentoAluno">
+              <Form.Label>Data de Nascimento</Form.Label>
+              <Form.Control
+                type="date"
+                value={dataNascimento}
+                onChange={(e) => setDataNascimento(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
         <Form.Group controlId="formEnderecoAluno">
           <Form.Label>Endereço</Form.Label>

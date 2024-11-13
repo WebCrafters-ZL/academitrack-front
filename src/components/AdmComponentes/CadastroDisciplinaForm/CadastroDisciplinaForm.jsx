@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 
 const CadastroDisciplinaForm = ({ handleClose }) => {
@@ -16,11 +16,14 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
     const fetchCursos = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3000/api/v1/administrador/cursos", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/administrador/cursos",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setCursos(response.data); // Armazenar a lista de cursos
       } catch (err) {
         console.error("Erro ao buscar cursos:", err);
@@ -58,7 +61,9 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
 
       if (response.status === 201) {
         setMessageType("success");
-        setMessage(response.data.message || "Disciplina cadastrada com sucesso!");
+        setMessage(
+          response.data.message || "Disciplina cadastrada com sucesso!"
+        );
 
         if (typeof handleClose === "function") handleClose();
 
@@ -82,10 +87,16 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
         } else if (err.response.status === 500) {
           setMessage("Erro interno do servidor. Tente novamente mais tarde.");
         } else {
-          setMessage(`Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."}`);
+          setMessage(
+            `Erro inesperado: ${
+              err.response.statusText || "Verifique os dados e tente novamente."
+            }`
+          );
         }
       } else if (err.request) {
-        setMessage("Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.");
+        setMessage(
+          "Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede."
+        );
       } else {
         setMessage(`Erro inesperado: ${err.message}`);
       }
@@ -111,10 +122,12 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
       <h2 style={{ textAlign: "center" }}>Cadastrar Disciplina</h2>
 
       {message && (
-        <div style={{
-          color: messageType === "success" ? "green" : "red",
-          textAlign: "center",
-        }}>
+        <div
+          style={{
+            color: messageType === "success" ? "green" : "red",
+            textAlign: "center",
+          }}
+        >
           {message}
         </div>
       )}
@@ -130,36 +143,42 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
           >
             <option value="">Selecione um curso</option>
             {cursos.map((curso, index) => (
-              <option key={index} value={curso._id}> {/* Assume que o id do curso é _id */}
-                {curso.nome} {/* Assumindo que o nome do curso está na propriedade nome */}
+              <option key={index} value={curso._id}>
+                {curso.nome}
               </option>
             ))}
           </Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="formMateria">
-          <Form.Label>Disciplina</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite o nome da disciplina"
-            value={materia}
-            onChange={(e) => setMateria(e.target.value)}
-            required
-          />
-        </Form.Group>
+        <Row>
+          <Col sm={8}>
+            <Form.Group controlId="formMateria">
+              <Form.Label>Disciplina</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Digite o nome da disciplina"
+                value={materia}
+                onChange={(e) => setMateria(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
 
-        <Form.Group controlId="formCargaHoraria">
-          <Form.Label>Carga Horária</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Digite a carga horária em horas"
-            value={cargaHoraria}
-            onChange={(e) => setCargaHoraria(e.target.value)}
-            required
-            min="1"
-            max="60"
-          />
-        </Form.Group>
+          <Col sm={4}>
+            <Form.Group controlId="formCargaHoraria">
+              <Form.Label>Carga Horária</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Horas"
+                value={cargaHoraria}
+                onChange={(e) => setCargaHoraria(e.target.value)}
+                required
+                min="1"
+                max="60"
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
         <Form.Group controlId="formDescricao">
           <Form.Label>Descrição</Form.Label>

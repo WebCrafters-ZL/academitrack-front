@@ -59,13 +59,13 @@ const GerenciarTurma = ({ handleClose }) => {
       dataIndex: "ano",
       key: "ano",
       align: 'center',
-      width: 100, // Ajuste o tamanho conforme necessário (em pixels)
+      width: 100, 
     },
     {
       title: "Ação",
       key: "acao",
       align: 'center',
-      width: 100, // Ajuste o tamanho conforme necessário (em pixels)
+      width: 100, 
       render: (_, turma) => (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Link to={`/adm-home/turmas/editar/${turma._id}`} style={{ marginRight: "10px" }}>
