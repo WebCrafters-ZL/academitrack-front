@@ -39,6 +39,7 @@ const GerenciarTurma = ({ handleClose }) => {
       title: "Semestre",
       dataIndex: "semestre",
       key: "semestre",
+      align: 'center',
       render: (semestre) => `${semestre}º`, 
     },
     {
@@ -55,10 +56,12 @@ const GerenciarTurma = ({ handleClose }) => {
       title: "Ano",
       dataIndex: "ano",
       key: "ano",
+      align: 'center',
     },
     {
       title: "Ação",
       key: "acao",
+      align: 'center',
       render: (_, turma) => (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Link to={`/adm-home/turmas/editar/${turma._id}`} style={{ marginRight: "10px" }}>

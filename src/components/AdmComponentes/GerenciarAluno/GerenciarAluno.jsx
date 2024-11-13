@@ -51,6 +51,7 @@ const GerenciarAluno = ({ handleClose }) => {
       title: "CPF",
       dataIndex: "cpf",
       key: "cpf",
+      align: 'center',
       render: (cpf) => {
         return (
           <span>
@@ -63,6 +64,7 @@ const GerenciarAluno = ({ handleClose }) => {
       title: "Situação",
       dataIndex: "status",
       key: "status",
+      align: 'center',
       render: (status) => {
         const color = status === "ativo" ? "green" : "red";
         return (
@@ -76,6 +78,7 @@ const GerenciarAluno = ({ handleClose }) => {
       title: "Matrícula",
       dataIndex: "matricula",
       key: "matricula",
+      align: 'center',
     },
     {
       title: "Ação",
