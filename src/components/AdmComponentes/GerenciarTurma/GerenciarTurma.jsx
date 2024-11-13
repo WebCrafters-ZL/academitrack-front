@@ -32,6 +32,7 @@ const GerenciarTurma = ({ handleClose }) => {
     };
 
     fetchTurmas(); 
+    console.log(fetchTurmas());
   }, []);
 
   const columns = [
@@ -41,6 +42,7 @@ const GerenciarTurma = ({ handleClose }) => {
       key: "semestre",
       align: 'center',
       render: (semestre) => `${semestre}º`, 
+      width: 100, 
     },
     {
       title: "Disciplina",
@@ -49,19 +51,21 @@ const GerenciarTurma = ({ handleClose }) => {
     },
     {
       title: "Professor",
-      dataIndex: "professor.nome",
-      key: "professor.nome",
+      dataIndex: "professor.nomeCompleto",
+      key: "professor.nomeCompleto",
     },
     {
       title: "Ano",
       dataIndex: "ano",
       key: "ano",
       align: 'center',
+      width: 100, // Ajuste o tamanho conforme necessário (em pixels)
     },
     {
       title: "Ação",
       key: "acao",
       align: 'center',
+      width: 100, // Ajuste o tamanho conforme necessário (em pixels)
       render: (_, turma) => (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Link to={`/adm-home/turmas/editar/${turma._id}`} style={{ marginRight: "10px" }}>
@@ -72,6 +76,7 @@ const GerenciarTurma = ({ handleClose }) => {
             style={{ color: "red", cursor: "pointer" }}
             onClick={() => confirmDelete(turma._id)}
           />
+          
         </div>
       ),
     },
@@ -101,12 +106,19 @@ const GerenciarTurma = ({ handleClose }) => {
     setShowModal(true);
   };
 
-  const filteredTurmas = turmas.filter((turma) => 
-    turma.disciplina.nome.toLowerCase().includes(searchText.toLowerCase()) ||
-    turma.professor.nome.toLowerCase().includes(searchText.toLowerCase()) ||
-    turma.ano.toString().includes(searchText) ||
-    turma.semestre.toString().includes(searchText)
-  );
+  const filteredTurmas = turmas.filter((turma) => {
+    const disciplinaNome = turma.disciplina?.nome?.toLowerCase() || "";
+    const professorNome = turma.professor?.nomeCompleto?.toLowerCase() || "";
+    const anoStr = turma.ano.toString();
+    const semestreStr = turma.semestre.toString();
+    
+    return (
+      disciplinaNome.includes(searchText.toLowerCase()) ||
+      professorNome.includes(searchText.toLowerCase()) ||
+      anoStr.includes(searchText) ||
+      semestreStr.includes(searchText)
+    );
+  });
 
   return (
     <div
