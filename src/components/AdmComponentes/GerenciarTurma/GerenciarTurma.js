@@ -104,7 +104,7 @@ const GerenciarTurma = ({ handleClose }) => {
 
   const filteredTurmas = turmas.filter((turma) => 
     turma.disciplina.nome.toLowerCase().includes(searchText.toLowerCase()) ||
-    turma.professor.nome.toLowerCase().includes(searchText.toLowerCase()) ||
+    turma.professor.nomeCompleto.toLowerCase().includes(searchText.toLowerCase()) ||
     turma.ano.toString().includes(searchText) ||
     turma.semestre.toString().includes(searchText)
   );
