@@ -16,6 +16,8 @@ const CadastroAlunoForm = ({ handleClose }) => {
   const [matricula, setMatricula] = useState("");
   const [senha, setSenha] = useState("");
   const [senhaVisivel, setSenhaVisivel] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   const toggleSenhaVisivel = () => {
     setSenhaVisivel(!senhaVisivel);

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Button, Form, Row, Col } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CadastroCursoForm = ({ handleClose }) => {
   const [nome, setNome] = useState("");
@@ -8,20 +10,16 @@ const CadastroCursoForm = ({ handleClose }) => {
   const [descricao, setDescricao] = useState("");
   const [cargaHoraria, setCargaHoraria] = useState("");
   const [categoria, setCategoria] = useState("");
-  const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setMessage("");
-    setMessageType("");
 
     const cursoData = {
       nome,
       codigo,
       descricao,
       cargaHoraria,
-      categoria, // Certifique-se de que a categoria está sendo incluída nos dados do curso
+      categoria,
     };
 
     try {
@@ -37,45 +35,40 @@ const CadastroCursoForm = ({ handleClose }) => {
       );
 
       if (response.status === 201) {
-        setMessageType("success");
-        setMessage(response.data.message || "Curso cadastrado com sucesso!");
+        toast.success(response.data.message || "Curso cadastrado com sucesso!");
 
         if (typeof handleClose === "function") handleClose();
 
+        // Limpar campos do formulário
         setNome("");
         setCodigo("");
         setDescricao("");
         setCargaHoraria("");
-        setCategoria(""); // Resetando o campo de categoria
+        setCategoria(""); 
       }
     } catch (err) {
       console.error("Erro ao enviar o formulário:", err);
-      setMessageType("error");
-
       if (err.response) {
         if (err.response.status === 400) {
-          setMessage("Todos os campos obrigatórios devem ser preenchidos.");
+          toast.error("Todos os campos obrigatórios devem ser preenchidos.");
         } else if (err.response.status === 401) {
-          setMessage("Não autorizado. Verifique suas credenciais.");
+          toast.error("Não autorizado. Verifique suas credenciais.");
         } else if (err.response.status === 500) {
-          setMessage("Erro interno do servidor. Tente novamente mais tarde.");
+          toast.error("Erro interno do servidor. Tente novamente mais tarde.");
         } else {
-          setMessage(
+          toast.error(
             `Erro inesperado: ${
               err.response.statusText || "Verifique os dados e tente novamente."
             }`
           );
         }
       } else if (err.request) {
-        setMessage(
-          "Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede."
-        );
+        toast.error("Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.");
       } else {
-        setMessage(`Erro inesperado: ${err.message}`);
+        toast.error(`Erro inesperado: ${err.message}`);
       }
     }
   };
-
   return (
     <div
       style={{
@@ -94,17 +87,14 @@ const CadastroCursoForm = ({ handleClose }) => {
     >
       <h2 style={{ textAlign: "center" }}>Cadastro de Curso</h2>
 
-      {message && (
-        <div
-          style={{
-            color: messageType === "success" ? "green" : "red",
-            textAlign: "center",
-          }}
-        >
-          {message}
-        </div>
-      )}
-
+      <ToastContainer 
+        position="bottom-center" 
+        autoClose={5000} 
+        hideProgressBar={false} 
+        closeOnClick 
+        type="default"
+        theme="colored"
+      />
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formNomeCurso">
           <Form.Label>Nome do Curso</Form.Label>

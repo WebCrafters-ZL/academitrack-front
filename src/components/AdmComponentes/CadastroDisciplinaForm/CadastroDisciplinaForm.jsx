@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CadastroDisciplinaForm = ({ handleClose }) => {
   const [curso, setCurso] = useState("");
@@ -8,8 +10,8 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
   const [cargaHoraria, setCargaHoraria] = useState("");
   const [descricao, setDescricao] = useState("");
   const [cursos, setCursos] = useState([]); // Estado para armazenar os cursos
-  const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState("");
+  const [ setMessage] = useState("");
+  const [ setMessageType] = useState("");
 
   // Efeito para buscar a lista de cursos
   useEffect(() => {
@@ -60,11 +62,7 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
       );
 
       if (response.status === 201) {
-        setMessageType("success");
-        setMessage(
-          response.data.message || "Disciplina cadastrada com sucesso!"
-        );
-
+        toast.success(response.data.message || "Disciplina cadastrada com sucesso!");
         if (typeof handleClose === "function") handleClose();
 
         // Resetar os campos do formulário
@@ -121,16 +119,13 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
     >
       <h2 style={{ textAlign: "center" }}>Cadastrar Disciplina</h2>
 
-      {message && (
-        <div
-          style={{
-            color: messageType === "success" ? "green" : "red",
-            textAlign: "center",
-          }}
-        >
-          {message}
-        </div>
-      )}
+      <ToastContainer 
+        position="bottom-center" 
+        autoClose={5000} 
+        hideProgressBar={false}
+        closeOnClick 
+        theme="colored"
+      />
 
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formCurso">

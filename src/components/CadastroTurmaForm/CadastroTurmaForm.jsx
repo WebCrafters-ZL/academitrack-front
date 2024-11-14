@@ -3,8 +3,8 @@ import axios from "axios";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Table } from "antd";
-
 
 const CadastroTurmaForm = ({ handleClose }) => {
   const [disciplina, setDisciplina] = useState("");
@@ -15,6 +15,8 @@ const CadastroTurmaForm = ({ handleClose }) => {
   const [disciplinas, setDisciplinas] = useState([]);
   const [professores, setProfessores] = useState([]);
   const [todosAlunos, setTodosAlunos] = useState([]);
+  const [message, setMessage] = useState(""); // Estado para a mensagem
+  const [messageType, setMessageType] = useState(""); // Estado para o tipo de mensagem
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +51,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
         setTodosAlunos(alunosResponse.data);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
+        toast.error("Erro ao carregar dados. Tente novamente mais tarde."); // Mensagem de erro ao buscar dados
       }
     };
 
@@ -57,6 +60,8 @@ const CadastroTurmaForm = ({ handleClose }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setMessage(""); // Limpar mensagem anterior
+    setMessageType(""); // Limpar tipo de mensagem anterior
 
     const novaTurma = {
       disciplina,
@@ -68,33 +73,69 @@ const CadastroTurmaForm = ({ handleClose }) => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post("http://localhost:3000/api/v1/administrador/turmas", novaTurma, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/administrador/turmas",
+        novaTurma,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.status === 201) {
-        toast.success("Turma cadastrada com sucesso!", {
-          position: "bottom-center",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-        });
+        toast.success(
+          response.data.message || "Turma cadastrada com sucesso!",
+          {
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "colored",
+          }
+        );
 
+        // Resetar campos após cadastro bem-sucedido
         setDisciplina("");
         setProfessor("");
         setSelectedAlunos([]);
         setAno(new Date().getFullYear());
         setSemestre(1);
 
+        // Fechar o modal se a função handleClose estiver definida
         if (typeof handleClose === "function") handleClose();
       }
     } catch (err) {
       console.error("Erro ao enviar o formulário:", err);
+      setMessageType("error");
+
+      if (err.response) {
+        if (err.response.status === 400) {
+          setMessage("Todos os campos obrigatórios devem ser preenchidos.");
+        } else if (err.response.status === 401) {
+          setMessage("Não autorizado. Verifique suas credenciais.");
+        } else if (err.response.status === 404) {
+          setMessage("Curso não encontrado.");
+        } else if (err.response.status === 500) {
+          setMessage("Erro interno do servidor. Tente novamente mais tarde.");
+        } else {
+          setMessage(
+            `Erro inesperado: ${
+              err.response.statusText || "Verifique os dados e tente novamente."
+            }`
+          );
+        }
+      } else if (err.request) {
+        setMessage(
+          "Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede."
+        );
+      } else {
+        setMessage(`Erro inesperado: ${err.message}`);
+      }
+
+      // Exibir mensagem de erro com o toast
       toast.error("Erro ao cadastrar turma. Por favor, tente novamente.", {
         position: "bottom-center",
         autoClose: 4000,
@@ -102,6 +143,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
+        theme: "colored",
       });
     }
   };
@@ -152,6 +194,14 @@ const CadastroTurmaForm = ({ handleClose }) => {
       }}
     >
       <h2 style={{ textAlign: "center" }}>Cadastro de Turma</h2>
+
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+        theme="colored"
+      />
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col sm={8}>
@@ -227,7 +277,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
         </Row>
 
         <Form.Group controlId="formAlunos" style={{ marginTop: "20px" }}>
-          <Form.Label>Selecione Alunos (até 40)</Form.Label>
+          <Form.Label>Selecione Alunos (max: 40)</Form.Label>
           <Table
             rowSelection={rowSelection}
             columns={columns}
