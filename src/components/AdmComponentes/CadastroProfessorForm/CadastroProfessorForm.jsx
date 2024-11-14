@@ -4,6 +4,8 @@ import { Button, Form, Row, Col } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import InputMask from "react-input-mask";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CadastroProfessorForm = ({ handleClose }) => {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -55,9 +57,18 @@ const CadastroProfessorForm = ({ handleClose }) => {
       );
 
       if (response.status === 201) {
-        setMessageType("success");
-        setMessage(
-          response.data.message || "Professor cadastrado com sucesso!"
+        // Exibe uma notificação de sucesso
+        toast.success(
+          response.data.message || "Professor cadastrado com sucesso!",
+          {
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            theme: "colored",
+            transition: "bounce",
+          }
         );
 
         // Chama handleClose se for uma função
@@ -76,7 +87,7 @@ const CadastroProfessorForm = ({ handleClose }) => {
     } catch (err) {
       console.error("Erro ao cadastrar professor:", err);
       setMessageType("error");
-
+      
       if (err.response) {
         if (err.response.status === 400) {
           setMessage("Todos os campos obrigatórios devem ser preenchidos.");
@@ -85,19 +96,25 @@ const CadastroProfessorForm = ({ handleClose }) => {
         } else if (err.response.status === 500) {
           setMessage("Erro interno do servidor. Tente novamente mais tarde.");
         } else {
-          setMessage(
-            `Erro inesperado: ${
-              err.response.statusText || "Verifique os dados e tente novamente."
-            }`
-          );
+          setMessage(`Erro inesperado: ${
+            err.response.statusText || "Verifique os dados e tente novamente."
+          }`);
         }
       } else if (err.request) {
-        setMessage(
-          "Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede."
-        );
+        setMessage("Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.");
       } else {
         setMessage(`Erro inesperado: ${err.message}`);
       }
+    
+      toast.error(message || "Erro ao cadastrar professor. Tente novamente.", { // Certifique-se que `message` está correto aqui
+        position: "bottom-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
     }
   };
 
@@ -119,16 +136,13 @@ const CadastroProfessorForm = ({ handleClose }) => {
     >
       <h2 style={{ textAlign: "center" }}>Cadastro de Professor</h2>
 
-      {message && (
-        <div
-          style={{
-            color: messageType === "success" ? "green" : "red",
-            textAlign: "center",
-          }}
-        >
-          {message}
-        </div>
-      )}
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+        theme="colored"
+      />
 
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formNomeProfessor">

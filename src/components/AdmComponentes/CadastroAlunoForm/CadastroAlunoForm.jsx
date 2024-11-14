@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import InputMask from "react-input-mask";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CadastroAlunoForm = ({ handleClose }) => {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -16,8 +17,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
   const [matricula, setMatricula] = useState("");
   const [senha, setSenha] = useState("");
   const [senhaVisivel, setSenhaVisivel] = useState(false);
-  const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState("");
 
   const toggleSenhaVisivel = () => {
     setSenhaVisivel(!senhaVisivel);
@@ -55,18 +54,16 @@ const CadastroAlunoForm = ({ handleClose }) => {
 
       if (response.status === 201) {
         // Exibe uma notificação de sucesso
-        toast.success(
-          response.data.message || "Aluno cadastrado com sucesso!",
-          {
-            position: "bottom-center",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            progress: undefined,
-            theme: "colored",
-            transition: "bounce",
-          }
-        );
+        toast.success(response.data.message || "Aluno cadastrado com sucesso!", {
+          position: "bottom-center",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+          transition: "bounce",
+        });
 
         // Fechar o formulário se a função handleClose estiver disponível
         if (typeof handleClose === "function") handleClose();
@@ -83,7 +80,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
       }
     } catch (err) {
       console.error("Erro ao enviar o formulário:", err);
-
+      
       // Exibe mensagens de erro com Toastify
       if (err.response) {
         if (err.response.status === 400) {
@@ -94,7 +91,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
-            progress: undefined,
             theme: "colored",
             transition: "bounce",
           });
@@ -106,7 +102,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
-            progress: undefined,
             theme: "colored",
             transition: "bounce",
           });
@@ -118,7 +113,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
-            progress: undefined,
             theme: "colored",
             transition: "bounce",
           });
@@ -134,7 +128,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
               closeOnClick: true,
               pauseOnHover: true,
               draggable: true,
-              progress: undefined,
               theme: "colored",
               transition: "bounce",
             }
@@ -148,7 +141,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined,
           theme: "colored",
           transition: "bounce",
         });
@@ -173,6 +165,15 @@ const CadastroAlunoForm = ({ handleClose }) => {
       }}
     >
       <h2 style={{ textAlign: "center" }}>Cadastro de Aluno</h2>
+
+      <ToastContainer 
+        position="bottom-center" 
+        autoClose={5000} 
+        hideProgressBar={false} 
+        closeOnClick 
+        theme="colored" 
+      />
+      
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formNomeAluno">
           <Form.Label>Nome Completo</Form.Label>
