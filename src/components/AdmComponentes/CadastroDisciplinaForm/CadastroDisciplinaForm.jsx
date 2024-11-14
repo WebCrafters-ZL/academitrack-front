@@ -9,9 +9,9 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
   const [materia, setMateria] = useState("");
   const [cargaHoraria, setCargaHoraria] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [cursos, setCursos] = useState([]); // Estado para armazenar os cursos
-  const [ setMessage] = useState("");
-  const [ setMessageType] = useState("");
+  const [cursos, setCursos] = useState([]);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   // Efeito para buscar a lista de cursos
   useEffect(() => {
@@ -31,6 +31,7 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
         console.error("Erro ao buscar cursos:", err);
         setMessageType("error");
         setMessage("Erro ao carregar cursos. Tente novamente mais tarde.");
+        toast.error("Erro ao carregar cursos. Tente novamente mais tarde."); // Notificação de erro
       }
     };
 
@@ -61,6 +62,7 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
         }
       );
 
+      
       if (response.status === 201) {
         toast.success(response.data.message || "Disciplina cadastrada com sucesso!");
         if (typeof handleClose === "function") handleClose();
@@ -85,19 +87,22 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
         } else if (err.response.status === 500) {
           setMessage("Erro interno do servidor. Tente novamente mais tarde.");
         } else {
-          setMessage(
-            `Erro inesperado: ${
-              err.response.statusText || "Verifique os dados e tente novamente."
-            }`
-          );
+          setMessage(`Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."}`);
         }
       } else if (err.request) {
-        setMessage(
-          "Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede."
-        );
+        setMessage("Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.");
       } else {
         setMessage(`Erro inesperado: ${err.message}`);
       }
+      toast.error(message || "Erro ao cadastrar disciplina. Tente novamente.", {
+        position: "bottom-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
     }
   };
 
@@ -119,11 +124,11 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
     >
       <h2 style={{ textAlign: "center" }}>Cadastrar Disciplina</h2>
 
-      <ToastContainer 
-        position="bottom-center" 
-        autoClose={5000} 
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
         hideProgressBar={false}
-        closeOnClick 
+        closeOnClick
         theme="colored"
       />
 
