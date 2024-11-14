@@ -3,6 +3,7 @@ import { Container, Navbar, Nav, Button, Card, Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom";
 import { FaAccessibleIcon, FaStopCircle } from "react-icons/fa"; // Importando ícones
 import FotoHome from "../../assets/fotohome.webp";
+import { BoltRounded } from "@mui/icons-material";
 
 const HomePage = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -14,7 +15,9 @@ const HomePage = () => {
       setIsSpeaking(false);
     } else {
       if ("speechSynthesis" in window) {
-        const utterance = new SpeechSynthesisUtterance("Bem-vindo ao AcademiTrack! Este é um sistema de gerenciamento acadêmico para simplificar a vida acadêmica.");
+        const utterance = new SpeechSynthesisUtterance(
+          "Bem-vindo ao AcademiTrack! Este é um sistema de gerenciamento acadêmico para simplificar a vida acadêmica."
+        );
         utterance.lang = "pt-BR";
         utterance.onend = () => setIsSpeaking(false); // Reseta estado quando a fala termina
         window.speechSynthesis.speak(utterance);
@@ -27,19 +30,46 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* Navbar com botão de login alinhado à direita */}
-      <Navbar bg="light" expand="lg" style={{ padding: "10px 20px" }} aria-label="Navegação principal">
-        <Navbar.Brand href="/" style={{ fontWeight: "bold" }} aria-label="AcademiTrack - Página inicial">
-          Academi<span style={{ color: "#1976d2" }}>Track</span>
+      
+      <Navbar
+        
+        expand="lg"
+        style={{ padding: "10px 20px", backgroundColor: "#1976d2" }}
+        aria-label="Navegação principal"
+      >
+        <Navbar.Brand
+          href="/"
+          style={{
+            fontWeight: "bold",
+            color: "#ffffff",
+            fontSize: "2rem", 
+          }}
+          aria-label="AcademiTrack - Página inicial"
+        >
+          <span style={{ color: "#000000" }}>Academi</span><span style={{ color: "#FFFFFF" }}>Track</span>
         </Navbar.Brand>
         <Nav className="ml-auto" style={{ marginLeft: "auto" }}>
           <Link to="/login" aria-label="Ir para a página de login">
-            <Button
-              variant="primary"
-              style={{ backgroundColor: "#0056b3", borderColor: "#004a9f" }}
-            >
-              Login
-            </Button>
+          <Button
+  style={{
+    fontWeight:"bold",
+    backgroundColor: "#ffffff",  
+    color: "#1976d2",            
+    borderColor: "#004a9f",     
+    transition: "background-color 0.3s, color 0.3s",  
+  }}
+  onMouseEnter={(e) => {  
+    e.target.style.backgroundColor = "#000000";  
+    e.target.style.color = "#ffffff";  
+  }}
+  onMouseLeave={(e) => {  
+    e.target.style.backgroundColor = "#ffffff";  
+    e.target.style.color = "#1976d2";  
+  }}
+>
+  Login
+</Button>
+
           </Link>
         </Nav>
       </Navbar>
@@ -76,13 +106,15 @@ const HomePage = () => {
         {isSpeaking ? <FaStopCircle size={24} /> : <FaAccessibleIcon size={24} />}
       </Button>
 
-      {/* Cards com bordas alinhadas */}
+      
       <Container style={{ marginTop: "30px", marginBottom: "30px" }}>
         <Row>
           <Col md={4}>
-            <Card style={{ marginBottom: "20px", border: "1px solid #ccc" }}>
+            <Card style={{ marginBottom: "20px", border: "1px solid #ccc", backgroundColor: "#e3f2fd" }}>
               <Card.Body>
-                <Card.Title>Gerenciamento de Alunos</Card.Title>
+                <Card.Title style={{ fontWeight: "bold", color: "#1976d2" }}>
+                  Gerenciamento de Alunos
+                </Card.Title>
                 <Card.Text>
                   Ferramentas para acompanhar o desempenho dos alunos e simplificar o gerenciamento de atividades.
                 </Card.Text>
@@ -90,9 +122,11 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card style={{ marginBottom: "20px", border: "1px solid #ccc" }}>
+            <Card style={{ marginBottom: "20px", border: "1px solid #ccc", backgroundColor: "#e3f2fd" }}>
               <Card.Body>
-                <Card.Title>Comunicação Eficiente</Card.Title>
+                <Card.Title style={{ fontWeight: "bold", color: "#1976d2" }}>
+                  Comunicação Eficiente
+                </Card.Title>
                 <Card.Text>
                   Envie mensagens e atualizações rapidamente para toda a comunidade acadêmica.
                 </Card.Text>
@@ -100,9 +134,11 @@ const HomePage = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card style={{ marginBottom: "20px", border: "1px solid #ccc" }}>
+            <Card style={{ marginBottom: "20px", border: "1px solid #ccc", backgroundColor: "#e3f2fd" }}>
               <Card.Body>
-                <Card.Title>Organização Simplificada</Card.Title>
+                <Card.Title style={{ fontWeight: "bold", color: "#1976d2" }}>
+                  Organização Simplificada
+                </Card.Title>
                 <Card.Text>
                   Uma visão clara e organizada das informações acadêmicas e administrativas.
                 </Card.Text>
@@ -113,7 +149,15 @@ const HomePage = () => {
       </Container>
 
       {/* Rodapé */}
-      <footer style={{ backgroundColor: "#f7f9fc", padding: "20px", textAlign: "center" }} aria-label="Rodapé">
+      <footer
+        style={{
+          backgroundColor: "#1976d2",
+          padding: "20px",
+          textAlign: "center",
+          color: "#ffffff",
+        }}
+        aria-label="Rodapé"
+      >
         <p>&copy; 2024 AcademiTrack. Todos os direitos reservados.</p>
       </footer>
     </div>
