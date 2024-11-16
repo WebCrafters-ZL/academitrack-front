@@ -4,8 +4,9 @@ import { Button, Form, Row, Col } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import InputMask from "react-input-mask";
 import { Link } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ReactNotifications, Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 
 const CadastroProfessorForm = ({ handleClose }) => {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -16,9 +17,7 @@ const CadastroProfessorForm = ({ handleClose }) => {
   const [dataNascimento, setDataNascimento] = useState("");
   const [formacaoAcademica, setFormacaoAcademica] = useState("");
   const [especialidade, setEspecialidade] = useState("");
-  const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState("");
-  const [senhaVisivel, setSenhaVisivel] = useState(false); // Estado para controlar a visibilidade da senha
+  const [senhaVisivel, setSenhaVisivel] = useState(false);
 
   const toggleSenhaVisivel = () => {
     setSenhaVisivel(!senhaVisivel);
@@ -26,9 +25,6 @@ const CadastroProfessorForm = ({ handleClose }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    setMessage("");
-    setMessageType("");
 
     const cleanCpf = cpf.replace(/[^\d]/g, "");
 
@@ -45,7 +41,6 @@ const CadastroProfessorForm = ({ handleClose }) => {
 
     try {
       const token = localStorage.getItem("token");
-
       const response = await axios.post(
         "http://localhost:3000/api/v1/administrador/professores",
         professorData,
@@ -57,24 +52,22 @@ const CadastroProfessorForm = ({ handleClose }) => {
       );
 
       if (response.status === 201) {
-        // Exibe uma notificação de sucesso
-        toast.success(
-          response.data.message || "Professor cadastrado com sucesso!",
-          {
-            position: "bottom-center",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            theme: "colored",
-            transition: "bounce",
-          }
-        );
+        Store.addNotification({
+          title: "Sucesso!",
+          message: response.data.message || "Professor cadastrado com sucesso!",
+          type: "success",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
 
-        // Chama handleClose se for uma função
         if (typeof handleClose === "function") handleClose();
 
-        // Limpa os campos do formulário
         setNomeCompleto("");
         setEmail("");
         setSenha("");
@@ -86,34 +79,37 @@ const CadastroProfessorForm = ({ handleClose }) => {
       }
     } catch (err) {
       console.error("Erro ao cadastrar professor:", err);
-      setMessageType("error");
-      
+
+      let errorMessage = "Erro ao cadastrar professor. Tente novamente.";
+
       if (err.response) {
         if (err.response.status === 400) {
-          setMessage("Todos os campos obrigatórios devem ser preenchidos.");
+          errorMessage = "Todos os campos obrigatórios devem ser preenchidos.";
         } else if (err.response.status === 401) {
-          setMessage("Não autorizado. Verifique suas credenciais.");
+          errorMessage = "Não autorizado. Verifique suas credenciais.";
         } else if (err.response.status === 500) {
-          setMessage("Erro interno do servidor. Tente novamente mais tarde.");
+          errorMessage = "Erro interno do servidor. Tente novamente mais tarde.";
         } else {
-          setMessage(`Erro inesperado: ${
+          errorMessage = `Erro inesperado: ${
             err.response.statusText || "Verifique os dados e tente novamente."
-          }`);
+          }`;
         }
-      } else if (err.request) {
-        setMessage("Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.");
       } else {
-        setMessage(`Erro inesperado: ${err.message}`);
+        errorMessage = `Erro inesperado: ${err.message}`;
       }
-    
-      toast.error(message || "Erro ao cadastrar professor. Tente novamente.", { // Certifique-se que `message` está correto aqui
-        position: "bottom-center",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
+
+      Store.addNotification({
+        title: "Erro",
+        message: errorMessage,
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
       });
     }
   };
@@ -125,24 +121,29 @@ const CadastroProfessorForm = ({ handleClose }) => {
         marginLeft: "315px",
         padding: "20px",
         maxWidth: "calc(100% - 320px)",
-        height: `calc(100vh - 75px)`,
+        height: "calc(100vh - 75px)",
         display: "flex",
         flexDirection: "column",
         gap: "20px",
         overflowY: "auto",
         border: "2px solid blue",
         borderRadius: "10px",
+        position: "relative"  
       }}
     >
       <h2 style={{ textAlign: "center" }}>Cadastro de Professor</h2>
 
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        closeOnClick
-        theme="colored"
-      />
+      <div
+        style={{
+          position: "fixed",
+          bottom: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 10000
+        }}
+      >
+        <ReactNotifications />
+      </div>
 
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formNomeProfessor">

@@ -4,8 +4,9 @@ import { Button, Form, Row, Col } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import InputMask from "react-input-mask";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ReactNotifications, Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 
 const CadastroAlunoForm = ({ handleClose }) => {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -25,18 +26,17 @@ const CadastroAlunoForm = ({ handleClose }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Remover a formatação do CPF e telefone
-    const cleanCpf = cpf.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
-    const cleanTelefone = telefone.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
+    const cleanCpf = cpf.replace(/[^\d]/g, "");
+    const cleanTelefone = telefone.replace(/[^\d]/g, "");
 
     const alunoData = {
       nomeCompleto,
       email,
       senha,
       matricula,
-      cpf: cleanCpf, // Enviando apenas números limpos
+      cpf: cleanCpf,
       dataNascimento,
-      telefone: cleanTelefone, // Enviando apenas números limpos
+      telefone: cleanTelefone,
       endereco,
     };
 
@@ -47,28 +47,28 @@ const CadastroAlunoForm = ({ handleClose }) => {
         alunoData,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Envio do token na requisição
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
       if (response.status === 201) {
-        // Exibe uma notificação de sucesso
-        toast.success(response.data.message || "Aluno cadastrado com sucesso!", {
-          position: "bottom-center",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-          transition: "bounce",
+        Store.addNotification({
+          title: "Sucesso!",
+          message: response.data.message || "Aluno cadastrado com sucesso!",
+          type: "success",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
         });
 
-        // Fechar o formulário se a função handleClose estiver disponível
         if (typeof handleClose === "function") handleClose();
 
-        // Limpa os campos do formulário
         setNomeCompleto("");
         setEmail("");
         setCpf("");
@@ -80,71 +80,39 @@ const CadastroAlunoForm = ({ handleClose }) => {
       }
     } catch (err) {
       console.error("Erro ao enviar o formulário:", err);
-      
-      // Exibe mensagens de erro com Toastify
+
+      let errorMessage = "Erro ao cadastrar aluno. Tente novamente.";
+
       if (err.response) {
         if (err.response.status === 400) {
-          toast.warn("Todos os campos obrigatórios devem ser preenchidos.", {
-            position: "bottom-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "colored",
-            transition: "bounce",
-          });
+          errorMessage = "Todos os campos obrigatórios devem ser preenchidos.";
         } else if (err.response.status === 401) {
-          toast.error("Não autorizado. Verifique suas credenciais.", {
-            position: "bottom-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "colored",
-            transition: "bounce",
-          });
+          errorMessage = "Não autorizado. Verifique suas credenciais.";
         } else if (err.response.status === 500) {
-          toast.error("Erro interno do servidor. Tente novamente mais tarde.", {
-            position: "bottom-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "colored",
-            transition: "bounce",
-          });
+          errorMessage =
+            "Erro interno do servidor. Tente novamente mais tarde.";
         } else {
-          toast.error(
-            `Erro inesperado: ${
-              err.response.statusText || "Verifique os dados e tente novamente."
-            }`,
-            {
-              position: "bottom-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              theme: "colored",
-              transition: "bounce",
-            }
-          );
+          errorMessage = `Erro inesperado: ${
+            err.response.statusText || "Verifique os dados e tente novamente."
+          }`;
         }
       } else {
-        toast.error(`Erro inesperado: ${err.message}`, {
-          position: "bottom-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-          transition: "bounce",
-        });
+        errorMessage = `Erro inesperado: ${err.message}`;
       }
+
+      Store.addNotification({
+        title: "Erro",
+        message: errorMessage,
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
     }
   };
 
@@ -162,17 +130,20 @@ const CadastroAlunoForm = ({ handleClose }) => {
         overflowY: "auto",
         border: "2px solid blue",
         borderRadius: "10px",
+        position: "relative"  
       }}
     >
       <h2 style={{ textAlign: "center" }}>Cadastro de Aluno</h2>
 
-      <ToastContainer 
-        position="bottom-center" 
-        autoClose={5000} 
-        hideProgressBar={false} 
-        closeOnClick 
-        theme="colored" 
-      />
+      <div style={{
+          position: "fixed",
+          bottom: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 10000
+        }}>
+        <ReactNotifications />
+      </div>
       
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formNomeAluno">
@@ -315,17 +286,6 @@ const CadastroAlunoForm = ({ handleClose }) => {
           </Button>
         </div>
       </Form>
-
-      <ToastContainer
-        position="bottom-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-        theme="colored"
-        transition="bounce"
-      />
     </div>
   );
 };

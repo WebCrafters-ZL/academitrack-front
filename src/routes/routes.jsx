@@ -23,8 +23,9 @@ import GerenciarProfessor from "../components/AdmComponentes/GerenciarProfessor/
 import FaqProfessor from "../components/ProfessorComponents/FaqProfessor/FaqProfessor";
 import PerfilProfessor from "../components/ProfessorComponents/PerfilProfessor/PerfilProfessor";
 import GerenciarTurma from "../components/AdmComponentes/GerenciarTurma/GerenciarTurma";
-import CadastroTurmaForm from "../components/CadastroTurmaForm/CadastroTurmaForm";
+
 import PerfilAluno from "../components/AlunoComponents/PerfilAluno/PerfilAluno";
+import CadastroTurmaForm from "../components/AdmComponentes/CadastroTurmaForm/CadastroTurmaForm";
 
 const AppRoutes = () => {
   return (

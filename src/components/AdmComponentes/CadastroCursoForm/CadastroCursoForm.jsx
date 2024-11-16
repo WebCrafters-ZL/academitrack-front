@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Button, Form, Row, Col } from "react-bootstrap";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ReactNotifications, Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 
 const CadastroCursoForm = ({ handleClose }) => {
   const [nome, setNome] = useState("");
@@ -35,7 +36,19 @@ const CadastroCursoForm = ({ handleClose }) => {
       );
 
       if (response.status === 201) {
-        toast.success(response.data.message || "Curso cadastrado com sucesso!");
+        Store.addNotification({
+          title: "Sucesso!",
+          message: response.data.message || "Curso cadastrado com sucesso!",
+          type: "success",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
 
         if (typeof handleClose === "function") handleClose();
 
@@ -44,31 +57,47 @@ const CadastroCursoForm = ({ handleClose }) => {
         setCodigo("");
         setDescricao("");
         setCargaHoraria("");
-        setCategoria(""); 
+        setCategoria("");
       }
     } catch (err) {
       console.error("Erro ao enviar o formulário:", err);
+
+      let errorMessage = "Erro ao cadastrar curso. Tente novamente.";
+
       if (err.response) {
         if (err.response.status === 400) {
-          toast.error("Todos os campos obrigatórios devem ser preenchidos.");
+          errorMessage = "Todos os campos obrigatórios devem ser preenchidos.";
         } else if (err.response.status === 401) {
-          toast.error("Não autorizado. Verifique suas credenciais.");
+          errorMessage = "Não autorizado. Verifique suas credenciais.";
         } else if (err.response.status === 500) {
-          toast.error("Erro interno do servidor. Tente novamente mais tarde.");
+          errorMessage = "Erro interno do servidor. Tente novamente mais tarde.";
         } else {
-          toast.error(
-            `Erro inesperado: ${
-              err.response.statusText || "Verifique os dados e tente novamente."
-            }`
-          );
+          errorMessage = `Erro inesperado: ${
+            err.response.statusText || "Verifique os dados e tente novamente."
+          }`;
         }
       } else if (err.request) {
-        toast.error("Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.");
+        errorMessage = "Erro de conexão: Não foi possível conectar ao servidor. Verifique sua rede.";
       } else {
-        toast.error(`Erro inesperado: ${err.message}`);
+        errorMessage = `Erro inesperado: ${err.message}`;
       }
+
+      Store.addNotification({
+        title: "Erro",
+        message: errorMessage,
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
     }
   };
+
   return (
     <div
       style={{
@@ -83,18 +112,23 @@ const CadastroCursoForm = ({ handleClose }) => {
         overflowY: "auto",
         border: "2px solid blue",
         borderRadius: "10px",
+        position: "relative"
       }}
     >
       <h2 style={{ textAlign: "center" }}>Cadastro de Curso</h2>
 
-      <ToastContainer 
-        position="bottom-center" 
-        autoClose={5000} 
-        hideProgressBar={false} 
-        closeOnClick 
-        type="default"
-        theme="colored"
-      />
+      <div
+        style={{
+          position: "fixed",
+          bottom: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 10000
+        }}
+      >
+        <ReactNotifications />
+      </div>
+
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formNomeCurso">
           <Form.Label>Nome do Curso</Form.Label>
