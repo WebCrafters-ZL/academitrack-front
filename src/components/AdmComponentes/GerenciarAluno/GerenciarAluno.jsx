@@ -5,12 +5,15 @@ import axios from "axios";
 import { Table, Input } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ReactNotifications, Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 
 const GerenciarAluno = ({ handleClose }) => {
   const [alunos, setAlunos] = useState([]);
-  const [searchText, setSearchText] = useState(""); // Adicionar estado para o campo de pesquisa
-  const [showModal, setShowModal] = useState(false); // Controle do modal
-  const [alunoIdToDelete, setAlunoIdToDelete] = useState(null); // ID do aluno a ser deletado
+  const [searchText, setSearchText] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [alunoIdToDelete, setAlunoIdToDelete] = useState(null);
 
   useEffect(() => {
     const fetchAlunos = async () => {
@@ -25,16 +28,85 @@ const GerenciarAluno = ({ handleClose }) => {
           }
         );
 
-        setAlunos(response.data); // Armazenar os dados retornados
+        setAlunos(response.data);
       } catch (error) {
-        console.error("Erro ao buscar alunos:", error); // Log de erro
+        console.error("Erro ao buscar alunos:", error);
+        Store.addNotification({
+          title: "Erro",
+          message: "Erro ao buscar alunos. Tente novamente mais tarde.",
+          type: "danger",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
       }
     };
 
-    fetchAlunos(); // Chama a função para buscar os alunos
+    fetchAlunos();
   }, []);
 
-  // Definindo as colunas da tabela
+  const handleDelete = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(
+        `http://localhost:3000/api/v1/administrador/alunos/${alunoIdToDelete}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setAlunos(alunos.filter((aluno) => aluno._id !== alunoIdToDelete));
+      setShowModal(false);
+      Store.addNotification({
+        title: "Sucesso!",
+        message: "Aluno deletado com sucesso.",
+        type: "success",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
+    } catch (error) {
+      console.error("Erro ao excluir aluno:", error);
+      Store.addNotification({
+        title: "Erro",
+        message: "Erro ao excluir aluno. Tente novamente.",
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
+    }
+  };
+
+  const confirmDelete = (id) => {
+    setAlunoIdToDelete(id);
+    setShowModal(true);
+  };
+
+  const filteredAlunos = alunos.filter(
+    (aluno) =>
+      aluno.nomeCompleto.toLowerCase().includes(searchText.toLowerCase()) ||
+      aluno.email.toLowerCase().includes(searchText.toLowerCase()) ||
+      aluno.cpf.includes(searchText)
+  );
+
   const columns = [
     {
       title: "Nome",
@@ -50,7 +122,7 @@ const GerenciarAluno = ({ handleClose }) => {
       title: "CPF",
       dataIndex: "cpf",
       key: "cpf",
-      align: 'center',
+      align: "center",
       render: (cpf) => {
         return (
           <span>
@@ -63,7 +135,7 @@ const GerenciarAluno = ({ handleClose }) => {
       title: "Situação",
       dataIndex: "status",
       key: "status",
-      align: 'center',
+      align: "center",
       render: (status) => {
         const color = status === "ativo" ? "green" : "red";
         return (
@@ -77,7 +149,7 @@ const GerenciarAluno = ({ handleClose }) => {
       title: "Matrícula",
       dataIndex: "matricula",
       key: "matricula",
-      align: 'center',
+      align: "center",
     },
     {
       title: "Ação",
@@ -107,40 +179,6 @@ const GerenciarAluno = ({ handleClose }) => {
     },
   ];
 
-  const handleDelete = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.delete(
-        `http://localhost:3000/api/v1/administrador/alunos/${alunoIdToDelete}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Envio do token na requisição
-          },
-        }
-      );
-
-      // Atualize a lista de alunos após a exclusão
-      setAlunos(alunos.filter((aluno) => aluno._id !== alunoIdToDelete));
-      console.log(`Aluno com ID: ${alunoIdToDelete} deletado com sucesso.`);
-      setShowModal(false); // Fecha o modal após a confirmação
-    } catch (error) {
-      console.error("Erro ao excluir aluno:", error); // Mensagem de erro ao deletar
-    }
-  };
-
-  // Função para abrir o modal de confirmação
-  const confirmDelete = (id) => {
-    setAlunoIdToDelete(id); // Armazena o ID do aluno a ser deletado
-    setShowModal(true); // Abre o modal
-  };
-
-  const filteredAlunos = alunos.filter(
-    (aluno) =>
-      aluno.nomeCompleto.toLowerCase().includes(searchText.toLowerCase()) ||
-      aluno.email.toLowerCase().includes(searchText.toLowerCase()) ||
-      aluno.cpf.includes(searchText)
-  );
-
   return (
     <div
       style={{
@@ -155,15 +193,27 @@ const GerenciarAluno = ({ handleClose }) => {
         overflowY: "auto",
         border: "2px solid blue",
         borderRadius: "10px",
+        position: "relative",
       }}
     >
+      <div
+        style={{
+          position: "fixed",
+          bottom: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 10000,
+        }}
+      >
+        <ReactNotifications />
+      </div>
       <h2 style={{ textAlign: "center" }}>Gerenciar Alunos</h2>
-      
+
       <Input
         placeholder="Pesquisar alunos..."
         value={searchText}
-        onChange={(e) => setSearchText(e.target.value)} // Atualiza o estado com o texto da pesquisa
-        style={{ marginBottom: "0px", width: "300px", alignSelf: "center" }} // Estilo do input
+        onChange={(e) => setSearchText(e.target.value)}
+        style={{ marginBottom: "0px", width: "300px", alignSelf: "center" }}
       />
 
       <Table
@@ -172,7 +222,7 @@ const GerenciarAluno = ({ handleClose }) => {
           key: aluno._id,
         }))}
         columns={columns}
-        pagination={{ pageSize: 8 }} // Configurando a paginação
+        pagination={{ pageSize: 8 }}
       />
 
       <div style={{ textAlign: "right", marginTop: "0px" }}>
