@@ -164,7 +164,7 @@ const GerenciarAluno = ({ handleClose }) => {
           }}
         >
           <Link
-            to={`/adm-home/pessoas/gerenciar-aluno/editar/${aluno._id}`}
+            to={`/administrador/pessoas/gerenciar-aluno/editar/${aluno._id}`}
             style={{ marginRight: "10px" }}
           >
             <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
@@ -172,7 +172,7 @@ const GerenciarAluno = ({ handleClose }) => {
           <FontAwesomeIcon
             icon={faTrash}
             style={{ color: "red", cursor: "pointer" }}
-            onClick={() => confirmDelete(aluno._id)} 
+            onClick={() => confirmDelete(aluno._id)}
           />{" "}
         </div>
       ),
@@ -243,7 +243,7 @@ const GerenciarAluno = ({ handleClose }) => {
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
-        centered 
+        centered
       >
         <Modal.Header
           closeButton
