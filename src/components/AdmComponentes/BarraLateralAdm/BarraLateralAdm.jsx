@@ -123,7 +123,7 @@ const BarraLateralAdm = () => {
         }}
       />
       <div style={{ textAlign: "center", marginBottom: "15px" }}>
-      <Avatar
+        <Avatar
           alt={administrador.nomeCompleto || "Usuário"}
           src={fotoPerfil}
           size="135"
@@ -133,7 +133,7 @@ const BarraLateralAdm = () => {
           {administrador.nomeCompleto || "Nome do Usuário"}
         </h3>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          CPF: {administrador.cpf || "00000000000"}
+          CPF: {administrador.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") || "00000000000".replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}
         </p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
           E-mail: {administrador.email || "email@exemplo.com"}
@@ -148,27 +148,27 @@ const BarraLateralAdm = () => {
           marginBottom: "5px",
         }}
       >
-        
-          <Link to="/administrador/faqadm" style={{ textDecoration: "none" }}>
-            <FaQuestionCircle
-              style={{
-                color: "white",
-                cursor: "pointer",
-                marginRight: "35px",
-              }}
-              size={30}
-            />
-          </Link>
-        
+
+        <Link to="/administrador/faqadm" style={{ textDecoration: "none" }}>
+          <FaQuestionCircle
+            style={{
+              color: "white",
+              cursor: "pointer",
+              marginRight: "35px",
+            }}
+            size={30}
+          />
+        </Link>
+
         <Link to="/administrador/perfiladm" style={{ textDecoration: "none" }}>
-        <FaUser
-          style={{
-            color: "white",
-            cursor: "pointer",
-            marginRight: "35px",
-          }}
-          size={30}
-        />
+          <FaUser
+            style={{
+              color: "white",
+              cursor: "pointer",
+              marginRight: "35px",
+            }}
+            size={30}
+          />
         </Link>
 
         <Button
@@ -224,9 +224,8 @@ const BarraLateralAdm = () => {
           <FaUsers style={{ marginRight: "10px" }} />
           Pessoas
           <i
-            className={`bi ${
-              openPessoas ? "bi-chevron-up" : "bi-chevron-down"
-            }`}
+            className={`bi ${openPessoas ? "bi-chevron-up" : "bi-chevron-down"
+              }`}
             style={{ float: "right" }}
           ></i>
         </ListGroupItem>
@@ -274,9 +273,8 @@ const BarraLateralAdm = () => {
           <FaBook style={{ marginRight: "10px" }} />
           Acadêmico
           <i
-            className={`bi ${
-              openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"
-            }`}
+            className={`bi ${openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"
+              }`}
             style={{ float: "right" }}
           ></i>
         </ListGroupItem>
