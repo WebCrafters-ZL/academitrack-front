@@ -172,9 +172,8 @@ const GerenciarAluno = ({ handleClose }) => {
           <FontAwesomeIcon
             icon={faTrash}
             style={{ color: "red", cursor: "pointer" }}
-            onClick={() => confirmDelete(aluno._id)} // Abre o modal de confirmação ao clicar no ícone de lixeira
+            onClick={() => confirmDelete(aluno._id)} 
           />{" "}
-          {/* Ícone de lixeira */}
         </div>
       ),
     },

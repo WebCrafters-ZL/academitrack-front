@@ -10,7 +10,7 @@ import HomeAluno from "../components/AlunoComponents/HomeAluno/HomeAluno";
 import HomeAdm from "../components/AdmComponentes/HomeAdm/HomeAdm";
 import AdmLayout from "../pages/AdmLayout/AdmLayout";
 import CadastroAlunoForm from "../components/AdmComponentes/CadastroAlunoForm/CadastroAlunoForm";
-import EditarAluno from '../components/AdmComponentes/EditarAluno/EditarAluno';
+import EditarAluno from '../components/AdmComponentes/EditarAlunoForm/EditarAlunoForm';
 import CadastroProfessorForm from "../components/AdmComponentes/CadastroProfessorForm/CadastroProfessorForm";
 import CadastroDisciplinaForm from "../components/AdmComponentes/CadastroDisciplinaForm/CadastroDisciplinaForm";
 import CadastroCursoForm from "../components/AdmComponentes/CadastroCursoForm/CadastroCursoForm";
@@ -23,9 +23,9 @@ import GerenciarProfessor from "../components/AdmComponentes/GerenciarProfessor/
 import FaqProfessor from "../components/ProfessorComponents/FaqProfessor/FaqProfessor";
 import PerfilProfessor from "../components/ProfessorComponents/PerfilProfessor/PerfilProfessor";
 import GerenciarTurma from "../components/AdmComponentes/GerenciarTurma/GerenciarTurma";
-
 import PerfilAluno from "../components/AlunoComponents/PerfilAluno/PerfilAluno";
 import CadastroTurmaForm from "../components/AdmComponentes/CadastroTurmaForm/CadastroTurmaForm";
+import EditarProfessor from "../components/AdmComponentes/EditarProfessorForm/EditarProfessorForm";
 
 const AppRoutes = () => {
   return (
@@ -55,6 +55,7 @@ const AppRoutes = () => {
           <Route path="pessoas/gerenciar-aluno/editar/:id" element={<EditarAluno />} /> 
           <Route path="pessoas/gerenciar-professor" element={<GerenciarProfessor />} />
           <Route path="pessoas/gerenciar-professor/cadastro-professor" element={<CadastroProfessorForm />} />
+          <Route path="pessoas/gerenciar-professor/editar/:id" element={<EditarProfessor />} /> 
           <Route path="academico/cadastrar-curso" element={<CadastroCursoForm />} />
           <Route path="academico/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
           <Route path="academico/gerenciar-turma" element={<GerenciarTurma /> } />
