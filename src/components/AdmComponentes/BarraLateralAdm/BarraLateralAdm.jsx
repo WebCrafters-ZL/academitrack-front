@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
@@ -16,6 +16,7 @@ import "../../../styles/index.css";
 import axios from "axios";
 
 const BarraLateralAdm = () => {
+  const [administrador, setAdministrador] = useState({});
   const [openPessoas, setOpenPessoas] = useState(false);
   const [openDisciplinas, setOpenDisciplinas] = useState(false);
 
@@ -26,6 +27,28 @@ const BarraLateralAdm = () => {
   const handleClickDisciplinas = () => {
     setOpenDisciplinas(!openDisciplinas);
   };
+
+  useEffect(() => {
+    const fetchAdministrador = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/administrador/perfil",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setAdministrador(response.data);
+      } catch (error) {
+        console.error("Erro ao retornar dados do administrador:", error);
+      }
+    };
+
+    fetchAdministrador();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -100,18 +123,20 @@ const BarraLateralAdm = () => {
         }}
       />
       <div style={{ textAlign: "center", marginBottom: "15px" }}>
-        <Avatar
-          alt="Nelson Firmino Arantes Figado"
+      <Avatar
+          alt={administrador.nomeCompleto || "Usuário"}
           src={fotoPerfil}
           size="135"
           round={true}
         />
         <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
-          Fabiana Alvarenga Silva
+          {administrador.nomeCompleto || "Nome do Usuário"}
         </h3>
-        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RP: 0000000058</p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          Email: fabiana.silva@fatec.sp.gov.br
+          CPF: {administrador.cpf || "00000000000"}
+        </p>
+        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
+          E-mail: {administrador.email || "email@exemplo.com"}
         </p>
       </div>
 
