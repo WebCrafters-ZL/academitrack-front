@@ -274,7 +274,7 @@ const CadastroAlunoForm = ({ handleClose }) => {
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
             as={Link}
-            to="/adm-home/pessoas/gerenciar-aluno"
+            to="/administrador/pessoas/gerenciar-aluno"
             variant="danger"
             onClick={handleClose}
             style={{ marginRight: "20px" }}

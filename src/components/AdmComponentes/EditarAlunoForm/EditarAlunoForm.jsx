@@ -8,7 +8,7 @@ import "react-notifications-component/dist/theme.css";
 import "animate.css";
 
 const EditarAlunoForm = ({ handleClose }) => {
-  const { id } = useParams(); // Obtendo o ID do aluno da URL
+  const { id } = useParams(); 
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
@@ -252,7 +252,7 @@ const EditarAlunoForm = ({ handleClose }) => {
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
             as={Link}
-            to="/adm-home/pessoas/gerenciar-aluno"
+            to="/administrador/pessoas/gerenciar-aluno"
             variant="danger"
             onClick={handleClose}
             style={{ marginRight: "20px" }}

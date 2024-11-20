@@ -120,7 +120,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
         errorMessage = `Erro inesperado: ${err.message}`;
       }
   
-      Store.addNotification({ // Usando Store em vez de toast
+      Store.addNotification({ 
         title: "Erro",
         message: errorMessage,
         type: "danger",
@@ -296,7 +296,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
             as={Link}
-            to="/adm-home/academico/gerenciar-turma"
+            to="/administrador/academico/gerenciar-turma"
             variant="danger"
             onClick={handleClose}
             style={{ marginRight: "20px" }}

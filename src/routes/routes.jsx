@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "../pages/HomePage/HomePage";  // Adicionando a HomePage
+import HomePage from "../pages/HomePage/HomePage";  
 import Login from "../pages/Login/Login"; 
 import ProfessorLayout from "../pages/ProfessorLayout/ProfessorLayout"; 
 import HomeProfessor from "../components/ProfessorComponents/HomeProfessor/HomeProfessor"; 
@@ -26,6 +26,8 @@ import GerenciarTurma from "../components/AdmComponentes/GerenciarTurma/Gerencia
 import PerfilAluno from "../components/AlunoComponents/PerfilAluno/PerfilAluno";
 import CadastroTurmaForm from "../components/AdmComponentes/CadastroTurmaForm/CadastroTurmaForm";
 import EditarProfessor from "../components/AdmComponentes/EditarProfessorForm/EditarProfessorForm";
+import GerenciarCurso from "../components/AdmComponentes/GerenciarCurso/GerenciarCurso";
+import GerenciarDisciplina from "../components/AdmComponentes/GerenciarDisciplina/GerenciarDisciplina";
 
 const AppRoutes = () => {
   return (
@@ -37,7 +39,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} /> {/* Rota de Login */}
 
       {/* Rotas para Aluno */}
-      <Route path="/aluno-home" element={<AlunoLayout />}>
+      <Route path="/aluno" element={<AlunoLayout />}>
         <Route element={<PrivateRoute requiredRole="aluno" />}>
           <Route index element={<HomeAluno />} /> {/* Home do Aluno */}
           <Route path="notas" element={<AlunoNotas />} /> 
@@ -47,7 +49,7 @@ const AppRoutes = () => {
       </Route>
 
       {/* Rotas para ADM */}
-      <Route path="/adm-home" element={<AdmLayout />}>
+      <Route path="/administrador" element={<AdmLayout />}>
         <Route element={<PrivateRoute requiredRole="administrador" />}>
           <Route index element={<HomeAdm />} /> {/* Home do ADM */}
           <Route path="pessoas/gerenciar-aluno" element={<GerenciarAluno />} />
@@ -56,8 +58,10 @@ const AppRoutes = () => {
           <Route path="pessoas/gerenciar-professor" element={<GerenciarProfessor />} />
           <Route path="pessoas/gerenciar-professor/cadastro-professor" element={<CadastroProfessorForm />} />
           <Route path="pessoas/gerenciar-professor/editar/:id" element={<EditarProfessor />} /> 
-          <Route path="academico/cadastrar-curso" element={<CadastroCursoForm />} />
-          <Route path="academico/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
+          <Route path="academico/gerenciar-curso" element={<GerenciarCurso /> } />
+          <Route path="academico/gerenciar-curso/cadastrar-curso" element={<CadastroCursoForm />} />
+          <Route path="academico/gerenciar-disciplina" element={<GerenciarDisciplina />} />
+          <Route path="academico/gerenciar-disciplina/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
           <Route path="academico/gerenciar-turma" element={<GerenciarTurma /> } />
           <Route path="academico/gerenciar-turma/cadastro-turma" element={<CadastroTurmaForm /> } />
           <Route path="faqadm" element={<FAQAdm/>} />
@@ -66,7 +70,7 @@ const AppRoutes = () => {
       </Route>
 
       {/* Rotas para Professor */}
-      <Route path="/professor-home" element={<ProfessorLayout />}>
+      <Route path="/professor" element={<ProfessorLayout />}>
         <Route element={<PrivateRoute requiredRole="professor" />}>
           <Route index element={<HomeProfessor />} /> {/* Home do Professor */}
           <Route path="teste" element={<AlunoNotas />} /> 

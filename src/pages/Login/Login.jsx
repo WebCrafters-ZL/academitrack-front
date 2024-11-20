@@ -35,11 +35,11 @@ const Login = () => {
 
       // Redirecionar com base no tipo de usuário
       if (userType === "administrador") {
-        navigate("/adm-home");
+        navigate("/administrador");
       } else if (userType === "professor") {
-        navigate("/professor-home");
+        navigate("/professor");
       } else if (userType === "aluno") {
-        navigate("/aluno-home");
+        navigate("/aluno");
       } else {
         console.log("User role not recognized, not redirecting.");
       }

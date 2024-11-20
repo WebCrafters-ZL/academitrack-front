@@ -149,7 +149,7 @@ const BarraLateralAdm = () => {
         }}
       >
         
-          <Link to="/adm-home/faqadm" style={{ textDecoration: "none" }}>
+          <Link to="/administrador/faqadm" style={{ textDecoration: "none" }}>
             <FaQuestionCircle
               style={{
                 color: "white",
@@ -160,7 +160,7 @@ const BarraLateralAdm = () => {
             />
           </Link>
         
-        <Link to="/adm-home/perfiladm" style={{ textDecoration: "none" }}>
+        <Link to="/administrador/perfiladm" style={{ textDecoration: "none" }}>
         <FaUser
           style={{
             color: "white",
@@ -209,7 +209,7 @@ const BarraLateralAdm = () => {
         <ListGroupItem
           action
           as={Link}
-          to="/adm-home"
+          to="/administrador"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaHome style={{ marginRight: "10px" }} />
@@ -236,7 +236,7 @@ const BarraLateralAdm = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/adm-home/pessoas/gerenciar-aluno"
+              to="/administrador/pessoas/gerenciar-aluno"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -252,7 +252,7 @@ const BarraLateralAdm = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/adm-home/pessoas/gerenciar-professor"
+              to="/administrador/pessoas/gerenciar-professor"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -286,7 +286,7 @@ const BarraLateralAdm = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/adm-home/academico/cadastrar-curso"
+              to="/administrador/academico/gerenciar-curso"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -301,7 +301,7 @@ const BarraLateralAdm = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/adm-home/academico/cadastrar-disciplina"
+              to="/administrador/academico/gerenciar-disciplina"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -316,7 +316,7 @@ const BarraLateralAdm = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/adm-home/academico/gerenciar-turma"
+              to="/administrador/academico/gerenciar-turma"
               style={{
                 backgroundColor: "transparent",
                 color: "white",

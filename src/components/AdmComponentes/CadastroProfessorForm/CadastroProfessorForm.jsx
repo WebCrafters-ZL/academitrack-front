@@ -273,7 +273,7 @@ const CadastroProfessorForm = ({ handleClose }) => {
         <div style={{ textAlign: "right", marginTop: "20px" }}>
           <Button
             as={Link}
-            to="/adm-home/pessoas/gerenciar-professor"
+            to="/administrador/pessoas/gerenciar-professor"
             variant="danger"
             onClick={handleClose}
             style={{ marginRight: "20px" }}

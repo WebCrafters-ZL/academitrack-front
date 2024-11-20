@@ -9,18 +9,18 @@ import { ReactNotifications, Store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import "animate.css";
 
-const GerenciarProfessor = ({ handleClose }) => {
-  const [professores, setProfessores] = useState([]);
+const GerenciarCurso = ({ handleClose }) => {
+  const [cursos, setCursos] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [professorIdToDelete, setProfessorIdToDelete] = useState(null);
+  const [cursoIdToDelete, setCursoIdToDelete] = useState(null);
 
   useEffect(() => {
-    const fetchProfessores = async () => {
+    const fetchCursos = async () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://localhost:3000/api/v1/administrador/professores",
+          "http://localhost:3000/api/v1/administrador/cursos",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -28,12 +28,12 @@ const GerenciarProfessor = ({ handleClose }) => {
           }
         );
 
-        setProfessores(response.data);
+        setCursos(response.data);
       } catch (error) {
-        console.error("Erro ao buscar professores:", error);
+        console.error("Erro ao buscar cursos:", error);
         Store.addNotification({
           title: "Erro",
-          message: "Erro ao buscar professores. Tente novamente mais tarde.",
+          message: "Erro ao buscar cursos.",
           type: "danger",
           insert: "bottom",
           container: "bottom-center",
@@ -47,14 +47,67 @@ const GerenciarProfessor = ({ handleClose }) => {
       }
     };
 
-    fetchProfessores();
+    fetchCursos();
   }, []);
+
+  const columns = [
+    {
+      title: "Código",
+      dataIndex: "codigo",
+      key: "codigo",
+      width: 100, 
+    },
+    {
+      title: "Nome",
+      dataIndex: "nome",
+      key: "nome",
+    },
+    {
+      title: "Categoria",
+      dataIndex: "categoria",
+      key: "categoria",
+    },
+    {
+      title: "Carga Horária",
+      dataIndex: "cargaHoraria",
+      key: "cargaHoraria",
+      align: "center",
+      width: 100,
+    },
+    {
+      title: "Ação",
+      key: "acao",
+      align: "center",
+      width: 100,
+      render: (_, curso) => (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Link
+            to={`/adm-home/cursos/editar/${curso._id}`}
+            style={{ marginRight: "10px" }}
+          >
+            <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
+          </Link>
+          <FontAwesomeIcon
+            icon={faTrash}
+            style={{ color: "red", cursor: "pointer" }}
+            onClick={() => confirmDelete(curso._id)}
+          />
+        </div>
+      ),
+    },
+  ];
 
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://localhost:3000/api/v1/administrador/professores/${professorIdToDelete}`,
+        `http://localhost:3000/api/v1/administrador/cursos/${cursoIdToDelete}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -62,12 +115,14 @@ const GerenciarProfessor = ({ handleClose }) => {
         }
       );
 
-      setProfessores(
-        professores.filter((professor) => professor._id !== professorIdToDelete)
-      );
+      // Atualiza o estado para remover o curso deletado
+      setCursos(cursos.filter((curso) => curso._id !== cursoIdToDelete));
+      setShowModal(false);
+
+      // Notificação de sucesso
       Store.addNotification({
         title: "Sucesso!",
-        message: `Professor deletado com sucesso.`,
+        message: "Curso excluído com sucesso!",
         type: "success",
         insert: "bottom",
         container: "bottom-center",
@@ -78,13 +133,13 @@ const GerenciarProfessor = ({ handleClose }) => {
           onScreen: true,
         },
       });
-      
-      setShowModal(false);
     } catch (error) {
-      console.error("Erro ao excluir professor:", error);
+      console.error("Erro ao excluir curso:", error);
+
+      // Notificação de erro
       Store.addNotification({
         title: "Erro",
-        message: "Erro ao excluir professor. Tente novamente.",
+        message: "Erro ao excluir curso.",
         type: "danger",
         insert: "bottom",
         container: "bottom-center",
@@ -99,92 +154,21 @@ const GerenciarProfessor = ({ handleClose }) => {
   };
 
   const confirmDelete = (id) => {
-    setProfessorIdToDelete(id);
+    setCursoIdToDelete(id);
     setShowModal(true);
   };
 
-  const filteredProfessores = professores.filter(
-    (professor) =>
-      professor.nomeCompleto.toLowerCase().includes(searchText.toLowerCase()) ||
-      professor.email.toLowerCase().includes(searchText.toLowerCase()) ||
-      professor.cpf.includes(searchText)
-  );
+  const filteredCursos = cursos.filter((curso) => {
+    const nomeStr = curso.nome?.toLowerCase() || "";
+    const codigoStr = curso.codigo?.toString() || "";
+    const categoriaStr = curso.categoria?.toLowerCase() || "";
 
-  const columns = [
-    {
-      title: "Nome",
-      dataIndex: "nomeCompleto",
-      key: "nomeCompleto",
-    },
-    {
-      title: "E-mail",
-      dataIndex: "email",
-      key: "email",
-    },
-    {
-      title: "CPF",
-      dataIndex: "cpf",
-      key: "cpf",
-      width: 150,
-      align: "center",
-      render: (cpf) => {
-        return (
-          <span>
-            {cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}
-          </span>
-        );
-      },
-    },
-    {
-      title: "Situação",
-      dataIndex: "status",
-      key: "status",
-      width: 100,
-      align: "center",
-      render: (status) => {
-        const color = status === "ativo" ? "green" : "red";
-        return (
-          <span style={{ color }}>
-            {status.charAt(0).toUpperCase() + status.slice(1)}
-          </span>
-        ); 
-      },
-    },
-    {
-      title: "Matrícula",
-      dataIndex: "matricula",
-      key: "matricula",
-      width: 150,
-      align: "center",
-    },
-    {
-      title: "Ação",
-      key: "acao",
-      width: 100,
-      align: "center",
-      render: (_, professor) => (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Link
-            to={`/adm-home/pessoas/gerenciar-professor/editar/${professor._id}`}
-            style={{ marginRight: "10px" }}
-          >
-            <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />{" "}
-          </Link>
-          <FontAwesomeIcon
-            icon={faTrash}
-            style={{ color: "red", cursor: "pointer" }}
-            onClick={() => confirmDelete(professor._id)} 
-          />
-        </div>
-      ),
-    },
-  ];
+    return (
+      nomeStr.includes(searchText.toLowerCase()) ||
+      codigoStr.includes(searchText) ||
+      categoriaStr.includes(searchText.toLowerCase())
+    );
+  });
 
   return (
     <div
@@ -213,25 +197,25 @@ const GerenciarProfessor = ({ handleClose }) => {
       >
         <ReactNotifications />
       </div>
-      <h2 style={{ textAlign: "center" }}>Gerenciar Professores</h2>
+      <h2 style={{ textAlign: "center" }}>Gerenciar Cursos</h2>
 
       <Input
-        placeholder="Pesquisar professores..."
+        placeholder="Pesquisar cursos..."
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
         style={{ marginBottom: "16px", width: "300px", alignSelf: "center" }}
       />
 
       <Table
-        dataSource={filteredProfessores.map((professor) => ({
-          ...professor,
-          key: professor._id,
+        dataSource={filteredCursos.map((curso) => ({
+          ...curso,
+          key: curso._id,
         }))}
         columns={columns}
         pagination={{
           pageSize: 8,
           showTotal: (total, range) =>
-            `${range[0]} a ${range[1]} de ${total} professores`,
+            `${range[0]} a ${range[1]} de ${total} cursos`,
         }}
       />
 
@@ -239,21 +223,21 @@ const GerenciarProfessor = ({ handleClose }) => {
         <Button
           variant="primary"
           as={Link}
-          to="/administrador/pessoas/gerenciar-professor/cadastro-professor"
+          to="/administrador/academico/gerenciar-curso/cadastrar-curso"
           onClick={handleClose}
         >
-          Adicionar Professor
+          Adicionar Curso
         </Button>
       </div>
 
-      <Modal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        centered
-      >
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header
           closeButton
-          style={{ backgroundColor: "#1976d2", color: "white", borderBottom: "none" }}
+          style={{
+            backgroundColor: "#1976d2",
+            color: "white",
+            borderBottom: "none",
+          }}
         >
           <Modal.Title>Confirmação de Exclusão</Modal.Title>
         </Modal.Header>
@@ -265,7 +249,7 @@ const GerenciarProfessor = ({ handleClose }) => {
             style={{ marginBottom: "1rem" }}
           />
           <p style={{ fontWeight: 500, fontSize: "1.1rem" }}>
-            Tem certeza de que deseja excluir este professor?
+            Tem certeza de que deseja excluir este curso?
           </p>
           <p style={{ color: "gray", fontSize: "0.9rem" }}>
             Essa ação não poderá ser desfeita.
@@ -288,4 +272,4 @@ const GerenciarProfessor = ({ handleClose }) => {
   );
 };
 
-export default GerenciarProfessor;
+export default GerenciarCurso;

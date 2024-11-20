@@ -117,7 +117,7 @@ const BarraLateralProfessor = () => {
           marginBottom: "5px",
         }}
       >
-        <Link to="/professor-home/faqprofessor" style={{ textDecoration: "none" }}>
+        <Link to="/professor/faqprofessor" style={{ textDecoration: "none" }}>
             <FaQuestionCircle
               style={{
                 color: "white",
@@ -128,7 +128,7 @@ const BarraLateralProfessor = () => {
             />
           </Link>
         
-        <Link to="/professor-home/perfilprofessor" style={{ textDecoration: "none" }}>
+        <Link to="/professor/perfilprofessor" style={{ textDecoration: "none" }}>
         <FaUser
           style={{
             color: "white",
@@ -176,7 +176,7 @@ const BarraLateralProfessor = () => {
         <ListGroupItem
           action
           as={Link}
-          to="/professor-home"
+          to="/professor"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaHome style={{ marginRight: "10px" }} />
@@ -236,7 +236,7 @@ const BarraLateralProfessor = () => {
         <ListGroupItem
           action
           as={Link}
-          to="/professor-home/teste"
+          to="/professor/teste"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaHome style={{ marginRight: "10px" }} />

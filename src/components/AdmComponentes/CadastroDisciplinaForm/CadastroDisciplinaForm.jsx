@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { ReactNotifications, Store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
@@ -222,12 +223,14 @@ const CadastroDisciplinaForm = ({ handleClose }) => {
         </Form.Group>
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
-          <Button
+        <Button
+            as={Link}
+            to="/administrador/academico/gerenciar-disciplina"
             variant="danger"
             onClick={handleClose}
             style={{ marginRight: "20px" }}
           >
-            Fechar
+            Voltar
           </Button>
           <Button variant="primary" type="submit">
             Salvar

@@ -225,7 +225,7 @@ const GerenciarAluno = ({ handleClose }) => {
         pagination={{
           pageSize: 8,
           showTotal: (total, range) =>
-            `${range[0]} - ${range[1]} de ${total} alunos`,
+            `${range[0]} a ${range[1]} de ${total} alunos`,
         }}
       />
 
@@ -233,7 +233,7 @@ const GerenciarAluno = ({ handleClose }) => {
         <Button
           variant="primary"
           as={Link}
-          to="/adm-home/pessoas/gerenciar-aluno/cadastro-aluno"
+          to="/administrador/pessoas/gerenciar-aluno/cadastro-aluno"
           onClick={handleClose}
         >
           Adicionar Aluno
@@ -243,7 +243,7 @@ const GerenciarAluno = ({ handleClose }) => {
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
-        centered // Centraliza o modal na tela
+        centered 
       >
         <Modal.Header
           closeButton

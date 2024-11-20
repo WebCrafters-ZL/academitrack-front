@@ -155,7 +155,7 @@ const BarraLateralAluno = () => {
           marginBottom: "5px",
         }}
       >
-        <Link to="/aluno-home/faqaluno" style={{ textDecoration: "none" }}>
+        <Link to="/aluno/faqaluno" style={{ textDecoration: "none" }}>
             <FaQuestionCircle
               style={{
                 color: "white",
@@ -166,7 +166,7 @@ const BarraLateralAluno = () => {
             />
           </Link>
         
-        <Link to="/aluno-home/perfilaluno" style={{ textDecoration: "none" }}>
+        <Link to="/aluno/perfilaluno" style={{ textDecoration: "none" }}>
         <FaUser
           style={{
             color: "white",
@@ -214,7 +214,7 @@ const BarraLateralAluno = () => {
         <ListGroupItem
           action
           as={Link}
-          to="/aluno-home"
+          to="/aluno"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaHome style={{ marginRight: "10px" }} />
@@ -224,7 +224,7 @@ const BarraLateralAluno = () => {
         <ListGroupItem
           action
           as={Link}
-          to="/aluno-home"
+          to="/aluno"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaTable style={{ marginRight: "10px" }} />
@@ -344,7 +344,7 @@ const BarraLateralAluno = () => {
         <ListGroupItem
           action
           as={Link}
-          to="/aluno-home/notas"
+          to="/aluno/notas"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaClipboardList style={{ marginRight: "10px" }} />

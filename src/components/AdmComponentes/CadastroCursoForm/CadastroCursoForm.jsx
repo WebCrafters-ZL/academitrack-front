@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Button, Form, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { ReactNotifications, Store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import "animate.css";
@@ -199,12 +200,14 @@ const CadastroCursoForm = ({ handleClose }) => {
         </Form.Group>
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
-          <Button
+        <Button
+            as={Link}
+            to="/administrador/academico/gerenciar-curso"
             variant="danger"
-            onClick={() => handleClose && handleClose()}
+            onClick={handleClose}
             style={{ marginRight: "20px" }}
           >
-            Fechar
+            Voltar
           </Button>
           <Button variant="primary" type="submit">
             Salvar

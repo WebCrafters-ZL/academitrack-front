@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Accordion } from "react-bootstrap";
 
 const FaqAdm = () => {
-  // Exemplo de perguntas e respostas
   const faqData = [
     {
       question: "Como adicionar um novo usuário no sistema?",
