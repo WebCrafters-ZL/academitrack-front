@@ -3,7 +3,7 @@ import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-import { useAuth } from "../Login/AuthContext"; 
+import { useAuth } from "../Login/AuthContext";
 import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
@@ -11,7 +11,7 @@ const Login = () => {
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth(); 
+  const { login } = useAuth();
 
   const enviarFormulario = async (event) => {
     event.preventDefault();
@@ -122,13 +122,21 @@ const Login = () => {
 
         <Row style={{ marginTop: "15px" }}>
           <Col className="text-center">
-            <a
-              href="#"
-              style={{ textDecoration: "none", color: "#1976d2" }}
+            <button
+              onClick={() => {/* Lógica para recuperar senha */ }}
+              style={{
+                background: "none",
+                border: "none",
+                color: "#1976d2",
+                textDecoration: "underline",
+                cursor: "pointer",
+                padding: 0,
+                font: "inherit"
+              }}
               aria-label="Link para recuperar senha"
             >
-              Esqueci minha senha.
-            </a>
+              Esqueci minha senha
+            </button>
           </Col>
         </Row>
       </Container>
