@@ -16,7 +16,6 @@ const GerenciarAluno = ({ handleClose }) => {
     const fetchAlunos = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("Token being used:", token);
         const response = await axios.get(
           "http://localhost:3000/api/v1/administrador/alunos",
           {

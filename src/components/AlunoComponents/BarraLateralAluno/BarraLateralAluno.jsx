@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
@@ -25,6 +25,34 @@ import axios from "axios";
 
 const BarraLateralAluno = () => {
   const [openDisciplinas, setOpenDisciplinas] = useState(false);
+  const [userData, setUserData] = useState({
+      nomeCompleto: "",
+      email: "",
+      matricula: ""
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          console.error("Token não encontrado");
+          return;
+        }
+
+        const response = await axios.get("http://localhost:3000/api/v1/administrador/alunos", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setUserData(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar dados do usuário:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleClickDisciplinas = () => {
     setOpenDisciplinas(!openDisciplinas);
@@ -109,13 +137,14 @@ const BarraLateralAluno = () => {
           round={true}
         />
         <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
-          Bigodvisk Ferreira Alcaçuz
-        </h3>
-        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RA: 3240616058</p>
-        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>Período: Manhã</p>
-        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          Email: bigodvisk.alcacuz@fatec.sp.gov.br
-        </p>
+        {userData.nomeCompleto || "Carregando..."}
+      </h3>
+      <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
+        RA: {userData.matricula || "Carregando..."}
+      </p>
+      <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
+        Email: {userData.email || "Carregando..."}
+      </p>
       </div>
 
       <div
