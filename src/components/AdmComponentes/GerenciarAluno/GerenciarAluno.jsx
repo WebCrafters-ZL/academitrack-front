@@ -236,22 +236,32 @@ const GerenciarAluno = ({ handleClose }) => {
         </Button>
       </div>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmar Exclusão</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Você tem certeza de que deseja excluir este aluno?</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cancelar
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Excluir
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <Modal
+  show={showModal}
+  onHide={() => setShowModal(false)}
+  centered // Centraliza o modal na tela
+>
+  <Modal.Header closeButton style={{ borderBottom: 'none', paddingBottom: 0 }}>
+    <Modal.Title style={{ color: '#ff5252' }}>Confirmação de Exclusão</Modal.Title>
+  </Modal.Header>
+  <Modal.Body style={{ textAlign: 'center', padding: '2rem' }}>
+    <FontAwesomeIcon icon={faTrash} size="3x" color="#ff5252" style={{ marginBottom: '1rem' }} />
+    <p style={{ fontWeight: 500, fontSize: '1.1rem' }}>
+      Tem certeza de que deseja excluir este aluno?
+    </p>
+    <p style={{ color: 'gray', fontSize: '0.9rem' }}>
+      Essa ação não poderá ser desfeita.
+    </p>
+  </Modal.Body>
+  <Modal.Footer style={{ justifyContent: 'center', borderTop: 'none' }}>
+    <Button variant="outline-secondary" onClick={() => setShowModal(false)} style={{ marginRight: '1rem' }}>
+      Cancelar
+    </Button>
+    <Button variant="danger" onClick={handleDelete}>
+      Excluir
+    </Button>
+  </Modal.Footer>
+</Modal>
     </div>
   );
 };
