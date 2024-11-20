@@ -5,18 +5,20 @@ import axios from "axios";
 import { Table, Input } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ReactNotifications, Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 
 const GerenciarProfessor = ({ handleClose }) => {
   const [professores, setProfessores] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [showModal, setShowModal] = useState(false); // Controle do modal
-  const [professorIdToDelete, setProfessorIdToDelete] = useState(null); // ID do professor a ser deletado
+  const [showModal, setShowModal] = useState(false);
+  const [professorIdToDelete, setProfessorIdToDelete] = useState(null);
 
   useEffect(() => {
     const fetchProfessores = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("Token being used:", token);
         const response = await axios.get(
           "http://localhost:3000/api/v1/administrador/professores",
           {
@@ -26,16 +28,88 @@ const GerenciarProfessor = ({ handleClose }) => {
           }
         );
 
-        setProfessores(response.data); // Armazenar os dados retornados
+        setProfessores(response.data);
       } catch (error) {
-        console.error("Erro ao buscar professores:", error); // Log de erro
+        console.error("Erro ao buscar professores:", error);
+        Store.addNotification({
+          title: "Erro",
+          message: "Erro ao buscar professores. Tente novamente mais tarde.",
+          type: "danger",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
       }
     };
 
-    fetchProfessores(); // Chama a função para buscar os professores
+    fetchProfessores();
   }, []);
 
-  // Definindo as colunas da tabela
+  const handleDelete = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(
+        `http://localhost:3000/api/v1/administrador/professores/${professorIdToDelete}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setProfessores(
+        professores.filter((professor) => professor._id !== professorIdToDelete)
+      );
+      Store.addNotification({
+        title: "Sucesso!",
+        message: `Professor deletado com sucesso.`,
+        type: "success",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
+      
+      setShowModal(false);
+    } catch (error) {
+      console.error("Erro ao excluir professor:", error);
+      Store.addNotification({
+        title: "Erro",
+        message: "Erro ao excluir professor. Tente novamente.",
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
+    }
+  };
+
+  const confirmDelete = (id) => {
+    setProfessorIdToDelete(id);
+    setShowModal(true);
+  };
+
+  const filteredProfessores = professores.filter(
+    (professor) =>
+      professor.nomeCompleto.toLowerCase().includes(searchText.toLowerCase()) ||
+      professor.email.toLowerCase().includes(searchText.toLowerCase()) ||
+      professor.cpf.includes(searchText)
+  );
+
   const columns = [
     {
       title: "Nome",
@@ -51,8 +125,8 @@ const GerenciarProfessor = ({ handleClose }) => {
       title: "CPF",
       dataIndex: "cpf",
       key: "cpf",
-      width: 150, 
-      align: 'center',
+      width: 150,
+      align: "center",
       render: (cpf) => {
         return (
           <span>
@@ -65,29 +139,29 @@ const GerenciarProfessor = ({ handleClose }) => {
       title: "Situação",
       dataIndex: "status",
       key: "status",
-      width: 100, 
-      align: 'center',
+      width: 100,
+      align: "center",
       render: (status) => {
-        const color = status === "ativo" ? "green" : "red"; // Define a cor com base na situação
+        const color = status === "ativo" ? "green" : "red";
         return (
           <span style={{ color }}>
             {status.charAt(0).toUpperCase() + status.slice(1)}
           </span>
-        ); // Formatação e exibição
+        ); 
       },
     },
     {
       title: "Matrícula",
       dataIndex: "matricula",
       key: "matricula",
-      width: 150, 
-      align: 'center',
+      width: 150,
+      align: "center",
     },
     {
       title: "Ação",
       key: "acao",
-      width: 100, 
-      align: 'center',
+      width: 100,
+      align: "center",
       render: (_, professor) => (
         <div
           style={{
@@ -101,55 +175,16 @@ const GerenciarProfessor = ({ handleClose }) => {
             style={{ marginRight: "10px" }}
           >
             <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />{" "}
-            {/* Ícone de lápis */}
           </Link>
           <FontAwesomeIcon
             icon={faTrash}
             style={{ color: "red", cursor: "pointer" }}
-            onClick={() => confirmDelete(professor._id)} // Abre o modal de confirmação ao clicar no ícone de lixeira
+            onClick={() => confirmDelete(professor._id)} 
           />
         </div>
       ),
     },
   ];
-
-  const handleDelete = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.delete(
-        `http://localhost:3000/api/v1/administrador/professores/${professorIdToDelete}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Envio do token na requisição
-          },
-        }
-      );
-
-      // Atualize a lista de professores após a exclusão
-      setProfessores(
-        professores.filter((professor) => professor._id !== professorIdToDelete)
-      );
-      console.log(
-        `Professor com ID: ${professorIdToDelete} deletado com sucesso.`
-      );
-      setShowModal(false); // Fecha o modal após a confirmação
-    } catch (error) {
-      console.error("Erro ao excluir professor:", error); // Mensagem de erro ao deletar
-    }
-  };
-
-  // Função para abrir o modal de confirmação
-  const confirmDelete = (id) => {
-    setProfessorIdToDelete(id); // Armazena o ID do professor a ser deletado
-    setShowModal(true); // Abre o modal
-  };
-
-  const filteredProfessores = professores.filter(
-    (professor) =>
-      professor.nomeCompleto.toLowerCase().includes(searchText.toLowerCase()) ||
-      professor.email.toLowerCase().includes(searchText.toLowerCase()) ||
-      professor.cpf.includes(searchText)
-  );
 
   return (
     <div
@@ -167,12 +202,23 @@ const GerenciarProfessor = ({ handleClose }) => {
         borderRadius: "10px",
       }}
     >
+      <div
+        style={{
+          position: "fixed",
+          bottom: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 10000,
+        }}
+      >
+        <ReactNotifications />
+      </div>
       <h2 style={{ textAlign: "center" }}>Gerenciar Professores</h2>
 
       <Input
         placeholder="Pesquisar professores..."
         value={searchText}
-        onChange={(e) => setSearchText(e.target.value)} // Atualiza o estado com o texto da pesquisa
+        onChange={(e) => setSearchText(e.target.value)}
         style={{ marginBottom: "16px", width: "300px", alignSelf: "center" }}
       />
 
@@ -203,15 +249,11 @@ const GerenciarProfessor = ({ handleClose }) => {
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
-        centered // Centraliza o modal na tela
+        centered
       >
         <Modal.Header
           closeButton
-          style={{
-            backgroundColor: "#1976d2",
-            color: "white",
-            borderBottom: "none",
-          }}
+          style={{ backgroundColor: "#1976d2", color: "white", borderBottom: "none" }}
         >
           <Modal.Title>Confirmação de Exclusão</Modal.Title>
         </Modal.Header>
@@ -223,7 +265,7 @@ const GerenciarProfessor = ({ handleClose }) => {
             style={{ marginBottom: "1rem" }}
           />
           <p style={{ fontWeight: 500, fontSize: "1.1rem" }}>
-            Tem certeza de que deseja excluir este professor??
+            Tem certeza de que deseja excluir este professor?
           </p>
           <p style={{ color: "gray", fontSize: "0.9rem" }}>
             Essa ação não poderá ser desfeita.
