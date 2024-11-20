@@ -3,7 +3,6 @@ import { Container, Navbar, Nav, Button, Card, Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom";
 import { FaAccessibleIcon, FaStopCircle } from "react-icons/fa"; // Importando ícones
 import FotoHome from "../../assets/fotohome.webp";
-import { BoltRounded } from "@mui/icons-material";
 
 const HomePage = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -30,9 +29,7 @@ const HomePage = () => {
 
   return (
     <div>
-      
       <Navbar
-        
         expand="lg"
         style={{ padding: "10px 20px", backgroundColor: "#1976d2" }}
         aria-label="Navegação principal"
@@ -42,7 +39,7 @@ const HomePage = () => {
           style={{
             fontWeight: "bold",
             color: "#ffffff",
-            fontSize: "2rem", 
+            fontSize: "2rem",
           }}
           aria-label="AcademiTrack - Página inicial"
         >
@@ -50,26 +47,25 @@ const HomePage = () => {
         </Navbar.Brand>
         <Nav className="ml-auto" style={{ marginLeft: "auto" }}>
           <Link to="/login" aria-label="Ir para a página de login">
-          <Button
-  style={{
-    fontWeight:"bold",
-    backgroundColor: "#ffffff",  
-    color: "#1976d2",            
-    borderColor: "#004a9f",     
-    transition: "background-color 0.3s, color 0.3s",  
-  }}
-  onMouseEnter={(e) => {  
-    e.target.style.backgroundColor = "#000000";  
-    e.target.style.color = "#ffffff";  
-  }}
-  onMouseLeave={(e) => {  
-    e.target.style.backgroundColor = "#ffffff";  
-    e.target.style.color = "#1976d2";  
-  }}
->
-  Login
-</Button>
-
+            <Button
+              style={{
+                fontWeight: "bold",
+                backgroundColor: "#ffffff",
+                color: "#1976d2",
+                borderColor: "#004a9f",
+                transition: "background-color 0.3s, color 0.3s",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = "#000000";
+                e.target.style.color = "#ffffff";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = "#ffffff";
+                e.target.style.color = "#1976d2";
+              }}
+            >
+              Login
+            </Button>
           </Link>
         </Nav>
       </Navbar>
@@ -106,7 +102,6 @@ const HomePage = () => {
         {isSpeaking ? <FaStopCircle size={24} /> : <FaAccessibleIcon size={24} />}
       </Button>
 
-      
       <Container style={{ marginTop: "30px", marginBottom: "30px" }}>
         <Row>
           <Col md={4}>
