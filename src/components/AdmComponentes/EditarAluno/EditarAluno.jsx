@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Form } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import InputMask from "react-input-mask";
+import { ReactNotifications, Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 
 const EditarAlunoForm = ({ handleClose }) => {
   const { id } = useParams(); // Obtendo o ID do aluno da URL
@@ -14,11 +16,6 @@ const EditarAlunoForm = ({ handleClose }) => {
   const [telefone, setTelefone] = useState("");
   const [endereco, setEndereco] = useState("");
   const [matricula, setMatricula] = useState("");
-  const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState("");
-
-  const cleanCpf = cpf.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
-  const cleanTelefone = telefone.replace(/[^\d]/g, ""); // Remove tudo que não é dígito
 
   useEffect(() => {
     const fetchAluno = async () => {
@@ -43,27 +40,36 @@ const EditarAlunoForm = ({ handleClose }) => {
         setMatricula(alunoData.matricula);
       } catch (error) {
         console.error("Erro ao buscar aluno:", error);
+        Store.addNotification({
+          title: "Erro",
+          message: "Erro ao buscar dados do aluno.",
+          type: "danger",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
       }
     };
 
-    fetchAluno(); // Chama a função para buscar os dados do aluno
+    fetchAluno();
   }, [id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setMessage("");
-    setMessageType("");
-
     const alunoData = {
       nomeCompleto,
       email,
-      cpf: cleanCpf,
+      cpf: cpf.replace(/[^\d]/g, ""), // Limpar CPF,
       dataNascimento,
-      telefone: cleanTelefone,
+      telefone: telefone.replace(/[^\d]/g, ""), // Limpar telefone
       endereco,
       matricula,
-      // Não incluí a senha neste caso, pois não pode ser alterada
     };
 
     try {
@@ -79,34 +85,56 @@ const EditarAlunoForm = ({ handleClose }) => {
       );
 
       if (response.status === 200) {
-        setMessageType("success");
-        setMessage("Aluno atualizado com sucesso!");
+        Store.addNotification({
+          title: "Sucesso!",
+          message: "Aluno atualizado com sucesso!",
+          type: "success",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
 
         if (typeof handleClose === "function") handleClose();
-
-        // Se for mudar de páginas ou limpar campos, faça aqui
       }
     } catch (err) {
       console.error("Erro ao enviar o formulário:", err);
-      setMessageType("error");
 
+      let errorMessage = "Erro ao atualizar o aluno. Tente novamente.";
       if (err.response) {
         if (err.response.status === 400) {
-          setMessage("Todos os campos obrigatórios devem ser preenchidos.");
+          errorMessage = "Todos os campos obrigatórios devem ser preenchidos.";
         } else if (err.response.status === 401) {
-          setMessage("Não autorizado. Verifique suas credenciais.");
+          errorMessage = "Não autorizado. Verifique suas credenciais.";
         } else if (err.response.status === 500) {
-          setMessage("Erro interno do servidor. Tente novamente mais tarde.");
+          errorMessage =
+            "Erro interno do servidor. Tente novamente mais tarde.";
         } else {
-          setMessage(
-            `Erro inesperado: ${
-              err.response.statusText || "Verifique os dados e tente novamente."
-            }`
-          );
+          errorMessage = `Erro inesperado: ${
+            err.response.statusText || "Verifique os dados e tente novamente."
+          }`;
         }
       } else {
-        setMessage(`Erro inesperado: ${err.message}`);
+        errorMessage = `Erro inesperado: ${err.message}`;
       }
+
+      Store.addNotification({
+        title: "Erro",
+        message: errorMessage,
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
     }
   };
 
@@ -128,16 +156,17 @@ const EditarAlunoForm = ({ handleClose }) => {
     >
       <h2 style={{ textAlign: "center" }}>Editar Aluno</h2>
 
-      {message && (
-        <div
-          style={{
-            color: messageType === "success" ? "green" : "red",
-            textAlign: "center",
-          }}
-        >
-          {message}
-        </div>
-      )}
+      <div
+        style={{
+          position: "fixed",
+          bottom: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 10000,
+        }}
+      >
+        <ReactNotifications />
+      </div>
 
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formNomeAluno">
@@ -192,7 +221,9 @@ const EditarAlunoForm = ({ handleClose }) => {
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
           >
-            {() => <Form.Control placeholder="Digite o telefone do aluno" required />}
+            {() => (
+              <Form.Control placeholder="Digite o telefone do aluno" required />
+            )}
           </InputMask>
         </Form.Group>
 
