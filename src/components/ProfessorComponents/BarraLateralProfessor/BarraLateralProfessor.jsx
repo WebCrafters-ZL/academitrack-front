@@ -9,6 +9,7 @@ import {
   FaUsers,
   FaHome,
   FaUserCog,
+  FaHeadset, // Importando o ícone do headset
 } from "react-icons/fa";
 import fotoPerfil from "../../../assets/professor.jpeg";
 import "../../../styles/index.css";
@@ -118,25 +119,37 @@ const BarraLateralProfessor = () => {
         }}
       >
         <Link to="/professor/faqprofessor" style={{ textDecoration: "none" }}>
-            <FaQuestionCircle
-              style={{
-                color: "white",
-                cursor: "pointer",
-                marginRight: "35px",
-              }}
-              size={30}
-            />
-          </Link>
-        
+          <FaQuestionCircle
+            style={{
+              color: "white",
+              cursor: "pointer",
+              marginRight: "35px",
+            }}
+            size={30}
+          />
+        </Link>
+
         <Link to="/professor/perfilprofessor" style={{ textDecoration: "none" }}>
-        <FaUser
-          style={{
-            color: "white",
-            cursor: "pointer",
-            marginRight: "35px",
-          }}
-          size={30}
-        />
+          <FaUser
+            style={{
+              color: "white",
+              cursor: "pointer",
+              marginRight: "35px",
+            }}
+            size={30}
+          />
+        </Link>
+
+       
+        <Link to="/professor/ajuda" style={{ textDecoration: "none" }}>
+          <FaHeadset
+            style={{
+              color: "white",
+              cursor: "pointer",
+              marginRight: "35px",
+            }}
+            size={30}
+          />
         </Link>
 
         <Button
@@ -168,9 +181,9 @@ const BarraLateralProfessor = () => {
         variant="flush"
         className="custom-list-group"
         style={{
-          maxHeight: "450px", 
-          overflowY: "auto", 
-          backgroundColor: "transparent", 
+          maxHeight: "450px",
+          overflowY: "auto",
+          backgroundColor: "transparent",
         }}
       >
         <ListGroupItem
@@ -191,9 +204,7 @@ const BarraLateralProfessor = () => {
           <FaUsers style={{ marginRight: "10px" }} />
           Pessoas
           <i
-            className={`bi ${
-              openPessoas ? "bi-chevron-up" : "bi-chevron-down"
-            }`}
+            className={`bi ${openPessoas ? "bi-chevron-up" : "bi-chevron-down"}`}
             style={{ float: "right" }}
           ></i>
         </ListGroupItem>
@@ -232,7 +243,7 @@ const BarraLateralProfessor = () => {
             </ListGroupItem>
           </div>
         </Collapse>
-        
+
         <ListGroupItem
           action
           as={Link}
