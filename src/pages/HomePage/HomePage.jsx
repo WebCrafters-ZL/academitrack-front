@@ -78,14 +78,14 @@ const HomePage = () => {
         </Nav>
       </Navbar>
 
-      {/* Seção Parallax */}
+     
       <div
         style={{
           backgroundImage: `url(${FotoHome})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
-          height: "500px",
+          height: "calc(100vh - 60px)",  
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -95,8 +95,11 @@ const HomePage = () => {
         <h1
           style={{
             color: "#ffffff",
-            fontSize: "3rem",
-            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+            fontSize: "4rem", 
+            textShadow: "4px 4px 6px rgba(0, 0, 0, 0.7)", 
+            fontFamily: "'Roboto', sans-serif", 
+            fontWeight: "bold",
+            textAlign: "center",
           }}
         >
           Bem-vindo ao AcademiTrack
@@ -106,7 +109,7 @@ const HomePage = () => {
       {/* Cards sobrepondo o fundo */}
       <Container
         style={{
-          marginTop: "-100px", // Alinha os cards acima do fim do parallax
+          marginTop: "-50px", 
           zIndex: 10,
           position: "relative",
           flex: "1",
