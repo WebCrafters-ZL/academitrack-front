@@ -30,7 +30,9 @@ import GerenciarCurso from "../components/AdmComponentes/GerenciarCurso/Gerencia
 import GerenciarDisciplina from "../components/AdmComponentes/GerenciarDisciplina/GerenciarDisciplina";
 import EditarCursoForm from "../components/AdmComponentes/EditarCursoForm/EditarCursoForm";
 import FeedbackSuporte from "../components/AdmComponentes/FeedbackSuporteAdm/FeedbackSuporteAdm"; 
-import FeedbackSuporteAluno from "../components/AlunoComponents/FeedbackSuporteAluno/FeedbackSuporteAluno"; // Importando FeedbackSuporteAluno
+import FeedbackSuporteAluno from "../components/AlunoComponents/FeedbackSuporteAluno/FeedbackSuporteAluno"; 
+import FeedbackSuporteProfessor from "../components/ProfessorComponents/FeedbackSuporteProfessor/FeedbackSuporteProfessor"; 
+
 
 const AppRoutes = () => {
   return (
@@ -71,7 +73,7 @@ const AppRoutes = () => {
           <Route path="academico/gerenciar-turma/cadastro-turma" element={<CadastroTurmaForm />} />
           <Route path="faqadm" element={<FAQAdm />} />
           <Route path="perfiladm" element={<PerfilAdm />} />
-          <Route path="feedback-suporte" element={<FeedbackSuporte />} /> {/* Nova rota para Feedback e Suporte */}
+          <Route path="ajuda" element={<FeedbackSuporte />} /> 
         </Route>
       </Route>
 
@@ -82,6 +84,7 @@ const AppRoutes = () => {
           <Route path="teste" element={<AlunoNotas />} />
           <Route path="faqprofessor" element={<FaqProfessor />} />
           <Route path="perfilprofessor" element={<PerfilProfessor />} />
+          <Route path="ajuda" element={<FeedbackSuporteProfessor />} /> {/* Nova rota para Feedback e Suporte */}
         </Route>
       </Route>
     </Routes>
