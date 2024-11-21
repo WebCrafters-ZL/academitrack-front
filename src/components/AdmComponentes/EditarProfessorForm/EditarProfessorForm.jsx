@@ -8,7 +8,7 @@ import "react-notifications-component/dist/theme.css";
 import "animate.css";
 
 const EditarProfessor = ({ handleClose }) => {
-  const { id } = useParams(); // Obtendo o ID do professor da URL
+  const { id } = useParams(); 
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
@@ -21,7 +21,7 @@ const EditarProfessor = ({ handleClose }) => {
     const fetchProfessor = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("Token:", token); // Adicione este log para verificar o valor.
+
         const response = await axios.get(
           `http://localhost:3000/api/v1/administrador/professores/${id}`,
           {
@@ -30,7 +30,6 @@ const EditarProfessor = ({ handleClose }) => {
             },
           }
         );
-        console.log("Dados do professor:", response.data);
 
         const professorData = response.data;
         setNomeCompleto(professorData.nomeCompleto);

@@ -50,59 +50,6 @@ const GerenciarCurso = ({ handleClose }) => {
     fetchCursos();
   }, []);
 
-  const columns = [
-    {
-      title: "Código",
-      dataIndex: "codigo",
-      key: "codigo",
-      width: 100, 
-    },
-    {
-      title: "Nome",
-      dataIndex: "nome",
-      key: "nome",
-    },
-    {
-      title: "Categoria",
-      dataIndex: "categoria",
-      key: "categoria",
-    },
-    {
-      title: "Carga Horária",
-      dataIndex: "cargaHoraria",
-      key: "cargaHoraria",
-      align: "center",
-      width: 100,
-    },
-    {
-      title: "Ação",
-      key: "acao",
-      align: "center",
-      width: 50,
-      render: (_, curso) => (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Link
-            to={`/adm-home/cursos/editar/${curso._id}`}
-            style={{ marginRight: "10px" }}
-          >
-            <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
-          </Link>
-          <FontAwesomeIcon
-            icon={faTrash}
-            style={{ color: "red", cursor: "pointer" }}
-            onClick={() => confirmDelete(curso._id)}
-          />
-        </div>
-      ),
-    },
-  ];
-
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -162,13 +109,66 @@ const GerenciarCurso = ({ handleClose }) => {
     const nomeStr = curso.nome?.toLowerCase() || "";
     const codigoStr = curso.codigo?.toString() || "";
     const categoriaStr = curso.categoria?.toLowerCase() || "";
-
     return (
       nomeStr.includes(searchText.toLowerCase()) ||
       codigoStr.includes(searchText) ||
       categoriaStr.includes(searchText.toLowerCase())
     );
   });
+
+  const columns = [
+    {
+      title: "Código",
+      dataIndex: "codigo",
+      key: "codigo",
+      width: 100, 
+    },
+    {
+      title: "Nome",
+      dataIndex: "nome",
+      key: "nome",
+    },
+    {
+      title: "Categoria",
+      dataIndex: "categoria",
+      key: "categoria",
+    },
+    {
+      title: "Carga Horária",
+      dataIndex: "cargaHoraria",
+      key: "cargaHoraria",
+      align: "center",
+      width: 100,
+    },
+    {
+      title: "Ação",
+      key: "acao",
+      align: "center",
+      width: 50,
+      render: (_, curso) => (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Link
+            to={`/administrador/academico/gerenciar-curso/editar-curso/${curso._id}`}
+            style={{ marginRight: "10px" }}
+          >
+            <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
+          </Link>
+          <FontAwesomeIcon
+            icon={faTrash}
+            style={{ color: "red", cursor: "pointer" }}
+            onClick={() => confirmDelete(curso._id)}
+          />
+        </div>
+      ),
+    },
+  ];
+
 
   return (
     <div

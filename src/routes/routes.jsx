@@ -28,6 +28,7 @@ import CadastroTurmaForm from "../components/AdmComponentes/CadastroTurmaForm/Ca
 import EditarProfessor from "../components/AdmComponentes/EditarProfessorForm/EditarProfessorForm";
 import GerenciarCurso from "../components/AdmComponentes/GerenciarCurso/GerenciarCurso";
 import GerenciarDisciplina from "../components/AdmComponentes/GerenciarDisciplina/GerenciarDisciplina";
+import EditarCursoForm from "../components/AdmComponentes/EditarCursoForm/EditarCursoForm";
 
 const AppRoutes = () => {
   return (
@@ -60,6 +61,7 @@ const AppRoutes = () => {
           <Route path="pessoas/gerenciar-professor/editar/:id" element={<EditarProfessor />} /> 
           <Route path="academico/gerenciar-curso" element={<GerenciarCurso /> } />
           <Route path="academico/gerenciar-curso/cadastrar-curso" element={<CadastroCursoForm />} />
+          <Route path="academico/gerenciar-curso/editar-curso/:id" element={<EditarCursoForm />} />
           <Route path="academico/gerenciar-disciplina" element={<GerenciarDisciplina />} />
           <Route path="academico/gerenciar-disciplina/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
           <Route path="academico/gerenciar-turma" element={<GerenciarTurma /> } />
