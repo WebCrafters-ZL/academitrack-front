@@ -9,26 +9,23 @@ import {
   FaUser,
   FaClipboardList,
   FaLaptopCode,
-  FaCode,
-  FaCalculator,
   FaClipboardCheck,
-  FaDatabase,
   FaCogs,
   FaBook,
   FaTable,
   FaCalendar,
-  FaTimes,
+  FaHeadset, // Ícone para Suporte
 } from "react-icons/fa";
 import fotoPerfil from "../../../assets/aluno.jpeg";
-import '../../../styles/index.css';
+import "../../../styles/index.css";
 import axios from "axios";
 
 const BarraLateralAluno = () => {
   const [openDisciplinas, setOpenDisciplinas] = useState(false);
   const [userData, setUserData] = useState({
-      nomeCompleto: "",
-      email: "",
-      matricula: ""
+    nomeCompleto: "",
+    email: "",
+    matricula: "",
   });
 
   useEffect(() => {
@@ -57,6 +54,7 @@ const BarraLateralAluno = () => {
   const handleClickDisciplinas = () => {
     setOpenDisciplinas(!openDisciplinas);
   };
+
   const handleLogout = async () => {
     try {
       await axios.post(
@@ -137,14 +135,14 @@ const BarraLateralAluno = () => {
           round={true}
         />
         <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
-        {userData.nomeCompleto || "Carregando..."}
-      </h3>
-      <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-        RA: {userData.matricula || "Carregando..."}
-      </p>
-      <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-        Email: {userData.email || "Carregando..."}
-      </p>
+          {userData.nomeCompleto || "Carregando..."}
+        </h3>
+        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
+          RA: {userData.matricula || "Carregando..."}
+        </p>
+        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
+          Email: {userData.email || "Carregando..."}
+        </p>
       </div>
 
       <div
@@ -156,25 +154,36 @@ const BarraLateralAluno = () => {
         }}
       >
         <Link to="/aluno/faqaluno" style={{ textDecoration: "none" }}>
-            <FaQuestionCircle
-              style={{
-                color: "white",
-                cursor: "pointer",
-                marginRight: "35px",
-              }}
-              size={30}
-            />
-          </Link>
-        
+          <FaQuestionCircle
+            style={{
+              color: "white",
+              cursor: "pointer",
+              marginRight: "35px",
+            }}
+            size={30}
+          />
+        </Link>
+
         <Link to="/aluno/perfilaluno" style={{ textDecoration: "none" }}>
-        <FaUser
-          style={{
-            color: "white",
-            cursor: "pointer",
-            marginRight: "35px",
-          }}
-          size={30}
-        />
+          <FaUser
+            style={{
+              color: "white",
+              cursor: "pointer",
+              marginRight: "35px",
+            }}
+            size={30}
+          />
+        </Link>
+
+        <Link to="/aluno/feedback-suporte" style={{ textDecoration: "none" }}>
+          <FaHeadset
+            style={{
+              color: "white",
+              cursor: "pointer",
+              marginRight: "35px",
+            }}
+            size={30}
+          />
         </Link>
 
         <Button
@@ -206,9 +215,9 @@ const BarraLateralAluno = () => {
         variant="flush"
         className="custom-list-group"
         style={{
-          maxHeight: "450px", 
-          overflowY: "auto", 
-          backgroundColor: "transparent", 
+          maxHeight: "450px",
+          overflowY: "auto",
+          backgroundColor: "transparent",
         }}
       >
         <ListGroupItem
@@ -263,81 +272,7 @@ const BarraLateralAluno = () => {
               <FaLaptopCode style={{ marginRight: "10px" }} />
               Desenvolvimento web III
             </ListGroupItem>
-            <ListGroupItem
-              action
-              as={Link}
-              to="/disciplinas/materia2"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-                margin: 0,
-                border: "none",
-              }}
-            >
-              <FaCode style={{ marginRight: "10px" }} />
-              Técnicas de Programação II
-            </ListGroupItem>
-            <ListGroupItem
-              action
-              as={Link}
-              to="/disciplinas/materia3"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-                margin: 0,
-                border: "none",
-              }}
-            >
-              <FaCalculator style={{ marginRight: "10px" }} />
-              Algebra Linear
-            </ListGroupItem>
-            <ListGroupItem
-              action
-              as={Link}
-              to="/disciplinas/materia3"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-                margin: 0,
-                border: "none",
-              }}
-            >
-              <FaClipboardCheck style={{ marginRight: "10px" }} />
-              Gestão Ágil de Projetos
-            </ListGroupItem>
-            <ListGroupItem
-              action
-              as={Link}
-              to="/disciplinas/materia3"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-                margin: 0,
-                border: "none",
-              }}
-            >
-              <FaDatabase style={{ marginRight: "10px" }} />
-              Banco de Dados - Não Relacional
-            </ListGroupItem>
-            <ListGroupItem
-              action
-              as={Link}
-              to="/disciplinas/materia3"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-                margin: 0,
-                border: "none",
-              }}
-            >
-              <FaCogs style={{ marginRight: "10px" }} />
-              Engenharia de Software II
-            </ListGroupItem>
+            {/* Adicione outras disciplinas conforme necessário */}
           </div>
         </Collapse>
 
@@ -357,18 +292,38 @@ const BarraLateralAluno = () => {
           to="/notas"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <FaTimes style={{ marginRight: "10px" }} />
+          <FaClipboardCheck style={{ marginRight: "10px" }} />
           Faltas
         </ListGroupItem>
 
         <ListGroupItem
           action
           as={Link}
-          to="/notas"
+          to="/aluno/tarefas"
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaCogs style={{ marginRight: "10px" }} />
+          Tarefas
+        </ListGroupItem>
+
+        <ListGroupItem
+          action
+          as={Link}
+          to="/aluno/calendario"
           style={{ backgroundColor: "transparent", color: "white" }}
         >
           <FaCalendar style={{ marginRight: "10px" }} />
-          Calendario Academico
+          Calendário
+        </ListGroupItem>
+
+        <ListGroupItem
+          action
+          as={Link}
+          to="/aluno/configuracoes"
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaCogs style={{ marginRight: "10px" }} />
+          Configurações
         </ListGroupItem>
       </ListGroup>
     </div>
