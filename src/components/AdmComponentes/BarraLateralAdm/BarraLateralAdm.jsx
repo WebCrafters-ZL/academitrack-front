@@ -10,6 +10,7 @@ import {
   FaUsers,
   FaBook,
   FaUserCog,
+  FaHeadset, // Ícone de Feedback e Suporte
 } from "react-icons/fa";
 import fotoPerfil from "../../../assets/coordenadora.jpeg";
 import "../../../styles/index.css";
@@ -57,16 +58,14 @@ const BarraLateralAdm = () => {
         {},
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Envia o token se estiver utilizando JWT
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      localStorage.removeItem("token"); // Remover token após logout
-      // Redirecionar para a página de login ou inicial
-      window.location.href = "/"; // Certifique-se de ajustar o caminho se necessário
+      localStorage.removeItem("token");
+      window.location.href = "/";
     } catch (error) {
       console.error("Erro ao fazer logout: ", error);
-      // Aqui você poderia exibir uma mensagem de erro para o usuário
     }
   };
 
@@ -148,7 +147,6 @@ const BarraLateralAdm = () => {
           marginBottom: "5px",
         }}
       >
-
         <Link to="/administrador/faqadm" style={{ textDecoration: "none" }}>
           <FaQuestionCircle
             style={{
@@ -166,6 +164,20 @@ const BarraLateralAdm = () => {
               color: "white",
               cursor: "pointer",
               marginRight: "35px",
+            }}
+            size={30}
+          />
+        </Link>
+
+        {/* Ícone de Feedback e Suporte */}
+        <Link
+          to="/administrador/feedback-suporte"
+          style={{ textDecoration: "none", marginRight: "35px" }}
+        >
+          <FaHeadset
+            style={{
+              color: "white",
+              cursor: "pointer",
             }}
             size={30}
           />
@@ -224,8 +236,9 @@ const BarraLateralAdm = () => {
           <FaUsers style={{ marginRight: "10px" }} />
           Pessoas
           <i
-            className={`bi ${openPessoas ? "bi-chevron-up" : "bi-chevron-down"
-              }`}
+            className={`bi ${
+              openPessoas ? "bi-chevron-up" : "bi-chevron-down"
+            }`}
             style={{ float: "right" }}
           ></i>
         </ListGroupItem>
@@ -273,8 +286,9 @@ const BarraLateralAdm = () => {
           <FaBook style={{ marginRight: "10px" }} />
           Acadêmico
           <i
-            className={`bi ${openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"
-              }`}
+            className={`bi ${
+              openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"
+            }`}
             style={{ float: "right" }}
           ></i>
         </ListGroupItem>
@@ -304,27 +318,11 @@ const BarraLateralAdm = () => {
                 backgroundColor: "transparent",
                 color: "white",
                 paddingLeft: "30px",
-                margin: 0,
                 border: "none",
               }}
             >
               <FaUserCog style={{ marginRight: "10px" }} />
               Gerenciar Disciplinas
-            </ListGroupItem>
-            <ListGroupItem
-              action
-              as={Link}
-              to="/administrador/academico/gerenciar-turma"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-                margin: 0,
-                border: "none",
-              }}
-            >
-              <FaUserCog style={{ marginRight: "10px" }} />
-              Gerenciar Turmas
             </ListGroupItem>
           </div>
         </Collapse>
