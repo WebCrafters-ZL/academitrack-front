@@ -111,28 +111,26 @@ const GerenciarDisciplina = ({ handleClose }) => {
       title: "Disciplina",
       dataIndex: "nome",
       key: "nome",
+      width: 300, // Defina uma largura específica para a coluna de disciplina
     },
     {
       title: "Curso",
       dataIndex: "curso.nome",
       key: "curso.nome",
-    },
-    {
-      title: "Descrição",
-      dataIndex: "descricao",
-      key: "descricao",
+      width: 300, // Defina uma largura específica para a coluna de curso
     },
     {
       title: "Carga Horária",
       dataIndex: "cargaHoraria",
       key: "cargaHoraria",
       align: "center",
-      width: 100,
+      width: 50,
     },
     {
       title: "Ação",
       key: "acao",
       align: "center",
+      width: 50,
       render: (_, disciplina) => (
         <div
           style={{

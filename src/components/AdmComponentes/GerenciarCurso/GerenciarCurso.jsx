@@ -78,7 +78,7 @@ const GerenciarCurso = ({ handleClose }) => {
       title: "Ação",
       key: "acao",
       align: "center",
-      width: 100,
+      width: 50,
       render: (_, curso) => (
         <div
           style={{
