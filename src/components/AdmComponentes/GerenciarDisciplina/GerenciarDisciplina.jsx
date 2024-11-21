@@ -29,6 +29,8 @@ const GerenciarDisciplina = ({ handleClose }) => {
         );
 
         setDisciplinas(response.data);
+        console.log("Dados das disciplinas:", response.data);
+
       } catch (error) {
         console.error("Erro ao buscar disciplinas:", error);
         Store.addNotification({

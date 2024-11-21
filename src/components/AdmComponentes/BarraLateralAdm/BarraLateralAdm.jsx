@@ -297,10 +297,25 @@ const BarraLateralAdm = () => {
 
         <Collapse in={openDisciplinas}>
           <div>
+          <ListGroupItem
+              action
+              as={Link}
+              to="/administrador/academico/gerenciar-curso"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaUserCog style={{ marginRight: "10px" }} />
+              Gerenciar Cursos
+            </ListGroupItem>
             <ListGroupItem
               action
               as={Link}
-              to="/administrador/disciplinas/gerenciar-disciplina"
+              to="/administrador/academico/gerenciar-disciplina"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -308,7 +323,23 @@ const BarraLateralAdm = () => {
                 border: "none",
               }}
             >
+              <FaUserCog style={{ marginRight: "10px" }} />
               Gerenciar Disciplinas
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/administrador/academico/gerenciar-turma"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              <FaUserCog style={{ marginRight: "10px" }} />
+              Gerenciar Turmas
             </ListGroupItem>
           </div>
         </Collapse>
