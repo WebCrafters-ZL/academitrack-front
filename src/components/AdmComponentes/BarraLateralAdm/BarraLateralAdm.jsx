@@ -128,7 +128,14 @@ const BarraLateralAdm = () => {
           size="135"
           round={true}
         />
-        <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
+        <h3
+          style={{
+            fontSize: "1.1rem",
+            margin: "5px 0",
+            fontWeight: "bold",
+            color: "#f5f5f5",
+          }}
+        >
           {administrador.nomeCompleto || "Nome do Usuário"}
         </h3>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
@@ -169,7 +176,6 @@ const BarraLateralAdm = () => {
           />
         </Link>
 
-        {/* Ícone de Feedback e Suporte */}
         <Link
           to="/administrador/feedback-suporte"
           style={{ textDecoration: "none", marginRight: "35px" }}
@@ -236,9 +242,7 @@ const BarraLateralAdm = () => {
           <FaUsers style={{ marginRight: "10px" }} />
           Pessoas
           <i
-            className={`bi ${
-              openPessoas ? "bi-chevron-up" : "bi-chevron-down"
-            }`}
+            className={`bi ${openPessoas ? "bi-chevron-up" : "bi-chevron-down"}`}
             style={{ float: "right" }}
           ></i>
         </ListGroupItem>
@@ -286,9 +290,7 @@ const BarraLateralAdm = () => {
           <FaBook style={{ marginRight: "10px" }} />
           Acadêmico
           <i
-            className={`bi ${
-              openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"
-            }`}
+            className={`bi ${openDisciplinas ? "bi-chevron-up" : "bi-chevron-down"}`}
             style={{ float: "right" }}
           ></i>
         </ListGroupItem>
@@ -298,22 +300,7 @@ const BarraLateralAdm = () => {
             <ListGroupItem
               action
               as={Link}
-              to="/administrador/academico/gerenciar-curso"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-                margin: 0,
-                border: "none",
-              }}
-            >
-              <FaUserCog style={{ marginRight: "10px" }} />
-              Gerenciar Cursos
-            </ListGroupItem>
-            <ListGroupItem
-              action
-              as={Link}
-              to="/administrador/academico/gerenciar-disciplina"
+              to="/administrador/disciplinas/gerenciar-disciplina"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -321,7 +308,6 @@ const BarraLateralAdm = () => {
                 border: "none",
               }}
             >
-              <FaUserCog style={{ marginRight: "10px" }} />
               Gerenciar Disciplinas
             </ListGroupItem>
           </div>
