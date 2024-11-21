@@ -114,8 +114,8 @@ const GerenciarDisciplina = ({ handleClose }) => {
     },
     {
       title: "Curso",
-      dataIndex: "curso.nome",
-      key: "curso.nome",
+      dataIndex: "curso",
+      key: "curso",
     },
     {
       title: "Descrição",
@@ -142,7 +142,7 @@ const GerenciarDisciplina = ({ handleClose }) => {
           }}
         >
           <Link
-            to={`/adm-home/disciplinas/editar/${disciplina._id}`}
+            to={`/administrador/disciplinas/editar/${disciplina._id}`}
             style={{ marginRight: "10px" }}
           >
             <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
