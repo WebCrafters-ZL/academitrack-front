@@ -31,6 +31,7 @@ import GerenciarDisciplina from "../components/AdmComponentes/GerenciarDisciplin
 import EditarCursoForm from "../components/AdmComponentes/EditarCursoForm/EditarCursoForm";
 import FeedbackSuporte from "../components/AdmComponentes/FeedbackSuporteAdm/FeedbackSuporteAdm"; 
 import FeedbackSuporteAluno from "../components/AlunoComponents/FeedbackSuporteAluno/FeedbackSuporteAluno"; // Importando FeedbackSuporteAluno
+import EditarDisciplinaForm from "../components/AdmComponentes/EditarDisciplinaForm/EditarDisciplinaForm";
 
 const AppRoutes = () => {
   return (
@@ -67,6 +68,7 @@ const AppRoutes = () => {
           <Route path="academico/gerenciar-curso/editar-curso/:id" element={<EditarCursoForm />} />
           <Route path="academico/gerenciar-disciplina" element={<GerenciarDisciplina />} />
           <Route path="academico/gerenciar-disciplina/cadastrar-disciplina" element={<CadastroDisciplinaForm />} />
+          <Route path="academico/gerenciar-disciplina/editar/:id" element={<EditarDisciplinaForm />} />
           <Route path="academico/gerenciar-turma" element={<GerenciarTurma />} />
           <Route path="academico/gerenciar-turma/cadastro-turma" element={<CadastroTurmaForm />} />
           <Route path="faqadm" element={<FAQAdm />} />

@@ -146,7 +146,7 @@ const GerenciarDisciplina = ({ handleClose }) => {
           }}
         >
           <Link
-            to={`/administrador/academico/gerenciar-disciplina/editar-disciplina/${disciplina._id}`}
+            to={`/administrador/academico/gerenciar-disciplina/editar/${disciplina._id}`}
             style={{ marginRight: "10px" }}
           >
             <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
