@@ -115,9 +115,13 @@ const GerenciarDisciplina = ({ handleClose }) => {
     },
     {
       title: "Curso",
-      dataIndex: "curso.nome",
-      key: "curso.nome",
-      width: 300, // Defina uma largura específica para a coluna de curso
+      dataIndex: "curso",
+      key: "curso",
+    },
+    {
+      title: "Descrição",
+      dataIndex: "descricao",
+      key: "descricao",
     },
     {
       title: "Carga Horária",
@@ -140,7 +144,7 @@ const GerenciarDisciplina = ({ handleClose }) => {
           }}
         >
           <Link
-            to={`/adm-home/disciplinas/editar/${disciplina._id}`}
+            to={`/administrador/disciplinas/editar/${disciplina._id}`}
             style={{ marginRight: "10px" }}
           >
             <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
