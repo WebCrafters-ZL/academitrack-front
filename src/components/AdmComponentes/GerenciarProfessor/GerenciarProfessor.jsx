@@ -171,7 +171,7 @@ const GerenciarProfessor = ({ handleClose }) => {
           }}
         >
           <Link
-            to={`/adm-home/pessoas/gerenciar-professor/editar/${professor._id}`}
+            to={`/administrador/pessoas/gerenciar-professor/editar/${professor._id}`}
             style={{ marginRight: "10px" }}
           >
             <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />{" "}
