@@ -133,7 +133,7 @@ const BarraLateralAdm = () => {
           {administrador.nomeCompleto || "Nome do Usuário"}
         </h3>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          CPF: {administrador.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") || "00000000000".replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}
+          CPF: {administrador.cpf || "00000000000"}
         </p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
           E-mail: {administrador.email || "email@exemplo.com"}
