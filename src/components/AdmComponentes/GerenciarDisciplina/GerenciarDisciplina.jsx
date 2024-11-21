@@ -111,7 +111,7 @@ const GerenciarDisciplina = ({ handleClose }) => {
       title: "Disciplina",
       dataIndex: "nome",
       key: "nome",
-      width: 300, // Defina uma largura específica para a coluna de disciplina
+      width: 300,
     },
     {
       title: "Curso",
@@ -144,7 +144,7 @@ const GerenciarDisciplina = ({ handleClose }) => {
           }}
         >
           <Link
-            to={`/administrador/disciplinas/editar/${disciplina._id}`}
+            to={`/administrador/academico/gerenciar-disciplina/editar-disciplina/${disciplina._id}`}
             style={{ marginRight: "10px" }}
           >
             <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
