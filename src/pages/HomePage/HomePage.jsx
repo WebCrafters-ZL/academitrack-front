@@ -28,7 +28,14 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
+      {/* Navbar */}
       <Navbar
         expand="lg"
         style={{ padding: "10px 20px", backgroundColor: "#1976d2" }}
@@ -43,7 +50,8 @@ const HomePage = () => {
           }}
           aria-label="AcademiTrack - Página inicial"
         >
-          <span style={{ color: "#000000" }}>Academi</span><span style={{ color: "#FFFFFF" }}>Track</span>
+          <span style={{ color: "#000000" }}>Academi</span>
+          <span style={{ color: "#FFFFFF" }}>Track</span>
         </Navbar.Brand>
         <Nav className="ml-auto" style={{ marginLeft: "auto" }}>
           <Link to="/login" aria-label="Ir para a página de login">
@@ -70,39 +78,40 @@ const HomePage = () => {
         </Nav>
       </Navbar>
 
-      {/* Conteúdo Principal */}
-      <Container style={{ marginTop: "30px", textAlign: "center" }}>
-        <img
-          src={FotoHome}
-          alt="Imagem principal de apresentação"
-          style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-        />
-      </Container>
-
-      {/* Botão para ativar/parar narração com ícone de acessibilidade */}
-      <Button
-        variant="primary"
-        onClick={toggleNarration}
+      {/* Seção Parallax */}
+      <div
         style={{
-          position: "fixed",
-          bottom: "20px",
-          right: "20px",
-          backgroundColor: "#1976d2",
-          borderColor: "#145a8b",
-          color: "#fff",
-          zIndex: 1000,
+          backgroundImage: `url(${FotoHome})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+          height: "500px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: "10px",
-          borderRadius: "50%",
+          position: "relative",
         }}
-        aria-label={isSpeaking ? "Parar narração" : "Ativar narração para acessibilidade"}
       >
-        {isSpeaking ? <FaStopCircle size={24} /> : <FaAccessibleIcon size={24} />}
-      </Button>
+        <h1
+          style={{
+            color: "#ffffff",
+            fontSize: "3rem",
+            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+          }}
+        >
+          Bem-vindo ao AcademiTrack
+        </h1>
+      </div>
 
-      <Container style={{ marginTop: "30px", marginBottom: "30px" }}>
+      {/* Cards sobrepondo o fundo */}
+      <Container
+        style={{
+          marginTop: "-100px", // Alinha os cards acima do fim do parallax
+          zIndex: 10,
+          position: "relative",
+          flex: "1",
+        }}
+      >
         <Row>
           <Col md={4}>
             <Card style={{ marginBottom: "20px", border: "1px solid #ccc", backgroundColor: "#e3f2fd" }}>
@@ -142,6 +151,29 @@ const HomePage = () => {
           </Col>
         </Row>
       </Container>
+
+      {/* Botão para ativar/parar narração */}
+      <Button
+        variant="primary"
+        onClick={toggleNarration}
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          backgroundColor: "#1976d2",
+          borderColor: "#145a8b",
+          color: "#fff",
+          zIndex: 1000,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "10px",
+          borderRadius: "50%",
+        }}
+        aria-label={isSpeaking ? "Parar narração" : "Ativar narração para acessibilidade"}
+      >
+        {isSpeaking ? <FaStopCircle size={24} /> : <FaAccessibleIcon size={24} />}
+      </Button>
 
       {/* Rodapé */}
       <footer
