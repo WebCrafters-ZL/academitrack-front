@@ -3,8 +3,8 @@ import axios from "axios";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ReactNotifications, Store } from "react-notifications-component";
-import 'react-notifications-component/dist/theme.css'; 
-import 'animate.css'; 
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 import { Table } from "antd";
 
 const CadastroTurmaForm = ({ handleClose }) => {
@@ -25,9 +25,18 @@ const CadastroTurmaForm = ({ handleClose }) => {
 
         const [disciplinasResponse, professoresResponse, alunosResponse] =
           await Promise.all([
-            axios.get("http://localhost:3000/api/v1/administrador/disciplinas", headers),
-            axios.get("http://localhost:3000/api/v1/administrador/professores", headers),
-            axios.get("http://localhost:3000/api/v1/administrador/alunos", headers),
+            axios.get(
+              "http://localhost:3000/api/v1/administrador/disciplinas",
+              headers
+            ),
+            axios.get(
+              "http://localhost:3000/api/v1/administrador/professores",
+              headers
+            ),
+            axios.get(
+              "http://localhost:3000/api/v1/administrador/alunos",
+              headers
+            ),
           ]);
 
         setDisciplinas(disciplinasResponse.data);
@@ -56,15 +65,39 @@ const CadastroTurmaForm = ({ handleClose }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+    if (
+      !disciplina ||
+      !professor ||
+      selectedAlunos.length === 0 ||
+      !ano ||
+      !semestre
+    ) {
+      Store.addNotification({
+        title: "Erro",
+        message: "Todos os campos obrigatórios devem ser preenchidos.",
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
+      return; // Sai da função se algum campo estiver vazio
+    }
+
     const novaTurma = {
-      disciplina,
-      professor,
-      alunos: selectedAlunos,
+      disciplina, // ID da disciplina selecionada
+      professor, // ID do professor selecionado
+      alunos: selectedAlunos, // IDs dos alunos selecionados
       ano,
       semestre,
     };
-  
+
+    console.log(novaTurma);
+
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
@@ -76,9 +109,9 @@ const CadastroTurmaForm = ({ handleClose }) => {
           },
         }
       );
-  
+
       if (response.status === 201) {
-        Store.addNotification({ 
+        Store.addNotification({
           title: "Sucesso!",
           message: response.data.message || "Turma cadastrada com sucesso!",
           type: "success",
@@ -91,9 +124,10 @@ const CadastroTurmaForm = ({ handleClose }) => {
             onScreen: true,
           },
         });
-  
+
         if (typeof handleClose === "function") handleClose();
-  
+
+        // Reseta os campos do formulário
         setDisciplina("");
         setProfessor("");
         setSelectedAlunos([]);
@@ -103,14 +137,15 @@ const CadastroTurmaForm = ({ handleClose }) => {
     } catch (err) {
       console.error("Erro ao enviar o formulário:", err);
       let errorMessage = "Erro ao cadastrar turma. Tente novamente.";
-  
+
       if (err.response) {
         if (err.response.status === 400) {
           errorMessage = "Todos os campos obrigatórios devem ser preenchidos.";
         } else if (err.response.status === 401) {
           errorMessage = "Não autorizado. Verifique suas credenciais.";
         } else if (err.response.status === 500) {
-          errorMessage = "Erro interno do servidor. Tente novamente mais tarde.";
+          errorMessage =
+            "Erro interno do servidor. Tente novamente mais tarde.";
         } else {
           errorMessage = `Erro inesperado: ${
             err.response.statusText || "Verifique os dados e tente novamente."
@@ -119,8 +154,8 @@ const CadastroTurmaForm = ({ handleClose }) => {
       } else {
         errorMessage = `Erro inesperado: ${err.message}`;
       }
-  
-      Store.addNotification({ 
+
+      Store.addNotification({
         title: "Erro",
         message: errorMessage,
         type: "danger",
@@ -191,7 +226,7 @@ const CadastroTurmaForm = ({ handleClose }) => {
         overflowY: "auto",
         border: "2px solid blue",
         borderRadius: "10px",
-        position: "relative"
+        position: "relative",
       }}
     >
       <h2 style={{ textAlign: "center" }}>Cadastro de Turma</h2>

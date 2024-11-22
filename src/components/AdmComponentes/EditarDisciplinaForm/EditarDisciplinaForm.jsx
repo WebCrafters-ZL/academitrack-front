@@ -133,9 +133,12 @@ const EditarDisciplinaForm = ({ handleClose }) => {
         } else if (err.response.status === 401) {
           errorMessage = "Não autorizado. Verifique suas credenciais.";
         } else if (err.response.status === 500) {
-          errorMessage = "Erro interno do servidor. Tente novamente mais tarde.";
+          errorMessage =
+            "Erro interno do servidor. Tente novamente mais tarde.";
         } else {
-          errorMessage = `Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."}`;
+          errorMessage = `Erro inesperado: ${
+            err.response.statusText || "Verifique os dados e tente novamente."
+          }`;
         }
       } else {
         errorMessage = `Erro inesperado: ${err.message}`;
@@ -192,14 +195,14 @@ const EditarDisciplinaForm = ({ handleClose }) => {
           <Form.Label>Curso</Form.Label>
           <Form.Control
             as="select"
-            value={curso}
+            value={curso} // Deve manter o ID do curso associado
             onChange={(e) => setCurso(e.target.value)}
             required
           >
             <option value="">Selecione um curso</option>
-            {cursos.map((curso, index) => (
-              <option key={index} value={curso._id}>
-                {curso.nome}
+            {cursos.map((cursoItem, index) => (
+              <option key={index} value={cursoItem._id}>
+                {cursoItem.nome}
               </option>
             ))}
           </Form.Control>
@@ -266,4 +269,3 @@ const EditarDisciplinaForm = ({ handleClose }) => {
 };
 
 export default EditarDisciplinaForm;
-
