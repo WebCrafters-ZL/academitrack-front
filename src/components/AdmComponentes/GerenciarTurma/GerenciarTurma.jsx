@@ -8,7 +8,7 @@ import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const GerenciarTurma = ({ handleClose }) => {
   const [turmas, setTurmas] = useState([]);
-  const [searchText, setSearchText] = useState(""); 
+  const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [turmaIdToDelete, setTurmaIdToDelete] = useState(null);
 
@@ -25,13 +25,13 @@ const GerenciarTurma = ({ handleClose }) => {
           }
         );
 
-        setTurmas(response.data); 
+        setTurmas(response.data);
       } catch (error) {
         console.error("Erro ao buscar turmas:", error);
       }
     };
 
-    fetchTurmas(); 
+    fetchTurmas();
     console.log(fetchTurmas());
   }, []);
 
@@ -41,31 +41,31 @@ const GerenciarTurma = ({ handleClose }) => {
       dataIndex: "semestre",
       key: "semestre",
       align: 'center',
-      render: (semestre) => `${semestre}º`, 
-      width: 100, 
+      render: (semestre) => `${semestre}º`,
+      width: 100,
     },
     {
       title: "Disciplina",
-      dataIndex: "disciplina.nome",
-      key: "disciplina.nome",
-    },  
+      dataIndex: "disciplina",
+      key: "disciplina",
+    },
     {
       title: "Professor",
-      dataIndex: "professor.nomeCompleto",
-      key: "professor.nomeCompleto",
+      dataIndex: "professor",
+      key: "professor",
     },
     {
       title: "Ano",
       dataIndex: "ano",
       key: "ano",
       align: 'center',
-      width: 100, 
+      width: 100,
     },
     {
       title: "Ação",
       key: "acao",
       align: 'center',
-      width: 100, 
+      width: 100,
       render: (_, turma) => (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Link to={`/adm-home/turmas/editar/${turma._id}`} style={{ marginRight: "10px" }}>
@@ -76,7 +76,7 @@ const GerenciarTurma = ({ handleClose }) => {
             style={{ color: "red", cursor: "pointer" }}
             onClick={() => confirmDelete(turma._id)}
           />
-          
+
         </div>
       ),
     },
@@ -95,7 +95,7 @@ const GerenciarTurma = ({ handleClose }) => {
       );
 
       setTurmas(turmas.filter((turma) => turma._id !== turmaIdToDelete));
-      setShowModal(false); 
+      setShowModal(false);
     } catch (error) {
       console.error("Erro ao excluir turma:", error);
     }
@@ -111,7 +111,7 @@ const GerenciarTurma = ({ handleClose }) => {
     const professorNome = turma.professor?.nomeCompleto?.toLowerCase() || "";
     const anoStr = turma.ano.toString();
     const semestreStr = turma.semestre.toString();
-    
+
     return (
       disciplinaNome.includes(searchText.toLowerCase()) ||
       professorNome.includes(searchText.toLowerCase()) ||
