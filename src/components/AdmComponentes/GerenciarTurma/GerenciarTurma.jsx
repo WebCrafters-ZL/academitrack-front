@@ -187,7 +187,17 @@ const GerenciarTurma = ({ handleClose }) => {
         borderRadius: "10px",
       }}
     >
-      <ReactNotifications />
+      <div
+        style={{
+          position: "fixed",
+          bottom: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 10000,
+        }}
+      >
+        <ReactNotifications />
+      </div>
       <h2 style={{ textAlign: "center" }}>Gerenciar Turmas</h2>
 
       <Input
