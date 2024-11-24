@@ -5,6 +5,9 @@ import axios from "axios";
 import { Table, Input } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ReactNotifications, Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 
 const GerenciarTurma = ({ handleClose }) => {
   const [turmas, setTurmas] = useState([]);
@@ -32,8 +35,74 @@ const GerenciarTurma = ({ handleClose }) => {
     };
 
     fetchTurmas();
-    console.log(fetchTurmas());
   }, []);
+
+  const handleDelete = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(
+        `http://localhost:3000/api/v1/administrador/turmas/${turmaIdToDelete}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setTurmas(
+        turmas.filter((turma) => turma._id !== turmaIdToDelete)
+      );
+      Store.addNotification({
+        title: "Sucesso!",
+        message: `Professor deletado com sucesso.`,
+        type: "success",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
+
+      setShowModal(false);
+    } catch (error) {
+      console.error("Erro ao excluir turma:", error);
+      Store.addNotification({
+        title: "Erro",
+        message: "Erro ao excluir turma. Tente novamente.",
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
+    }
+  };
+
+  const confirmDelete = (id) => {
+    setTurmaIdToDelete(id);
+    setShowModal(true);
+  };
+
+  const filteredTurmas = turmas.filter((turma) => {
+    const disciplinaNome = turma.disciplina?.nome?.toLowerCase() || "";
+    const professorNome = turma.professor?.nomeCompleto?.toLowerCase() || "";
+    const anoStr = turma.ano.toString();
+    const semestreStr = turma.semestre.toString();
+
+    return (
+      disciplinaNome.includes(searchText.toLowerCase()) ||
+      professorNome.includes(searchText.toLowerCase()) ||
+      anoStr.includes(searchText) ||
+      semestreStr.includes(searchText)
+    );
+  });
 
   const columns = [
     {
@@ -82,44 +151,6 @@ const GerenciarTurma = ({ handleClose }) => {
     },
   ];
 
-  const handleDelete = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.delete(
-        `http://localhost:3000/api/v1/administrador/turmas/${turmaIdToDelete}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setTurmas(turmas.filter((turma) => turma._id !== turmaIdToDelete));
-      setShowModal(false);
-    } catch (error) {
-      console.error("Erro ao excluir turma:", error);
-    }
-  };
-
-  const confirmDelete = (id) => {
-    setTurmaIdToDelete(id);
-    setShowModal(true);
-  };
-
-  const filteredTurmas = turmas.filter((turma) => {
-    const disciplinaNome = turma.disciplina?.nome?.toLowerCase() || "";
-    const professorNome = turma.professor?.nomeCompleto?.toLowerCase() || "";
-    const anoStr = turma.ano.toString();
-    const semestreStr = turma.semestre.toString();
-
-    return (
-      disciplinaNome.includes(searchText.toLowerCase()) ||
-      professorNome.includes(searchText.toLowerCase()) ||
-      anoStr.includes(searchText) ||
-      semestreStr.includes(searchText)
-    );
-  });
-
   return (
     <div
       style={{
@@ -136,6 +167,7 @@ const GerenciarTurma = ({ handleClose }) => {
         borderRadius: "10px",
       }}
     >
+      <ReactNotifications />
       <h2 style={{ textAlign: "center" }}>Gerenciar Turmas</h2>
 
       <Input
