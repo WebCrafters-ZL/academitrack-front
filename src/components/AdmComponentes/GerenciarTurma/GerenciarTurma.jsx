@@ -48,7 +48,6 @@ const GerenciarTurma = ({ handleClose }) => {
     };
 
     fetchTurmas();
-    console.log(fetchTurmas());
   }, []);
 
   const handleDelete = async () => {
@@ -63,13 +62,12 @@ const GerenciarTurma = ({ handleClose }) => {
         }
       );
 
-      setTurmas(turmas.filter((turma) => turma._id !== turmaIdToDelete));
-      setShowModal(false);
-      
-      // Notificação de sucesso
+      setTurmas(
+        turmas.filter((turma) => turma._id !== turmaIdToDelete)
+      );
       Store.addNotification({
         title: "Sucesso!",
-        message: "Turma excluída com sucesso!",
+        message: `Professor deletado com sucesso.`,
         type: "success",
         insert: "bottom",
         container: "bottom-center",
@@ -80,13 +78,12 @@ const GerenciarTurma = ({ handleClose }) => {
           onScreen: true,
         },
       });
+      setShowModal(false);
     } catch (error) {
-      console.error("Erro ao excluir curso:", error);
-
-      // Notificação de erro
+      console.error("Erro ao excluir turma:", error);
       Store.addNotification({
         title: "Erro",
-        message: "Erro ao excluir turma.",
+        message: "Erro ao excluir turma. Tente novamente.",
         type: "danger",
         insert: "bottom",
         container: "bottom-center",
@@ -174,8 +171,6 @@ const GerenciarTurma = ({ handleClose }) => {
     },
   ];
 
- 
-
   return (
     <div
       style={{
@@ -192,17 +187,7 @@ const GerenciarTurma = ({ handleClose }) => {
         borderRadius: "10px",
       }}
     >
-      <div
-        style={{
-          position: "fixed",
-          bottom: "10px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 10000,
-        }}
-      >
-        <ReactNotifications />
-      </div>
+      <ReactNotifications />
       <h2 style={{ textAlign: "center" }}>Gerenciar Turmas</h2>
 
       <Input
