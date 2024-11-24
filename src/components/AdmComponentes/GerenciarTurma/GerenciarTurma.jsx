@@ -5,6 +5,9 @@ import axios from "axios";
 import { Table, Input } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ReactNotifications, Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 
 const GerenciarTurma = ({ handleClose }) => {
   const [turmas, setTurmas] = useState([]);
@@ -28,59 +31,25 @@ const GerenciarTurma = ({ handleClose }) => {
         setTurmas(response.data);
       } catch (error) {
         console.error("Erro ao buscar turmas:", error);
+        Store.addNotification({
+          title: "Erro",
+          message: "Erro ao buscar turmas.",
+          type: "danger",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
       }
     };
 
     fetchTurmas();
     console.log(fetchTurmas());
   }, []);
-
-  const columns = [
-    {
-      title: "Semestre",
-      dataIndex: "semestre",
-      key: "semestre",
-      align: 'center',
-      render: (semestre) => `${semestre}º`,
-      width: 100,
-    },
-    {
-      title: "Disciplina",
-      dataIndex: "disciplina",
-      key: "disciplina",
-    },
-    {
-      title: "Professor",
-      dataIndex: "professor",
-      key: "professor",
-    },
-    {
-      title: "Ano",
-      dataIndex: "ano",
-      key: "ano",
-      align: 'center',
-      width: 100,
-    },
-    {
-      title: "Ação",
-      key: "acao",
-      align: 'center',
-      width: 100,
-      render: (_, turma) => (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <Link to={`/adm-home/turmas/editar/${turma._id}`} style={{ marginRight: "10px" }}>
-            <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
-          </Link>
-          <FontAwesomeIcon
-            icon={faTrash}
-            style={{ color: "red", cursor: "pointer" }}
-            onClick={() => confirmDelete(turma._id)}
-          />
-
-        </div>
-      ),
-    },
-  ];
 
   const handleDelete = async () => {
     try {
@@ -96,8 +65,38 @@ const GerenciarTurma = ({ handleClose }) => {
 
       setTurmas(turmas.filter((turma) => turma._id !== turmaIdToDelete));
       setShowModal(false);
+      
+      // Notificação de sucesso
+      Store.addNotification({
+        title: "Sucesso!",
+        message: "Turma excluída com sucesso!",
+        type: "success",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
     } catch (error) {
-      console.error("Erro ao excluir turma:", error);
+      console.error("Erro ao excluir curso:", error);
+
+      // Notificação de erro
+      Store.addNotification({
+        title: "Erro",
+        message: "Erro ao excluir turma.",
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
     }
   };
 
@@ -120,6 +119,63 @@ const GerenciarTurma = ({ handleClose }) => {
     );
   });
 
+  const columns = [
+    {
+      title: "Semestre",
+      dataIndex: "semestre",
+      key: "semestre",
+      align: "center",
+      render: (semestre) => `${semestre}º`,
+      width: 100,
+    },
+    {
+      title: "Disciplina",
+      dataIndex: "disciplina",
+      key: "disciplina",
+    },
+    {
+      title: "Professor",
+      dataIndex: "professor",
+      key: "professor",
+    },
+    {
+      title: "Ano",
+      dataIndex: "ano",
+      key: "ano",
+      align: "center",
+      width: 100,
+    },
+    {
+      title: "Ação",
+      key: "acao",
+      align: "center",
+      width: 100,
+      render: (_, turma) => (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Link
+            to={`/administrador/academico/gerenciar-turma/editar/${turma._id}`}
+            style={{ marginRight: "10px" }}
+          >
+            <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
+          </Link>
+          <FontAwesomeIcon
+            icon={faTrash}
+            style={{ color: "red", cursor: "pointer" }}
+            onClick={() => confirmDelete(turma._id)}
+          />
+        </div>
+      ),
+    },
+  ];
+
+ 
+
   return (
     <div
       style={{
@@ -136,6 +192,17 @@ const GerenciarTurma = ({ handleClose }) => {
         borderRadius: "10px",
       }}
     >
+      <div
+        style={{
+          position: "fixed",
+          bottom: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 10000,
+        }}
+      >
+        <ReactNotifications />
+      </div>
       <h2 style={{ textAlign: "center" }}>Gerenciar Turmas</h2>
 
       <Input
@@ -169,14 +236,14 @@ const GerenciarTurma = ({ handleClose }) => {
         </Button>
       </div>
 
-      <Modal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        centered
-      >
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header
           closeButton
-          style={{ backgroundColor: "#1976d2", color: "white", borderBottom: "none" }}
+          style={{
+            backgroundColor: "#1976d2",
+            color: "white",
+            borderBottom: "none",
+          }}
         >
           <Modal.Title>Confirmação de Exclusão</Modal.Title>
         </Modal.Header>
