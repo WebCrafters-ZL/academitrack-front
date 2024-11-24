@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Avatar from "react-avatar";
@@ -16,11 +16,34 @@ import "../../../styles/index.css";
 import axios from "axios";
 
 const BarraLateralProfessor = () => {
+  const [professor, setProfessor] = useState({});
   const [openPessoas, setOpenPessoas] = useState(false);
 
   const handleClickPessoas = () => {
     setOpenPessoas(!openPessoas);
   };
+
+  useEffect(() => {
+    const fetchProfessor = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/professor/perfil",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setProfessor(response.data);
+      } catch (error) {
+        console.error("Erro ao retornar dados do Professor:", error);
+      }
+    };
+
+    fetchProfessor();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -94,19 +117,28 @@ const BarraLateralProfessor = () => {
           border: "none",
         }}
       />
-      <div style={{ textAlign: "center", marginBottom: "15px" }}>
+         <div style={{ textAlign: "center", marginBottom: "15px" }}>
         <Avatar
-          alt="Mario Sergio de Paula"
+          alt={professor.nomeCompleto || "Usuário"}
           src={fotoPerfil}
           size="135"
           round={true}
         />
-        <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
-          Mario Sergio de Paula
+        <h3
+          style={{
+            fontSize: "1.1rem",
+            margin: "5px 0",
+            fontWeight: "bold",
+            color: "#f5f5f5",
+          }}
+        >
+          {professor.nomeCompleto || "Nome do Usuário"}
         </h3>
-        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>RP: 0000000059</p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          Email: mario.paula@fatec.sp.gov.br
+          CPF: {professor.cpf || "00000000000"}
+        </p>
+        <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
+          E-mail: {professor.email || "email@exemplo.com"}
         </p>
       </div>
 
