@@ -31,6 +31,19 @@ const GerenciarTurma = ({ handleClose }) => {
         setTurmas(response.data);
       } catch (error) {
         console.error("Erro ao buscar turmas:", error);
+        Store.addNotification({
+          title: "Erro",
+          message: "Erro ao buscar turmas.",
+          type: "danger",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
       }
     };
 
@@ -65,7 +78,6 @@ const GerenciarTurma = ({ handleClose }) => {
           onScreen: true,
         },
       });
-
       setShowModal(false);
     } catch (error) {
       console.error("Erro ao excluir turma:", error);
@@ -109,7 +121,7 @@ const GerenciarTurma = ({ handleClose }) => {
       title: "Semestre",
       dataIndex: "semestre",
       key: "semestre",
-      align: 'center',
+      align: "center",
       render: (semestre) => `${semestre}º`,
       width: 100,
     },
@@ -127,17 +139,26 @@ const GerenciarTurma = ({ handleClose }) => {
       title: "Ano",
       dataIndex: "ano",
       key: "ano",
-      align: 'center',
+      align: "center",
       width: 100,
     },
     {
       title: "Ação",
       key: "acao",
-      align: 'center',
+      align: "center",
       width: 100,
       render: (_, turma) => (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <Link to={`/adm-home/turmas/editar/${turma._id}`} style={{ marginRight: "10px" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Link
+            to={`/administrador/academico/gerenciar-turma/editar/${turma._id}`}
+            style={{ marginRight: "10px" }}
+          >
             <FontAwesomeIcon icon={faPen} style={{ color: "blue" }} />
           </Link>
           <FontAwesomeIcon
@@ -145,7 +166,6 @@ const GerenciarTurma = ({ handleClose }) => {
             style={{ color: "red", cursor: "pointer" }}
             onClick={() => confirmDelete(turma._id)}
           />
-
         </div>
       ),
     },
@@ -201,14 +221,14 @@ const GerenciarTurma = ({ handleClose }) => {
         </Button>
       </div>
 
-      <Modal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        centered
-      >
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header
           closeButton
-          style={{ backgroundColor: "#1976d2", color: "white", borderBottom: "none" }}
+          style={{
+            backgroundColor: "#1976d2",
+            color: "white",
+            borderBottom: "none",
+          }}
         >
           <Modal.Title>Confirmação de Exclusão</Modal.Title>
         </Modal.Header>
