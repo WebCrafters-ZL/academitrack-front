@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { ReactNotifications, Store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import "animate.css";
 import { Table } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const EditarTurmaForm = ({ handleClose }) => {
   const { id } = useParams();
@@ -17,6 +19,8 @@ const EditarTurmaForm = ({ handleClose }) => {
   const [disciplinas, setDisciplinas] = useState([]);
   const [professores, setProfessores] = useState([]);
   const [todosAlunos, setTodosAlunos] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [alunoIdToDelete, setAlunoIdToDelete] = useState(null); // ID do aluno a ser removido
 
   useEffect(() => {
     const fetchData = async () => {
@@ -123,9 +127,9 @@ const EditarTurmaForm = ({ handleClose }) => {
 
     const turmaData = {
       disciplina_id: disciplina, // ID da disciplina selecionada
-      professor_id: professor,   // ID do professor selecionado
-      alunos_id: selectedAlunos,  // IDs dos alunos selecionados
-      ano: Number(ano),          // Converte para número
+      professor_id: professor, // ID do professor selecionado
+      alunos_id: selectedAlunos, // IDs dos alunos selecionados
+      ano: Number(ano), // Converte para número
       semestre: Number(semestre), // Converte para número
     };
 
@@ -201,36 +205,107 @@ const EditarTurmaForm = ({ handleClose }) => {
     }
   };
 
-  // Definição das colunas da tabela
-  const columns = [
-    {
-      title: "Nome Completo",
-      dataIndex: "nomeCompleto",
-      key: "nomeCompleto",
-    },
-    {
-      title: "CPF",
-      dataIndex: "cpf",
-      key: "cpf",
-    },
-    {
-      title: "Matrícula",
-      dataIndex: "matricula",
-      key: "matricula",
-    },
-  ];
+const columns = [
+  {
+    title: "Nome Completo",
+    dataIndex: "nomeCompleto",
+    key: "nomeCompleto",
+  },
+  {
+    title: "CPF",
+    dataIndex: "cpf",
+    key: "cpf",
+  },
+  {
+    title: "Matrícula",
+    dataIndex: "matricula",
+    key: "matricula",
+  },
+  {
+    title: "Ação",
+    key: "acao",
+    align: "center",
+    render: (_, aluno) => (
+      <FontAwesomeIcon
+        icon={faTrash}
+        style={{ color: "red", cursor: "pointer" }}
+        onClick={() => {
+          setAlunoIdToDelete(aluno._id);
+          setShowModal(true); // Abre o modal de confirmação de exclusão
+        }}
+      />
+    ),
+  },
+];
 
-  // Configuração da seleção de linhas da tabela
-  const rowSelection = {
-    selectedRowKeys: selectedAlunos,
-    onChange: (selectedRowKeys) => {
-      if (selectedRowKeys.length <= 40) {
-        setSelectedAlunos(selectedRowKeys);
-      } else {
+// Configuração da seleção de alunos
+const rowSelection = {
+  selectedRowKeys: selectedAlunos,
+  onChange: (selectedRowKeys) => {
+    if (selectedRowKeys.length <= 40) {
+      setSelectedAlunos(selectedRowKeys);
+    } else {
+      Store.addNotification({
+        title: "Aviso",
+        message: "Você só pode selecionar até 40 alunos.",
+        type: "warning",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
+    }
+  },
+};
+
+    // Função para lidar com a exclusão
+    const handleDeleteConfirmation = async () => {
+      if (!alunoIdToDelete) {
+        console.error("O ID do aluno a ser removido não foi fornecido.");
+        return; // Sai da função se o ID for inválido
+      }
+  
+      try {
+        const token = localStorage.getItem("token");
+        await axios.delete(
+          `http://localhost:3000/api/v1/administrador/turmas/${id}/remover-aluno`, // URL correta
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            data: { alunoId: alunoIdToDelete }, // Passa o ID do aluno a ser removido no corpo
+          }
+        );
+  
+        // Atualiza a visualização local após a remoção do aluno
+        setSelectedAlunos(selectedAlunos.filter((id) => id !== alunoIdToDelete));
+  
         Store.addNotification({
-          title: "Aviso",
-          message: "Você só pode selecionar até 40 alunos.",
-          type: "warning",
+          title: "Sucesso!",
+          message: "Aluno removido com sucesso!",
+          type: "success",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
+  
+        setShowModal(false); // Fecha o modal após a exclusão
+        setAlunoIdToDelete(null); // Reseta o ID do aluno a ser excluído
+      } catch (error) {
+        console.error("Erro ao remover aluno:", error);
+        Store.addNotification({
+          title: "Erro",
+          message: "Erro ao remover aluno.",
+          type: "danger",
           insert: "bottom",
           container: "bottom-center",
           animationIn: ["animate__animated", "animate__fadeIn"],
@@ -241,78 +316,77 @@ const EditarTurmaForm = ({ handleClose }) => {
           },
         });
       }
-    },
-  };
-
-  return (
-    <div
-      style={{
-        marginTop: "70px",
-        marginLeft: "315px",
-        padding: "20px",
-        maxWidth: "calc(100% - 320px)",
-        height: "calc(100vh - 75px)",
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-        overflowY: "auto",
-        border: "2px solid blue",
-        borderRadius: "10px",
-      }}
-    >
-      <h2 style={{ textAlign: "center" }}>Editar Turma</h2>
-
+    };
+  
+    return (
       <div
         style={{
-          position: "fixed",
-          bottom: "10px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 10000,
+          marginTop: "70px",
+          marginLeft: "315px",
+          padding: "20px",
+          maxWidth: "calc(100% - 320px)",
+          height: "calc(100vh - 75px)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+          overflowY: "auto",
+          border: "2px solid blue",
+          borderRadius: "10px",
         }}
       >
-        <ReactNotifications />
-      </div>
-
-      <Form onSubmit={handleSubmit}>
-        <Row>
-          <Col sm={8}>
-            <Form.Group controlId="formDisciplina">
-              <Form.Label>Disciplina</Form.Label>
-              <Form.Control
-                as="select"
-                value={disciplina}
-                onChange={(e) => setDisciplina(e.target.value)}
-                required
-              >
-                <option value="">Selecione uma disciplina</option>
-                {disciplinas.map((d) => (
-                  <option key={d._id} value={d._id}>
-                    {d.nome}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId="formProfessor">
-              <Form.Label>Professor</Form.Label>
-              <Form.Control
-                as="select"
-                value={professor}
-                onChange={(e) => setProfessor(e.target.value)}
-                required
-              >
-                <option value="">Selecione um professor</option>
-                {professores.map((p) => (
-                  <option key={p._id} value={p._id}>
-                    {p.nomeCompleto}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-          </Col>
-
-          <Col sm={4}>
+        <h2 style={{ textAlign: "center" }}>Editar Turma</h2>
+  
+        <div
+          style={{
+            position: "fixed",
+            bottom: "10px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 10000,
+          }}
+        >
+          <ReactNotifications />
+        </div>
+  
+        <Form onSubmit={handleSubmit}>
+          <Row>
+            <Col sm={8}>
+              <Form.Group controlId="formDisciplina">
+                <Form.Label>Disciplina</Form.Label>
+                <Form.Control
+                  as="select"
+                  value={disciplina}
+                  onChange={(e) => setDisciplina(e.target.value)}
+                  required
+                >
+                  <option value="">Selecione uma disciplina</option>
+                  {disciplinas.map((d) => (
+                    <option key={d._id} value={d._id}>
+                      {d.nome}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+  
+              <Form.Group controlId="formProfessor">
+                <Form.Label>Professor</Form.Label>
+                <Form.Control
+                  as="select"
+                  value={professor}
+                  onChange={(e) => setProfessor(e.target.value)}
+                  required
+                >
+                  <option value="">Selecione um professor</option>
+                  {professores.map((p) => (
+                    <option key={p._id} value={p._id}>
+                      {p.nomeCompleto}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+            </Col>
+  
+            <Col sm={4}>
             <Form.Group controlId="formAno">
               <Form.Label>Ano</Form.Label>
               <Form.Control
@@ -347,7 +421,7 @@ const EditarTurmaForm = ({ handleClose }) => {
         <Form.Group controlId="formAlunos" style={{ marginTop: "20px" }}>
           <Form.Label>Selecione Alunos (max: 40)</Form.Label>
           <Table
-            rowSelection={rowSelection} // Certifique-se que rowSelection está definido corretamente
+            rowSelection={rowSelection} // Configuração para a seleção de alunos
             columns={columns}
             dataSource={todosAlunos.map((a) => ({ ...a, key: a._id }))}
             pagination={{ pageSize: 5 }}
@@ -370,8 +444,51 @@ const EditarTurmaForm = ({ handleClose }) => {
           </Button>
         </div>
       </Form>
+
+      {/* Modal de confirmação de exclusão de aluno */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+    <Modal.Header
+        closeButton
+        style={{
+            backgroundColor: "#1976d2",
+            color: "white",
+            borderBottom: "none",
+        }}
+    >
+        <Modal.Title>Confirmação de Exclusão</Modal.Title>
+    </Modal.Header>
+    <Modal.Body style={{ textAlign: "center", padding: "2rem" }}>
+        <FontAwesomeIcon
+            icon={faTrash}
+            size="3x"
+            color="#ff5252"
+            style={{ marginBottom: "1rem" }}
+        />
+        <p style={{ fontWeight: 500, fontSize: "1.1rem" }}>
+            Tem certeza de que deseja excluir este aluno?
+        </p>
+        <p style={{ color: "gray", fontSize: "0.9rem" }}>
+            Essa ação não poderá ser desfeita.
+        </p>
+    </Modal.Body>
+    <Modal.Footer style={{ justifyContent: "center", borderTop: "none" }}>
+        <Button
+            variant="outline-secondary"
+            onClick={() => setShowModal(false)}
+            style={{ marginRight: "1rem" }}
+        >
+            Cancelar
+        </Button>
+        <Button variant="danger" onClick={handleDeleteConfirmation}>
+            Excluir
+        </Button>
+    </Modal.Footer>
+</Modal>
+
     </div>
   );
 };
 
 export default EditarTurmaForm;
+
+  
