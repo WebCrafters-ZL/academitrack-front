@@ -6,7 +6,6 @@ import {
   FaSignOutAlt,
   FaQuestionCircle,
   FaUser,
-  FaUsers,
   FaHome,
   FaUserCog,
   FaHeadset, // Importando o ícone do headset
@@ -17,10 +16,10 @@ import axios from "axios";
 
 const BarraLateralProfessor = () => {
   const [professor, setProfessor] = useState({});
-  const [openPessoas, setOpenPessoas] = useState(false);
+  const [openTurmas, setOpenTurmas] = useState(false);
 
-  const handleClickPessoas = () => {
-    setOpenPessoas(!openPessoas);
+  const handleClickTurmas = () => {
+    setOpenTurmas(!openTurmas);
   };
 
   useEffect(() => {
@@ -230,23 +229,23 @@ const BarraLateralProfessor = () => {
 
         <ListGroupItem
           action
-          onClick={handleClickPessoas}
+          onClick={handleClickTurmas}
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <FaUsers style={{ marginRight: "10px" }} />
-          Pessoas
+          <FaUserCog style={{ marginRight: "10px" }} />
+          Gerenciar Turmas
           <i
-            className={`bi ${openPessoas ? "bi-chevron-up" : "bi-chevron-down"}`}
+            className={`bi ${openTurmas ? "bi-chevron-up" : "bi-chevron-down"}`}
             style={{ float: "right" }}
           ></i>
         </ListGroupItem>
 
-        <Collapse in={openPessoas}>
+        <Collapse in={openTurmas}>
           <div>
             <ListGroupItem
               action
               as={Link}
-              to="/adm/pessoas/cadastrar-aluno"
+              to="/professor/gerenciar-turmas/turmas"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -256,35 +255,10 @@ const BarraLateralProfessor = () => {
               }}
             >
               <FaUserCog style={{ marginRight: "10px" }} />
-              Gerenciar Alunos
-            </ListGroupItem>
-            <ListGroupItem
-              action
-              as={Link}
-              to="/adm/pessoas/cadastrar-professor"
-              style={{
-                backgroundColor: "transparent",
-                color: "white",
-                paddingLeft: "30px",
-                margin: 0,
-                border: "none",
-              }}
-            >
-              <FaUserCog style={{ marginRight: "10px" }} />
-              Gerenciar Professores
+              Turmas
             </ListGroupItem>
           </div>
         </Collapse>
-
-        <ListGroupItem
-          action
-          as={Link}
-          to="/professor/teste"
-          style={{ backgroundColor: "transparent", color: "white" }}
-        >
-          <FaHome style={{ marginRight: "10px" }} />
-          Teste
-        </ListGroupItem>
       </ListGroup>
     </div>
   );

@@ -34,6 +34,7 @@ import FeedbackSuporteAluno from "../components/AlunoComponents/FeedbackSuporteA
 import EditarDisciplinaForm from "../components/AdmComponentes/EditarDisciplinaForm/EditarDisciplinaForm";
 import FeedbackSuporteProfessor from "../components/ProfessorComponents/FeedbackSuporteProfessor/FeedbackSuporteProfessor"; 
 import EditarTurmaForm from "../components/AdmComponentes/EditarTurmaForm/EditarTurmaForm";
+import Turmas from "../components/ProfessorComponents/Turmas/Turmas";
 
 
 const AppRoutes = () => {
@@ -89,6 +90,7 @@ const AppRoutes = () => {
           <Route path="faqprofessor" element={<FaqProfessor />} />
           <Route path="perfilprofessor" element={<PerfilProfessor />} />
           <Route path="ajuda" element={<FeedbackSuporteProfessor />} /> {/* Nova rota para Feedback e Suporte */}
+          <Route path="gerenciar-turmas/turmas" element={<Turmas />} />
         </Route>
       </Route>
     </Routes>

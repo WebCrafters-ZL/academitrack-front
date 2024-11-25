@@ -67,7 +67,7 @@ const GerenciarTurma = ({ handleClose }) => {
       );
       Store.addNotification({
         title: "Sucesso!",
-        message: `Professor deletado com sucesso.`,
+        message: `Turma deletada com sucesso.`,
         type: "success",
         insert: "bottom",
         container: "bottom-center",
