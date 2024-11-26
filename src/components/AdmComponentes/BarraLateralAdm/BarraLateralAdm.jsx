@@ -176,19 +176,6 @@ const BarraLateralAdm = () => {
           />
         </Link>
 
-        <Link
-          to="/administrador/feedback-suporte"
-          style={{ textDecoration: "none", marginRight: "35px" }}
-        >
-          <FaHeadset
-            style={{
-              color: "white",
-              cursor: "pointer",
-            }}
-            size={30}
-          />
-        </Link>
-
         <Button
           variant="danger"
           size="sm"
