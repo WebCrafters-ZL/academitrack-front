@@ -7,7 +7,8 @@ import {
   FaQuestionCircle,
   FaUser,
   FaHome,
-  FaUserCog,
+  FaChalkboardTeacher, 
+  FaCalendarCheck, 
   FaHeadset,
 } from "react-icons/fa";
 import fotoPerfil from "../../../assets/professor.jpeg";
@@ -16,10 +17,10 @@ import axios from "axios";
 
 const BarraLateralProfessor = () => {
   const [professor, setProfessor] = useState({});
-  const [openTurmas, setOpenTurmas] = useState(false);
+  const [openLancar, setOpenLancar] = useState(false);
 
-  const handleClickTurmas = () => {
-    setOpenTurmas(!openTurmas);
+  const handleClickLancar = () => {
+    setOpenLancar(!openLancar);
   };
 
   useEffect(() => {
@@ -231,23 +232,23 @@ const BarraLateralProfessor = () => {
 
         <ListGroupItem
           action
-          onClick={handleClickTurmas}
+          onClick={handleClickLancar}
           style={{ backgroundColor: "transparent", color: "white" }}
         >
-          <FaUserCog style={{ marginRight: "10px" }} />
-          Gerenciar Turmas
+          <FaChalkboardTeacher style={{ marginRight: "10px" }} />
+          Acadêmico
           <i
-            className={`bi ${openTurmas ? "bi-chevron-up" : "bi-chevron-down"}`}
+            className={`bi ${openLancar ? "bi-chevron-up" : "bi-chevron-down"}`}
             style={{ float: "right" }}
           ></i>
         </ListGroupItem>
 
-        <Collapse in={openTurmas}>
+        <Collapse in={openLancar}>
           <div>
             <ListGroupItem
               action
               as={Link}
-              to="/professor/gerenciar-turmas/turmas"
+              to="/professor/lancar-notas"
               style={{
                 backgroundColor: "transparent",
                 color: "white",
@@ -256,8 +257,21 @@ const BarraLateralProfessor = () => {
                 border: "none",
               }}
             >
-              <FaUserCog style={{ marginRight: "10px" }} />
-              Turmas
+              Lançar Notas
+            </ListGroupItem>
+            <ListGroupItem
+              action
+              as={Link}
+              to="/professor/lancar-frequencia"
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                paddingLeft: "30px",
+                margin: 0,
+                border: "none",
+              }}
+            >
+              Lançar Frequência
             </ListGroupItem>
           </div>
         </Collapse>
