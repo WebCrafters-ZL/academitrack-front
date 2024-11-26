@@ -15,73 +15,29 @@ const EditarDisciplinaForm = ({ handleClose }) => {
   const [cursos, setCursos] = useState([]);
 
   useEffect(() => {
-    const fetchCursos = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(
-          "http://localhost:3000/api/v1/administrador/cursos",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setCursos(response.data); // Armazenar a lista de cursos
-      } catch (err) {
-        console.error("Erro ao buscar cursos:", err);
-        Store.addNotification({
-          title: "Erro",
-          message: "Erro ao carregar cursos. Tente novamente mais tarde.",
-          type: "danger",
-          insert: "bottom",
-          container: "bottom-center",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 4000,
-            onScreen: true,
-          },
-        });
-      }
-    };
 
-    const fetchDisciplina = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
+        // Busca a disciplina com o curso populado
+        const disciplinaResponse = await axios.get(
           `http://localhost:3000/api/v1/administrador/disciplinas/${id}`,
           {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Authorization: `Bearer ${token}` }
           }
         );
 
-        const disciplinaData = response.data;
-        setCurso(disciplinaData.curso_id); // Assumindo que o ID do curso está disponível.
+        const disciplinaData = disciplinaResponse.data;
+        setCurso(disciplinaData.curso); // Agora armazena o nome do curso
         setMateria(disciplinaData.nome);
         setCargaHoraria(disciplinaData.cargaHoraria);
         setDescricao(disciplinaData.descricao);
       } catch (error) {
-        console.error("Erro ao buscar disciplina:", error);
-        Store.addNotification({
-          title: "Erro",
-          message: "Erro ao buscar dados da disciplina.",
-          type: "danger",
-          insert: "bottom",
-          container: "bottom-center",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 4000,
-            onScreen: true,
-          },
-        });
+        console.error("Erro ao carregar dados:", error);
       }
     };
 
-    fetchCursos();
-    fetchDisciplina();
+    fetchData();
   }, [id]);
 
   const handleSubmit = async (event) => {
@@ -136,9 +92,8 @@ const EditarDisciplinaForm = ({ handleClose }) => {
           errorMessage =
             "Erro interno do servidor. Tente novamente mais tarde.";
         } else {
-          errorMessage = `Erro inesperado: ${
-            err.response.statusText || "Verifique os dados e tente novamente."
-          }`;
+          errorMessage = `Erro inesperado: ${err.response.statusText || "Verifique os dados e tente novamente."
+            }`;
         }
       } else {
         errorMessage = `Erro inesperado: ${err.message}`;
@@ -194,18 +149,11 @@ const EditarDisciplinaForm = ({ handleClose }) => {
         <Form.Group controlId="formCurso">
           <Form.Label>Curso</Form.Label>
           <Form.Control
-            as="select"
-            value={curso} // Deve manter o ID do curso associado
-            onChange={(e) => setCurso(e.target.value)}
-            required
-          >
-            <option value="">Selecione um curso</option>
-            {cursos.map((cursoItem, index) => (
-              <option key={index} value={cursoItem._id}>
-                {cursoItem.nome}
-              </option>
-            ))}
-          </Form.Control>
+            type="text"
+            value={curso}
+            readOnly
+            disabled
+          />
         </Form.Group>
 
         <Row>
