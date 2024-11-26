@@ -8,7 +8,7 @@ import {
   FaUser,
   FaHome,
   FaUserCog,
-  FaHeadset, // Importando o ícone do headset
+  FaHeadset,
 } from "react-icons/fa";
 import fotoPerfil from "../../../assets/professor.jpeg";
 import "../../../styles/index.css";
@@ -34,7 +34,7 @@ const BarraLateralProfessor = () => {
             },
           }
         );
-
+        console.log(response.data);
         setProfessor(response.data);
       } catch (error) {
         console.error("Erro ao retornar dados do Professor:", error);
@@ -116,7 +116,7 @@ const BarraLateralProfessor = () => {
           border: "none",
         }}
       />
-         <div style={{ textAlign: "center", marginBottom: "15px" }}>
+      <div style={{ textAlign: "center", marginBottom: "15px" }}>
         <Avatar
           alt={professor.nomeCompleto || "Usuário"}
           src={fotoPerfil}
@@ -131,13 +131,13 @@ const BarraLateralProfessor = () => {
             color: "#f5f5f5",
           }}
         >
-          {professor.nomeCompleto || "Nome do Usuário"}
+          {professor?.nomeCompleto || "Nome do Usuário"}
         </h3>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          CPF: {professor.cpf || "00000000000"}
+          CPF: {professor?.cpf || "00000000000"}
         </p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          E-mail: {professor.email || "email@exemplo.com"}
+          E-mail: {professor?.email || "email@exemplo.com"}
         </p>
       </div>
 
@@ -160,7 +160,10 @@ const BarraLateralProfessor = () => {
           />
         </Link>
 
-        <Link to="/professor/perfilprofessor" style={{ textDecoration: "none" }}>
+        <Link
+          to="/professor/perfilprofessor"
+          style={{ textDecoration: "none" }}
+        >
           <FaUser
             style={{
               color: "white",
@@ -171,7 +174,6 @@ const BarraLateralProfessor = () => {
           />
         </Link>
 
-       
         <Link to="/professor/ajuda" style={{ textDecoration: "none" }}>
           <FaHeadset
             style={{

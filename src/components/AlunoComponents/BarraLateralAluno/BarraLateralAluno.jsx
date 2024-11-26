@@ -21,15 +21,12 @@ import "../../../styles/index.css";
 import axios from "axios";
 
 const BarraLateralAluno = () => {
+  const [aluno, setAluno] = useState({});
   const [openDisciplinas, setOpenDisciplinas] = useState(false);
-  const [userData, setUserData] = useState({
-    nomeCompleto: "",
-    email: "",
-    matricula: "",
-  });
+  
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchAluno = async () => {
       try {
         const token = localStorage.getItem("token");
 
@@ -38,17 +35,17 @@ const BarraLateralAluno = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:3000/api/v1/administrador/alunos", {
+        const response = await axios.get("http://localhost:3000/api/v1/aluno/perfil", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        setUserData(response.data);
+        setAluno(response.data);
       } catch (error) {
         console.error("Erro ao buscar dados do usuário:", error);
       }
     };
 
-    fetchUserData();
+    fetchAluno();
   }, []);
 
   const handleClickDisciplinas = () => {
@@ -135,13 +132,13 @@ const BarraLateralAluno = () => {
           round={true}
         />
         <h3 style={{ fontSize: "1.1rem", margin: "5px 0" }}>
-          {userData.nomeCompleto || "Carregando..."}
+          {aluno.nomeCompleto || "Carregando..."}
         </h3>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          RA: {userData.matricula || "Carregando..."}
+          RA: {aluno.matricula || "Carregando..."}
         </p>
         <p style={{ margin: "5px 0", fontSize: "0.85rem" }}>
-          Email: {userData.email || "Carregando..."}
+          Email: {aluno.email || "Carregando..."}
         </p>
       </div>
 

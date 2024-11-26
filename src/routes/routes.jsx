@@ -89,7 +89,7 @@ const AppRoutes = () => {
           <Route path="teste" element={<AlunoNotas />} />
           <Route path="faqprofessor" element={<FaqProfessor />} />
           <Route path="perfilprofessor" element={<PerfilProfessor />} />
-          <Route path="ajuda" element={<FeedbackSuporteProfessor />} /> {/* Nova rota para Feedback e Suporte */}
+          <Route path="ajuda" element={<FeedbackSuporteProfessor />} /> 
           <Route path="gerenciar-turmas/turmas" element={<Turmas />} />
         </Route>
       </Route>
