@@ -10,7 +10,7 @@ import {
   FaUsers,
   FaBook,
   FaUserCog,
-  FaHeadset, // Ícone de Feedback e Suporte
+  FaHeadset, 
 } from "react-icons/fa";
 import fotoPerfil from "../../../assets/coordenadora.jpeg";
 import "../../../styles/index.css";
