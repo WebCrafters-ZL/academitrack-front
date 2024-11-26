@@ -35,6 +35,8 @@ import EditarDisciplinaForm from "../components/AdmComponentes/EditarDisciplinaF
 import FeedbackSuporteProfessor from "../components/ProfessorComponents/FeedbackSuporteProfessor/FeedbackSuporteProfessor"; 
 import EditarTurmaForm from "../components/AdmComponentes/EditarTurmaForm/EditarTurmaForm";
 import Turmas from "../components/ProfessorComponents/Turmas/Turmas";
+import GerarGrafico from "../components/AdmComponentes/VisualizarGrafico/VisualizarGrafico";
+import VisualizarGrafico from "../components/AdmComponentes/VisualizarGrafico/VisualizarGrafico";
 
 
 const AppRoutes = () => {
@@ -76,6 +78,7 @@ const AppRoutes = () => {
           <Route path="academico/gerenciar-turma" element={<GerenciarTurma />} />
           <Route path="academico/gerenciar-turma/cadastro-turma" element={<CadastroTurmaForm />} />
           <Route path="academico/gerenciar-turma/editar/:id" element={<EditarTurmaForm />} />
+          <Route path="academico/gerenciar-turma/visualizar-grafico" element={<VisualizarGrafico />} />
           <Route path="faqadm" element={<FAQAdm />} />
           <Route path="perfiladm" element={<PerfilAdm />} />
           <Route path="ajuda" element={<FeedbackSuporte />} /> 

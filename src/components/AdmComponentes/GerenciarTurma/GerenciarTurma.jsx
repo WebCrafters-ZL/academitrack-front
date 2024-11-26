@@ -221,6 +221,15 @@ const GerenciarTurma = ({ handleClose }) => {
       />
 
       <div style={{ textAlign: "right", marginTop: "0px" }}>
+      <Button
+          variant="primary"
+          as={Link}
+          to={{ pathname: "/administrador/academico/gerenciar-turma/visualizar-grafico", state: { turmas } }} // Passando turmas como estado
+          onClick={handleClose}
+          style={{ marginRight: "15px" }} 
+        >
+          Visualizar grafico
+        </Button>
         <Button
           variant="primary"
           as={Link}
@@ -228,8 +237,9 @@ const GerenciarTurma = ({ handleClose }) => {
           onClick={handleClose}
         >
           Adicionar Turma
-        </Button>
+        </Button>  
       </div>
+      
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header
