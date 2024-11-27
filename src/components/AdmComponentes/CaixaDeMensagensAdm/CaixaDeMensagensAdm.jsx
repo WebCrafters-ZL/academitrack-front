@@ -116,17 +116,17 @@ const CaixaDeMensagensAdm = () => {
 
   return (
     <MessageContainer>
-      <h4 style={{ textAlign: "center", marginBottom: "20px" }}>Caixa de Mensagens</h4>
+      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Caixa de Mensagens</h2>
 
       <SearchBar>
         <InputGroup>
           <InputGroup.Text
             style={{
               border: "none",
-              backgroundColor: "transparent", // Fundo transparente
-              padding: "0 10px", // Sem preenchimento para melhor integração
+              backgroundColor: "transparent", 
+              padding: "0 10px", 
             }}
-            onClick={handleSearch} // Ação ao clicar
+            onClick={handleSearch} 
           >
             <SearchIcon />
           </InputGroup.Text>
@@ -140,14 +140,14 @@ const CaixaDeMensagensAdm = () => {
       <StyledTable striped bordered hover responsive>
         <thead>
           <tr>
-            <th style={{ width: "25%" }}>
+            <th style={{ width: "22%" }}>
               <FaUser style={{ marginRight: "5px" }} /> De
             </th>
             <th style={{ width: "60%" }}>
               <FaEnvelope style={{ marginRight: "5px" }} /> Assunto
             </th>
-            <th style={{ width: "15%" }}>
-              <FaCalendarAlt style={{ marginRight: "5px" }} /> Recebido(a)
+            <th style={{ width: "10%" }}>
+              <FaCalendarAlt style={{ marginRight: "5px" }} /> Data
             </th>
           </tr>
         </thead>
