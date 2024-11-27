@@ -3,7 +3,7 @@ import { Button, Form, Container, Row, Col, Alert } from "react-bootstrap";
 import { FaPaperPlane } from "react-icons/fa";
 import "../../../styles/index.css"; // Custom styles
 
-const FeedbackSuporte = () => {
+const FeedbackSuporteProfessor = () => {
   const [feedback, setFeedback] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState(false);
@@ -35,10 +35,14 @@ const FeedbackSuporte = () => {
   };
 
   return (
-    <Container fluid className="d-flex justify-content-center align-items-center min-vh-100">
-      <Row className="w-100 justify-content-center">
+    <Container
+      fluid
+      className="d-flex justify-content-end align-items-center min-vh-100"
+      style={{ paddingRight: "25%" }}
+    >
+      <Row className="w-100 justify-content-end">
         <Col xs={12} md={8} lg={6} className="bg-light p-4 rounded-4 shadow-lg">
-          <h2 className="text-center mb-4 text-primary font-weight-bold">Feedback e Suporte</h2>
+          <h2 className="text-center mb-4 text-primary font-weight-bold">Feedback e Suporte - Professor</h2>
 
           {/* Mensagens de sucesso e erro */}
           {isSubmitted && !error && (
@@ -70,8 +74,8 @@ const FeedbackSuporte = () => {
                   boxShadow: "0 4px 8px rgba(0, 123, 255, 0.2)",
                   transition: "box-shadow 0.3s ease-in-out",
                 }}
-                onFocus={(e) => (e.target.style.boxShadow = "0 4px 12px rgba(0, 123, 255, 0.4)")}
-                onBlur={(e) => (e.target.style.boxShadow = "0 4px 8px rgba(0, 123, 255, 0.2)")}
+                onFocus={(e) => (e.target.style.boxShadow = "0 4px 12px rgba(0, 123, 255, 0.4)") }
+                onBlur={(e) => (e.target.style.boxShadow = "0 4px 8px rgba(0, 123, 255, 0.2)") }
               />
             </Form.Group>
 
@@ -98,4 +102,4 @@ const FeedbackSuporte = () => {
   );
 };
 
-export default FeedbackSuporte;
+export default FeedbackSuporteProfessor;
