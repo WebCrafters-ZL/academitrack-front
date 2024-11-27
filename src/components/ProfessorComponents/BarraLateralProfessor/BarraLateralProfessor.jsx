@@ -7,8 +7,7 @@ import {
   FaQuestionCircle,
   FaUser,
   FaHome,
-  FaChalkboardTeacher, 
-  FaCalendarCheck, 
+  FaChalkboardTeacher,
   FaHeadset,
 } from "react-icons/fa";
 import fotoPerfil from "../../../assets/professor.jpeg";

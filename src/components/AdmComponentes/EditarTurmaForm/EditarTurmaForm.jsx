@@ -56,8 +56,39 @@ const EditarTurmaForm = ({ handleClose }) => {
           },
         });
       }
-    };    
+    };
+    const fetchTodosAlunos = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/administrador/alunos",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setTodosAlunos(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar alunos:", error);
+        Store.addNotification({
+          title: "Erro",
+          message: "Erro ao carregar lista de alunos.",
+          type: "danger",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
+      }
+    };
+
     fetchTurma();
+    fetchTodosAlunos();
   }, [id]);
 
   const handleSubmit = async (event) => {
@@ -143,7 +174,7 @@ const EditarTurmaForm = ({ handleClose }) => {
     }
   };
 
-  const columns = [
+  const columnsAlunosAssociados = [
     {
       title: "Nome Completo",
       dataIndex: "nomeCompleto",
@@ -170,7 +201,7 @@ const EditarTurmaForm = ({ handleClose }) => {
         />
       ),
     },
-  ];  
+  ];
 
   const handleAddAluno = async (alunoId) => {
     try {
@@ -259,7 +290,7 @@ const EditarTurmaForm = ({ handleClose }) => {
         },
       });
     }
-  };  
+  };
 
   const columnsTodosAlunos = [
     {
@@ -333,7 +364,6 @@ const EditarTurmaForm = ({ handleClose }) => {
               <Form.Control
                 as="text"
                 readOnly
-                required
               >
                 {disciplina}
               </Form.Control>
@@ -344,7 +374,6 @@ const EditarTurmaForm = ({ handleClose }) => {
               <Form.Control
                 as="text"
                 readOnly
-                required
               >
                 {professor}
               </Form.Control>
@@ -384,7 +413,7 @@ const EditarTurmaForm = ({ handleClose }) => {
         </Row>
 
         <Table
-          columns={columns}
+          columns={columnsAlunosAssociados}
           dataSource={alunosAssociados}
           rowKey="_id"
           pagination={{ pageSize: 5 }}
@@ -416,10 +445,11 @@ const EditarTurmaForm = ({ handleClose }) => {
 
       <Modal
         title="Adicionar Alunos"
-        visible={showAddAlunosModal}
-        onCancel={() => setShowAddAlunosModal(false)}
+        show={showAddAlunosModal}
+        onHide={() => setShowAddAlunosModal(false)}
         footer={null}
         width={800}
+        bodyStyle={{ maxHeight: "60vh", overflowY: "auto" }}
       >
         <Input
           placeholder="Pesquisar alunos"
@@ -438,7 +468,11 @@ const EditarTurmaForm = ({ handleClose }) => {
       </Modal>
 
       {/* Modal de confirmação de exclusão de aluno */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        centered
+      >
         <Modal.Header
           closeButton
           style={{
