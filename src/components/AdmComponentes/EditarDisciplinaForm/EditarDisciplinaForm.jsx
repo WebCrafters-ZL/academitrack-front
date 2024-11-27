@@ -12,8 +12,7 @@ const EditarDisciplinaForm = ({ handleClose }) => {
   const [materia, setMateria] = useState("");
   const [cargaHoraria, setCargaHoraria] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [cursos, setCursos] = useState([]);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -152,7 +151,6 @@ const EditarDisciplinaForm = ({ handleClose }) => {
             type="text"
             value={curso}
             readOnly
-            disabled
           />
         </Form.Group>
 
