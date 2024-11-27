@@ -6,8 +6,77 @@ import {
   FaEnvelope,
   FaCalendarAlt,
 } from "react-icons/fa";
+import styled from 'styled-components';
+
+const NotificationContainer = styled(Container)`
+  border: 2px solid blue;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 100%;
+  height: 80%;
+  overflow-y: auto;
+  background-color: #f9f9f9; /* Fundo mais suave */
+`;
+
+const StyledTable = styled(Table)`
+  th {
+    background-color: #007bff; /* Cor de fundo para o cabeçalho */
+    color: white;
+    text-align: center;
+  }
+
+  tbody tr {
+    cursor: pointer; /* Muda o cursor para indicar que a linha é clicável */
+  }
+
+  tbody tr:hover {
+    background-color: #e9ecef; /* Efeito ao passar o mouse */
+  }
+`;
 
 const HomeAluno = () => {
+  const handleRowClick = (message) => {
+    alert(`Mensagem: ${message}`);
+  };
+
+  const notifications = [
+    {
+      from: 'Mario Sergio',
+      subject: 'Boas-vindas ao sistema! Estamos felizes em tê-lo conosco. Explore as funcionalidades e aproveite a sua jornada acadêmica.',
+      received: '20 Out',
+    },
+    {
+      from: 'Mario Sergio',
+      subject: 'Bem-vindo à sua primeira aula! Lembre-se de verificar as datas de avaliações do semestre no calendário acadêmico.',
+      received: '21 Out',
+    },
+    {
+      from: 'Fabiana Alvarenga',
+      subject: 'Acesse o novo guia de iniciação ao campus.',
+      received: '22 Out',
+    },
+    {
+      from: 'Fabiana Alvarenga',
+      subject: 'Participe da sessão de orientação para novos alunos! Uma ótima oportunidade para tirar dúvidas e se integrar à comunidade.',
+      received: '23 Out',
+    },
+    {
+      from: 'Fabiana Alvarenga',
+      subject: 'Atualização do Sistema: Nova funcionalidade de feedback foi adicionada.',
+      received: '24 Out',
+    },
+    {
+      from: 'Mario Sergio',
+      subject: 'Não se esqueça de acessar os materiais de aula na plataforma. Eles são essenciais para o seu aprendizado!',
+      received: '25 Out',
+    },
+    {
+      from: 'Fabiana Alvarenga',
+      subject: 'Inscreva-se nas atividades extracurriculares que estão por vir! Uma excelente maneira de se envolver mais com a universidade.',
+      received: '26 Out',
+    },
+  ];
+
   return (
     <Container
       fluid
@@ -67,7 +136,7 @@ const HomeAluno = () => {
                   }}
                 />
                 <div>
-                  <Card.Title>Gestão Ágil de Projetos de Software</Card.Title>
+                <Card.Title>Gestão Ágil de Projetos de Software</Card.Title>
                   <Card.Text>
                     <strong>Data:</strong> 29/10/2024
                   </Card.Text>
@@ -97,21 +166,13 @@ const HomeAluno = () => {
           </Col>
         </Row>
       </Container>
-      <Container
-        style={{
-          border: "2px solid blue",
-          padding: "10px",
-          borderRadius: "10px",
-          maxWidth: "100%",
-          height: "80%",
-          overflowY: "auto",
-        }}
-      >
+
+      <NotificationContainer>
         <h4 style={{ textAlign: "center", marginBottom: "15px" }}>
           Caixa de Notificações
         </h4>
 
-        <Table striped bordered hover responsive>
+        <StyledTable striped bordered hover responsive>
           <thead>
             <tr>
               <th style={{ width: "25%" }}>
@@ -126,67 +187,19 @@ const HomeAluno = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Mario Sergio</td>
-              <td>
-                Boas-vindas ao sistema! Estamos felizes em tê-lo conosco.
-                Explore as funcionalidades e aproveite a sua jornada acadêmica.
-              </td>
-              <td>20 Out</td>
-            </tr>
-            <tr>
-              <td>Mario Sergio</td>
-              <td>
-                Bem-vindo à sua primeira aula! Lembre-se de verificar as datas
-                de avaliações do semestre no calendário acadêmico.
-              </td>
-              <td>21 Out</td>
-            </tr>
-            <tr>
-              <td>Fabiana Alvarenga</td>
-              <td>
-                Acesse o novo guia de iniciação ao campus. 
-              </td>
-              <td>22 Out</td>
-            </tr>
-            <tr>
-              <td>Fabiana Alvarenga</td>
-              <td>
-                Participe da sessão de orientação para novos alunos! Uma ótima
-                oportunidade para tirar dúvidas e se integrar à comunidade.
-              </td>
-              <td>23 Out</td>
-            </tr>
-            <tr>
-              <td>Fabiana Alvarenga</td>
-              <td>
-                Atualização do Sistema: Nova funcionalidade de feedback foi
-                adicionada. 
-              </td>
-              <td>24 Out</td>
-            </tr>
-            <tr>
-              <td>Mario Sergio</td>
-              <td>
-                Não se esqueça de acessar os materiais de aula na plataforma.
-                Eles são essenciais para o seu aprendizado!
-              </td>
-              <td>25 Out</td>
-            </tr>
-            <tr>
-              <td>Fabiana Alvarenga</td>
-              <td>
-                Inscreva-se nas atividades extracurriculares que estão por vir!
-                Uma excelente maneira de se envolver mais com a universidade.
-              </td>
-              <td>26 Out</td>
-            </tr>
-
+            {notifications.map((notification, index) => (
+              <tr key={index} onClick={() => handleRowClick(notification.subject)}>
+                <td>{notification.from}</td>
+                <td>{notification.subject}</td>
+                <td>{notification.received}</td>
+              </tr>
+            ))}
           </tbody>
-        </Table>
-      </Container>
+        </StyledTable>
+      </NotificationContainer>
     </Container>
   );
 };
 
 export default HomeAluno;
+

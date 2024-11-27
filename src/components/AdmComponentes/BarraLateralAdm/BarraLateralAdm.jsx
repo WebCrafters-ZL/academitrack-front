@@ -10,7 +10,8 @@ import {
   FaUsers,
   FaBook,
   FaUserCog,
-  FaHeadset, 
+  FaHeadset,
+  FaEnvelope, 
 } from "react-icons/fa";
 import fotoPerfil from "../../../assets/coordenadora.jpeg";
 import "../../../styles/index.css";
@@ -330,6 +331,15 @@ const BarraLateralAdm = () => {
             </ListGroupItem>
           </div>
         </Collapse>
+        <ListGroupItem
+          action
+          as={Link}
+          to="/administrador/caixa-de-mensagens"
+          style={{ backgroundColor: "transparent", color: "white" }}
+        >
+          <FaEnvelope style={{ marginRight: "10px" }} />
+          Caixa de mensagens
+        </ListGroupItem>
       </ListGroup>
     </div>
   );

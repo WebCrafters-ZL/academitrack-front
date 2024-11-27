@@ -37,6 +37,7 @@ import EditarTurmaForm from "../components/AdmComponentes/EditarTurmaForm/Editar
 import Turmas from "../components/ProfessorComponents/Turmas/Turmas";
 import GerarGrafico from "../components/AdmComponentes/VisualizarGrafico/VisualizarGrafico";
 import VisualizarGrafico from "../components/AdmComponentes/VisualizarGrafico/VisualizarGrafico";
+import CaixaDeMensagensAdm from "../components/AdmComponentes/CaixaDeMensagensAdm/CaixaDeMensagensAdm";
 
 
 const AppRoutes = () => {
@@ -79,6 +80,7 @@ const AppRoutes = () => {
           <Route path="academico/gerenciar-turma/cadastro-turma" element={<CadastroTurmaForm />} />
           <Route path="academico/gerenciar-turma/editar/:id" element={<EditarTurmaForm />} />
           <Route path="academico/gerenciar-turma/visualizar-grafico" element={<VisualizarGrafico />} />
+          <Route path="caixa-de-mensagens" element={<CaixaDeMensagensAdm />} />
           <Route path="faqadm" element={<FAQAdm />} />
           <Route path="perfiladm" element={<PerfilAdm />} />
           <Route path="ajuda" element={<FeedbackSuporte />} /> 

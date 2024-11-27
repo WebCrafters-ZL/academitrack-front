@@ -21,9 +21,9 @@ const HomeAdm = () => {
         borderRadius: "10px", 
       }}
     >
-      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
+      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
         Bem-vindo ao AcademiTrack
-      </h1>
+      </h2>
       <p style={{ textAlign: "justify", padding: "0 20px" }}>
         Prezado(a) Coordenador(a) de Curso,
       </p>
