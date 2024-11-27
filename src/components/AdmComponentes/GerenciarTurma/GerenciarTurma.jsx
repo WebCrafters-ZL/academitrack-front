@@ -103,16 +103,16 @@ const GerenciarTurma = ({ handleClose }) => {
   };
 
   const filteredTurmas = turmas.filter((turma) => {
-    const disciplinaNome = turma.disciplina?.nome?.toLowerCase() || "";
-    const professorNome = turma.professor?.nomeCompleto?.toLowerCase() || "";
-    const anoStr = turma.ano.toString();
-    const semestreStr = turma.semestre.toString();
+    const disciplina = turma.disciplina;
+    const professor = turma.professor;
+    const ano = turma.ano.toString();
+    const semestre = turma.semestre.toString();
 
     return (
-      disciplinaNome.includes(searchText.toLowerCase()) ||
-      professorNome.includes(searchText.toLowerCase()) ||
-      anoStr.includes(searchText) ||
-      semestreStr.includes(searchText)
+      disciplina.includes(searchText.toLowerCase()) ||
+      professor.includes(searchText.toLowerCase()) ||
+      ano.includes(searchText) ||
+      semestre.includes(searchText)
     );
   });
 
