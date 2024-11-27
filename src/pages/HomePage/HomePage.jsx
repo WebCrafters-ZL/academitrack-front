@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import axios from "axios";
 import { useAuth } from "../Login/AuthContext";
-import { jwtDecode } from "jwt-decode"; 
-import FotoHome from "../../assets/fotohome.webp"; 
+import { jwtDecode } from "jwt-decode";
+import FotoHome from "../../assets/fotohome.webp";
 
 const HomePage = () => {
   const [email, setEmail] = useState("");
@@ -28,7 +28,7 @@ const HomePage = () => {
 
       const { token } = response.data;
 
-      login(token); 
+      login(token);
 
       const decodedToken = jwtDecode(token);
       const userType = decodedToken.tipoUsuario;
@@ -50,7 +50,7 @@ const HomePage = () => {
 
   return (
     <div style={styles.homePage}>
-      {/* Barra Lateral  */}
+      {/* Barra Lateral de Login */}
       <div style={styles.sidebar}>
         <div style={styles.logoContainer}>
           <h1 style={styles.logo}>
@@ -58,16 +58,14 @@ const HomePage = () => {
             <span style={styles.track}>Track</span>
           </h1>
         </div>
-      
+
         <Container style={styles.loginContainer}>
-          {error && (
-            <div style={styles.errorMessage}>
-              {error}
-            </div>
-          )}
+          {error && <div style={styles.errorMessage}>{error}</div>}
           <Form onSubmit={enviarFormulario}>
             <Form.Group controlId="formEmail">
-              <Form.Label><FaEnvelope /> Email</Form.Label>
+              <Form.Label>
+                <FaEnvelope /> Email
+              </Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Digite seu email"
@@ -77,7 +75,9 @@ const HomePage = () => {
               />
             </Form.Group>
             <Form.Group controlId="formSenha">
-              <Form.Label><FaLock /> Senha</Form.Label>
+              <Form.Label>
+                <FaLock /> Senha
+              </Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Digite sua senha"
@@ -101,18 +101,19 @@ const HomePage = () => {
       {/* Conteúdo Principal */}
       <div style={styles.mainContent}>
         <div style={styles.contentContainer}>
-          <h1 style={styles.welcomeTitle}>
-            Bem-vindo ao AcademiTrack
-          </h1>
+          <h1 style={styles.welcomeTitle}>Bem-vindo ao AcademiTrack</h1>
 
           <Container style={styles.cardsContainer}>
-            <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+            <Row className="g-4">
               <Col>
                 <Card style={styles.featureCard}>
                   <Card.Body>
-                    <Card.Title style={styles.featureTitle}>Gerenciamento de Alunos</Card.Title>
+                    <Card.Title style={styles.featureTitle}>
+                      Gerenciamento de Alunos
+                    </Card.Title>
                     <Card.Text>
-                      Ferramentas para acompanhar o desempenho dos alunos e simplificar o gerenciamento de atividades.
+                      Ferramentas para acompanhar o desempenho dos alunos e
+                      simplificar o gerenciamento de atividades.
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -120,9 +121,12 @@ const HomePage = () => {
               <Col>
                 <Card style={styles.featureCard}>
                   <Card.Body>
-                    <Card.Title style={styles.featureTitle}>Comunicação Eficiente</Card.Title>
+                    <Card.Title style={styles.featureTitle}>
+                      Comunicação Eficiente
+                    </Card.Title>
                     <Card.Text>
-                      Envie mensagens e atualizações rapidamente para toda a comunidade acadêmica.
+                      Envie mensagens e atualizações rapidamente para toda a
+                      comunidade acadêmica.
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -130,9 +134,12 @@ const HomePage = () => {
               <Col>
                 <Card style={styles.featureCard}>
                   <Card.Body>
-                    <Card.Title style={styles.featureTitle}>Organização Simplificada</Card.Title>
+                    <Card.Title style={styles.featureTitle}>
+                      Organização Simplificada
+                    </Card.Title>
                     <Card.Text>
-                      Uma visão clara e organizada das informações acadêmicas e administrativas.
+                      Uma visão clara e organizada das informações acadêmicas e
+                      administrativas.
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -145,13 +152,11 @@ const HomePage = () => {
   );
 };
 
-
 const styles = {
   homePage: {
     display: "flex",
     height: "100vh",
     backgroundColor: "#f0f4f8",
-    flexDirection: "column",
   },
   sidebar: {
     width: "300px",
@@ -164,9 +169,7 @@ const styles = {
     top: 0,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "flex-start",
     alignItems: "center",
-    transition: "all 0.3s ease",
   },
   logoContainer: {
     marginBottom: "30px",
@@ -175,15 +178,12 @@ const styles = {
   logo: {
     fontSize: "2.5rem",
     fontWeight: "bold",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
   },
   academi: {
-    color: "black", 
+    color: "black",
   },
   track: {
-    color: "white", 
+    color: "white",
   },
   loginContainer: {
     display: "flex",
@@ -201,24 +201,16 @@ const styles = {
     marginTop: "20px",
     backgroundColor: "#1565c0",
     border: "none",
-    fontSize: "18px",
-    transition: "background-color 0.3s ease",
-  },
-  loginButtonHover: {
-    backgroundColor: "#0d47a1", 
   },
   mainContent: {
     flexGrow: 1,
+    marginLeft: "300px", // Deixa espaço para a barra lateral
     backgroundImage: `url(${FotoHome})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     color: "white",
     padding: "80px 40px",
-    backgroundAttachment: "fixed",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-start", 
-    alignItems: "center",
+    position: "relative",
   },
   contentContainer: {
     textAlign: "center",
@@ -228,26 +220,27 @@ const styles = {
     fontSize: "3rem",
     fontWeight: "bold",
     textShadow: "4px 4px 6px rgba(0, 0, 0, 0.7)",
-    marginBottom: "50px", 
   },
   cardsContainer: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center", 
-    flexGrow: 1, 
-    marginTop: "450px", 
-    paddingBottom: "1cm", 
-    paddingLeft: "10cm", 
+    position: "absolute",
+    bottom: "40px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    width: "80%",
   },
   featureCard: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    marginBottom: "20px",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderRadius: "12px",
+    textAlign: "center",
+    padding: "20px",
     border: "none",
-    height: "100%", 
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+    minHeight: "150px",
   },
   featureTitle: {
     color: "#1976d2",
     fontWeight: "bold",
+    fontSize: "1.5rem",
   },
 };
 
