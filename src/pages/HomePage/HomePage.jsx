@@ -64,11 +64,11 @@ const HomePage = () => {
           <Form onSubmit={enviarFormulario}>
             <Form.Group controlId="formEmail">
               <Form.Label>
-                <FaEnvelope /> Email
+                <FaEnvelope /> E-mail
               </Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Digite seu email"
+                placeholder="Digite seu e-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -109,11 +109,10 @@ const HomePage = () => {
                 <Card style={styles.featureCard}>
                   <Card.Body>
                     <Card.Title style={styles.featureTitle}>
-                      Gerenciamento de Alunos
+                    Administração Eficiente
                     </Card.Title>
                     <Card.Text>
-                      Ferramentas para acompanhar o desempenho dos alunos e
-                      simplificar o gerenciamento de atividades.
+                    Gerencie processos acadêmicos e administrativos de forma ágil e centralizada, promovendo uma gestão mais organizada e produtiva.
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -122,11 +121,10 @@ const HomePage = () => {
                 <Card style={styles.featureCard}>
                   <Card.Body>
                     <Card.Title style={styles.featureTitle}>
-                      Comunicação Eficiente
+                      Area do Aluno
                     </Card.Title>
                     <Card.Text>
-                      Envie mensagens e atualizações rapidamente para toda a
-                      comunidade acadêmica.
+                    Acesse suas informações acadêmicas, acompanhe seu desempenho e organize suas atividades de maneira simples e prática.
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -135,11 +133,10 @@ const HomePage = () => {
                 <Card style={styles.featureCard}>
                   <Card.Body>
                     <Card.Title style={styles.featureTitle}>
-                      Organização Simplificada
+                      Portal do Professor
                     </Card.Title>
                     <Card.Text>
-                      Uma visão clara e organizada das informações acadêmicas e
-                      administrativas.
+                    Gerencie suas aulas, acompanhe o progresso dos alunos e facilite a comunicação com a comunidade acadêmica.
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -159,7 +156,7 @@ const styles = {
     backgroundColor: "#f0f4f8",
   },
   sidebar: {
-    width: "300px",
+    width: "400px", 
     backgroundColor: "#1976d2",
     color: "white",
     padding: "40px",
@@ -191,6 +188,7 @@ const styles = {
     alignItems: "center",
     textAlign: "center",
     marginTop: "100px",
+    width: "90%", 
   },
   errorMessage: {
     color: "red",
@@ -204,7 +202,7 @@ const styles = {
   },
   mainContent: {
     flexGrow: 1,
-    marginLeft: "300px", // Deixa espaço para a barra lateral
+    marginLeft: "400px", 
     backgroundImage: `url(${FotoHome})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -227,6 +225,7 @@ const styles = {
     left: "50%",
     transform: "translateX(-50%)",
     width: "80%",
+    displayflex:"0,0,20,0"
   },
   featureCard: {
     backgroundColor: "rgba(255, 255, 255, 0.9)",
@@ -235,6 +234,7 @@ const styles = {
     padding: "20px",
     border: "none",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+    height:"100%",
     minHeight: "150px",
   },
   featureTitle: {

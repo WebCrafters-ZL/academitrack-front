@@ -86,11 +86,11 @@ const Login = () => {
         <Form onSubmit={enviarFormulario}>
           <Form.Group controlId="formEmail">
             <Form.Label>
-              <FaEnvelope /> Email
+              <FaEnvelope /> E-mail
             </Form.Label>
             <Form.Control
               type="email"
-              placeholder="Digite seu email"
+              placeholder="Digite seu e-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
