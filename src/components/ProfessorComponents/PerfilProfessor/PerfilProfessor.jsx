@@ -29,7 +29,7 @@ const PerfilProfessor = () => {
     fetchProfessor();
   }, []);
 
-  // Função para aplicar a máscara de CPF
+
   const formatCPF = (cpf) => {
     if (!cpf) return "000.000.000-00";
     return cpf.replace(
