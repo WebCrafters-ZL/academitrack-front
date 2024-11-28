@@ -17,9 +17,10 @@ import {
   Form,
   Pagination,
 } from "react-bootstrap";
-import axios from "axios"; // Para fazer as requisições HTTP
+import { Store } from "react-notifications-component";
+import axios from "axios";
 
-const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
+const CaixaDeMensagensAdm = () => {
   const [messages, setMessages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
@@ -31,10 +32,23 @@ const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
     // Função para buscar as mensagens
     const fetchMessages = async () => {
       try {
-        const response = await axios.get("/api/messages"); // Modifique a URL conforme a rota no backend
-        setMessages(response.data); // Supondo que a resposta seja uma lista de mensagens
+        const response = await axios.get("http://localhost:3000/api/v1/administrador/listar/todas");
+        setMessages(response.data);
       } catch (error) {
         console.error("Erro ao buscar mensagens:", error);
+        Store.addNotification({
+          title: "Erro",
+          message: "Erro ao buscar mensagens. Tente novamente mais tarde.",
+          type: "danger",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
       }
     };
 
@@ -54,33 +68,96 @@ const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
   };
 
   const handleSendMessage = async () => {
-    // Função para enviar a mensagem para o backend
     try {
-      await axios.post("/api/messages", {
-        subject: "Assunto da mensagem", // Aqui você pode pegar o valor do campo de assunto
+      // Enviar a mensagem para o backend
+      const response = await axios.post("http://localhost:3000/api/v1/administrador/enviar/todas", {
+        subject: "Assunto da mensagem", // Você pode pegar esse valor do campo de input, se necessário
         body: message, // Corpo da mensagem
-        // Adicionar outros dados necessários
       });
-      setShowModal(false);
-      setMessage(""); // Limpa a mensagem após o envio
-      alert("Mensagem enviada com sucesso!");
-      // Refresca a lista de mensagens após o envio
-      const response = await axios.get("/api/messages");
-      setMessages(response.data);
+  
+      if (response.status === 200) {
+        // Exibe notificação de sucesso
+        Store.addNotification({
+          title: "Sucesso!",
+          message: "Mensagem enviada com sucesso!",
+          type: "success",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: true,
+          },
+        });
+  
+        // Limpa a mensagem após o envio
+        setMessage("");
+        setShowModal(false);
+  
+        // Refresca a lista de mensagens após o envio
+        const responseMessages = await axios.get("http://localhost:3000/api/v1/administrador/listar/todas");
+        setMessages(responseMessages.data);
+      }
     } catch (error) {
       console.error("Erro ao enviar mensagem:", error);
-      alert("Falha ao enviar a mensagem.");
+  
+      // Variáveis para customizar a mensagem de erro
+      let errorMessage = "Falha ao enviar a mensagem. Tente novamente.";
+  
+      if (error.response) {
+        // Tratar erros específicos com base no código de status
+        if (error.response.status === 400) {
+          errorMessage = "Todos os campos obrigatórios devem ser preenchidos.";
+        } else if (error.response.status === 401) {
+          errorMessage = "Não autorizado. Verifique suas credenciais.";
+        } else if (error.response.status === 500) {
+          errorMessage = "Erro interno do servidor. Tente novamente mais tarde.";
+        } else {
+          errorMessage = `Erro inesperado: ${error.response.statusText || "Verifique os dados e tente novamente."}`;
+        }
+      } else {
+        errorMessage = `Erro inesperado: ${error.message}`;
+      }
+  
+      // Exibe notificação de erro
+      Store.addNotification({
+        title: "Erro",
+        message: errorMessage,
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
     }
   };
+  
 
   const handleDeleteMessage = async (id) => {
     // Função para excluir uma mensagem
     try {
-      await axios.delete(`/api/messages/${id}`);
+      await axios.delete(`http://localhost:3000/api/v1/administrador/excluir/todas/${id}`);
       setMessages(messages.filter((message) => message.id !== id)); // Atualiza o estado local após a exclusão
     } catch (error) {
       console.error("Erro ao excluir mensagem:", error);
-      alert("Falha ao excluir a mensagem.");
+      Store.addNotification({
+        title: "Erro",
+        message: "Falha ao excluir a mensagem. Tente novamente.",
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: true,
+        },
+      });
     }
   };
 
@@ -248,13 +325,13 @@ const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
         >
           <Button
             variant="primary"
-            onClick={handleSend}
+            onClick={handleSendMessage} // Alterado de handleSend para handleSendMessage
             style={{
               backgroundColor: "#007bff",
               width: "100px",
-              display: "flex", 
-              alignItems: "center", 
-              justifyContent: "center", 
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <FaPaperPlane style={{ marginRight: "5px" }} /> Enviar
