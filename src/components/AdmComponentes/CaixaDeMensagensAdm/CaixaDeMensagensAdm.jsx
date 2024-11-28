@@ -315,33 +315,14 @@ const CaixaDeMensagensAdm = () => {
         style={{ borderRadius: "8px" }}
       >
         <Modal.Header
+          closeButton
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            backgroundColor: "#f1f1f1",
-            borderBottom: "1px solid #ddd",
+            backgroundColor: "#1976d2",
+            color: "white",
+            borderBottom: "none",
           }}
         >
-          <Button
-            variant="primary"
-            onClick={handleSendMessage} // Alterado de handleSend para handleSendMessage
-            style={{
-              backgroundColor: "#007bff",
-              width: "100px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <FaPaperPlane style={{ marginRight: "5px" }} /> Enviar
-          </Button>
-          <div style={{ display: "flex", gap: "10px" }}>
-            <FaTrashAlt
-              style={{ fontSize: "24px", cursor: "pointer", color: "red" }}
-              onClick={() => setShowModal(false)}
-            />
-          </div>
+          <Modal.Title>Escrever Mensagem para Turmas</Modal.Title>
         </Modal.Header>
         <Modal.Body
           style={{
@@ -404,6 +385,27 @@ const CaixaDeMensagensAdm = () => {
             />
           </Form.Group>
         </Modal.Body>
+        <Modal.Footer
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+        >   
+        <Button
+            variant="primary"
+            onClick={handleSendMessage} 
+            style={{
+              backgroundColor: "#007bff",
+              width: "100px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <FaPaperPlane style={{ marginRight: "5px" }} /> Enviar
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );
