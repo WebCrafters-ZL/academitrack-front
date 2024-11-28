@@ -201,10 +201,10 @@ const EditarTurmaForm = ({ handleClose }) => {
       alignItems: "center",
       render: (_, aluno) => (
         <FontAwesomeIcon
-        icon={faTrash}
-        style={{ color: "red", cursor: "pointer" }}
-        onClick={() => handleRemoveAluno(aluno._id)}
-      />
+          icon={faTrash}
+          style={{ color: "red", cursor: "pointer" }}
+          onClick={() => handleRemoveAluno(aluno._id)}
+        />
       ),
     },
   ];
@@ -335,7 +335,7 @@ const EditarTurmaForm = ({ handleClose }) => {
     },
   ];
 
-  return (
+  return (    
     <div
       style={{
         marginTop: "70px",
@@ -421,22 +421,21 @@ const EditarTurmaForm = ({ handleClose }) => {
           </Col>
         </Row>
 
-        <Table
-          columns={columnsAlunosAssociados}
-          dataSource={alunosAssociados}
-          rowKey="_id"
-          pagination={{ pageSize: 5 }}
-          size="small"
-        />
+        <Form.Group controlId="formAlunosAssociados" style={{ marginTop: "20px" }}>
+          <Form.Label>Alunos matriculados</Form.Label>
+          <Table
+            columns={columnsAlunosAssociados}
+            dataSource={alunosAssociados}
+            rowKey="_id"
+            pagination={{
+              pageSize: 5,
+              showTotal: (total, range) =>
+                `${range[0]} a ${range[1]} de ${total} alunos`,
+            }}
+          />
+        </Form.Group>
 
         <div style={{ textAlign: "right", marginTop: "20px" }}>
-          <Button
-            type="button"
-            onClick={() => setShowAddAlunosModal(true)}
-            style={{ marginRight: "20px" }}
-          >
-            Adicionar Alunos
-          </Button>
           <Button
             as={Link}
             to="/administrador/academico/gerenciar-turma"
@@ -445,6 +444,13 @@ const EditarTurmaForm = ({ handleClose }) => {
             style={{ marginRight: "20px" }}
           >
             Voltar
+          </Button>
+          <Button
+            type="button"
+            onClick={() => setShowAddAlunosModal(true)}
+            style={{ marginRight: "20px" }}
+          >
+            Adicionar Alunos
           </Button>
           <Button variant="primary" type="submit">
             Salvar
@@ -456,24 +462,47 @@ const EditarTurmaForm = ({ handleClose }) => {
         title="Adicionar Alunos"
         show={showAddAlunosModal}
         onHide={() => setShowAddAlunosModal(false)}
-        footer={null}
-        width={800}
-        bodyStyle={{ maxHeight: "60vh", overflowY: "auto" }}
+        centered
+        size="xl" // Aumenta o tamanho do modal
       >
-        <Input
-          placeholder="Pesquisar alunos"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          prefix={<SearchOutlined />}
-          style={{ marginBottom: "1rem" }}
-        />
-        <Table
-          columns={columnsTodosAlunos}
-          dataSource={todosAlunos}
-          rowKey="_id"
-          pagination={{ pageSize: 5 }}
-          size="small"
-        />
+        <Modal.Header
+          closeButton
+          style={{
+            backgroundColor: "#1976d2",
+            color: "white",
+            borderBottom: "none",
+          }}
+        >
+          <Modal.Title>Adicionar Alunos</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ textAlign: "center", padding: "2rem" }}>
+          <Input
+            placeholder="Pesquisar alunos"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            prefix={<SearchOutlined />}
+            style={{ marginBottom: "1rem", width: "100%", maxWidth: "400px" }}
+          />
+          <Table
+            columns={columnsTodosAlunos}
+            dataSource={todosAlunos}
+            rowKey="_id"
+            pagination={{
+              pageSize: 5, // Aumenta o número de registros por página
+              showTotal: (total, range) =>
+                `${range[0]} a ${range[1]} de ${total} alunos`,
+            }}
+          />
+        </Modal.Body>
+        <Modal.Footer style={{ justifyContent: "center", borderTop: "none" }}>
+          <Button
+            variant="danger"
+            onClick={() => setShowAddAlunosModal(false)}
+            style={{ marginRight: "1rem" }}
+          >
+            Voltar
+          </Button>
+        </Modal.Footer>
       </Modal>
 
       {/* Modal de confirmação de exclusão de aluno */}
