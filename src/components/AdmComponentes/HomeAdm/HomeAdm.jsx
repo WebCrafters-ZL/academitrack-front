@@ -25,7 +25,7 @@ const HomeAdm = () => {
         Bem-vindo ao AcademiTrack
       </h2>
       <p style={{ textAlign: "justify", padding: "0 20px" }}>
-        Prezado(a) Coordenador(a) de Curso,
+        Prezado(a) Administrador(a) de Curso,
       </p>
       <p style={{ textAlign: "justify", padding: "0 20px" }}>
         É com grande satisfação que apresentamos o AcademiTrack, um sistema inovador desenvolvido para facilitar a gestão acadêmica e administrativa de cursos. Este portal foi projetado como uma ferramenta intuitiva e eficiente que visa aprimorar a interação entre professores, alunos e a coordenação.
