@@ -184,6 +184,7 @@ const EditarTurmaForm = ({ handleClose }) => {
       title: "CPF",
       dataIndex: "cpf",
       key: "cpf",
+      render: (cpf) => cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
     },
     {
       title: "Matrícula",
@@ -194,11 +195,11 @@ const EditarTurmaForm = ({ handleClose }) => {
       title: "Ação",
       key: "acao",
       render: (_, aluno) => (
-        <Button
-          danger
-          onClick={() => handleRemoveAluno(aluno._id)}
-          icon={<FontAwesomeIcon icon={faTrash} />}
-        />
+        <FontAwesomeIcon
+        icon={faTrash}
+        style={{ color: "red", cursor: "pointer" }}
+        onClick={() => handleRemoveAluno(aluno._id)}
+      />
       ),
     },
   ];
@@ -206,7 +207,7 @@ const EditarTurmaForm = ({ handleClose }) => {
   const handleAddAluno = async (alunoId) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.post(
+      const response = await axios.post(
         `http://localhost:3000/api/v1/administrador/turmas/${id}/alunos`,
         { alunoId },
         {
@@ -216,7 +217,7 @@ const EditarTurmaForm = ({ handleClose }) => {
         }
       );
       const alunoAdicionado = todosAlunos.find((aluno) => aluno._id === alunoId);
-      setTodosAlunos([...alunosAssociados, alunoAdicionado]);
+      setAlunosAssociados([...alunosAssociados, alunoAdicionado]);
       Store.addNotification({
         title: "Sucesso!",
         message: "Aluno adicionado com sucesso!",
@@ -231,10 +232,10 @@ const EditarTurmaForm = ({ handleClose }) => {
         },
       });
     } catch (error) {
-      console.error("Erro ao adicionar aluno:", error);
+      console.error("Erro ao adicionar aluno:", error.response?.data || error.message);
       Store.addNotification({
         title: "Erro",
-        message: "Erro ao adicionar aluno.",
+        message: "Erro ao adicionar aluno. Por favor, tente novamente.",
         type: "danger",
         insert: "bottom",
         container: "bottom-center",
@@ -305,6 +306,7 @@ const EditarTurmaForm = ({ handleClose }) => {
       title: "CPF",
       dataIndex: "cpf",
       key: "cpf",
+      render: (cpf) => cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
     },
     {
       title: "Matrícula",
