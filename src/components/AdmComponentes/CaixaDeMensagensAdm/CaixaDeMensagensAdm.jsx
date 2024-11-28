@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaUser,
   FaEnvelope,
@@ -17,25 +17,29 @@ import {
   Form,
   Pagination,
 } from "react-bootstrap";
+import axios from "axios"; // Para fazer as requisições HTTP
 
 const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
-  const [messages, setMessages] = useState([
-    { id: 1, from: "John Doe", subject: "Assunto da Mensagem", received: "20 Out" },
-    { id: 2, from: "Jane Smith", subject: "Reunião marcada", received: "21 Out" },
-    { id: 3, from: "Carlos Silva", subject: "Atualização de projeto", received: "22 Out" },
-    { id: 4, from: "Alice Johnson", subject: "Novo projeto iniciado", received: "23 Out" },
-    { id: 5, from: "Bob Brown", subject: "Reunião agendada", received: "24 Out" },
-    { id: 6, from: "Charlie Green", subject: "Feedback solicitado", received: "25 Out" },
-    { id: 7, from: "Diana Prince", subject: "Status do projeto", received: "26 Out" },
-    { id: 8, from: "Evan White", subject: "Consulta sobre requisitos", received: "27 Out" },
-    { id: 9, from: "Fiona Black", subject: "Atualização de sistema", received: "28 Out" },
-  ]);
-
+  const [messages, setMessages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState("");
-  const [selectedRow, setSelectedRow] = useState(null); // Definição do estado para linha selecionada
+  const [selectedRow, setSelectedRow] = useState(null);
+
+  useEffect(() => {
+    // Função para buscar as mensagens
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get("/api/messages"); // Modifique a URL conforme a rota no backend
+        setMessages(response.data); // Supondo que a resposta seja uma lista de mensagens
+      } catch (error) {
+        console.error("Erro ao buscar mensagens:", error);
+      }
+    };
+
+    fetchMessages();
+  }, []);
 
   const handleSearch = () => {
     alert("Realizando pesquisa...");
@@ -46,7 +50,38 @@ const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
   };
 
   const handleRowClick = (id) => {
-    setSelectedRow(id); // Atualiza o ID da linha selecionada
+    setSelectedRow(id);
+  };
+
+  const handleSendMessage = async () => {
+    // Função para enviar a mensagem para o backend
+    try {
+      await axios.post("/api/messages", {
+        subject: "Assunto da mensagem", // Aqui você pode pegar o valor do campo de assunto
+        body: message, // Corpo da mensagem
+        // Adicionar outros dados necessários
+      });
+      setShowModal(false);
+      setMessage(""); // Limpa a mensagem após o envio
+      alert("Mensagem enviada com sucesso!");
+      // Refresca a lista de mensagens após o envio
+      const response = await axios.get("/api/messages");
+      setMessages(response.data);
+    } catch (error) {
+      console.error("Erro ao enviar mensagem:", error);
+      alert("Falha ao enviar a mensagem.");
+    }
+  };
+
+  const handleDeleteMessage = async (id) => {
+    // Função para excluir uma mensagem
+    try {
+      await axios.delete(`/api/messages/${id}`);
+      setMessages(messages.filter((message) => message.id !== id)); // Atualiza o estado local após a exclusão
+    } catch (error) {
+      console.error("Erro ao excluir mensagem:", error);
+      alert("Falha ao excluir a mensagem.");
+    }
   };
 
   const totalMessages = messages.length;
@@ -75,7 +110,9 @@ const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
         boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
-      <h4 style={{ textAlign: "center", marginBottom: "20px" }}>Caixa de Mensagens</h4>
+      <h4 style={{ textAlign: "center", marginBottom: "20px" }}>
+        Caixa de Mensagens
+      </h4>
 
       <InputGroup
         style={{
@@ -130,15 +167,10 @@ const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
               style={{
                 position: "relative",
                 cursor: "pointer",
-                backgroundColor: selectedRow === message.id ? "#e6f7ff" : "transparent",
+                backgroundColor:
+                  selectedRow === message.id ? "#e6f7ff" : "transparent",
                 borderBottom: "1px solid #ddd",
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor = selectedRow === message.id ? "#e6f7ff" : "#f0f8ff")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.backgroundColor = selectedRow === message.id ? "#e6f7ff" : "transparent")
-              }
             >
               <td style={{ position: "relative", paddingLeft: "10px" }}>
                 {selectedRow === message.id && (
@@ -158,6 +190,12 @@ const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
               </td>
               <td>{message.subject}</td>
               <td>{message.received}</td>
+              <td>
+                <FaTrashAlt
+                  style={{ color: "red", cursor: "pointer" }}
+                  onClick={() => handleDeleteMessage(message.id)}
+                />
+              </td>
             </tr>
           ))}
         </tbody>
@@ -178,7 +216,9 @@ const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
           </Pagination.Item>
         ))}
         <Pagination.Next
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
           disabled={currentPage === totalPages}
         />
       </Pagination>
@@ -206,19 +246,19 @@ const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
             borderBottom: "1px solid #ddd",
           }}
         >
-          <div style={{ display: "flex", gap: "10px" }}>
-            <Button
-              variant="primary"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "14px",
-              }}
-            >
-              <FaPaperPlane style={{ marginRight: "5px" }} /> Enviar
-            </Button>
-          </div>
+          <Button
+            variant="primary"
+            onClick={handleSend}
+            style={{
+              backgroundColor: "#007bff",
+              width: "100px",
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center", 
+            }}
+          >
+            <FaPaperPlane style={{ marginRight: "5px" }} /> Enviar
+          </Button>
           <div style={{ display: "flex", gap: "10px" }}>
             <FaTrashAlt
               style={{ fontSize: "24px", cursor: "pointer", color: "red" }}
@@ -235,7 +275,7 @@ const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
             gap: "10px",
           }}
         >
-                    <Form.Group style={{ position: "relative", marginBottom: "15px" }}>
+          <Form.Group style={{ position: "relative", marginBottom: "15px" }}>
             <InputGroup>
               <InputGroup.Text
                 style={{
@@ -293,5 +333,3 @@ const CaixaDeMensagensAdm = ({ show, handleClose, handleSend }) => {
 };
 
 export default CaixaDeMensagensAdm;
-
-               

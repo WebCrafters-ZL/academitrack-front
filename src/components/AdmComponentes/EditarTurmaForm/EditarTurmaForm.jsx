@@ -190,10 +190,15 @@ const EditarTurmaForm = ({ handleClose }) => {
       title: "Matrícula",
       dataIndex: "matricula",
       key: "matricula",
+      align: "center",
     },
     {
       title: "Ação",
       key: "acao",
+      display: "flex",
+      align: "center",
+      justifyContent: "center",
+      alignItems: "center",
       render: (_, aluno) => (
         <FontAwesomeIcon
         icon={faTrash}
@@ -316,6 +321,8 @@ const EditarTurmaForm = ({ handleClose }) => {
     {
       title: "Ação",
       key: "acao",
+      align: "center",
+      width: 100,
       render: (_, aluno) => (
         <Button
           type="primary"
