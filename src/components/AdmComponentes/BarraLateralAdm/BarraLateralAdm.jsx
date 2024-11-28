@@ -10,7 +10,6 @@ import {
   FaUsers,
   FaBook,
   FaUserCog,
-  FaHeadset,
   FaEnvelope, 
 } from "react-icons/fa";
 import fotoPerfil from "../../../assets/coordenadora.jpeg";
