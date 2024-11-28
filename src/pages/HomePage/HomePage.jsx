@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Row, Col, Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import axios from "axios";
 import { useAuth } from "../Login/AuthContext";
@@ -95,6 +95,9 @@ const HomePage = () => {
               Entrar
             </Button>
           </Form>
+          <Link to="esqueci-senha" style={styles.esqueciSenha}>
+            Esqueci minha senha
+          </Link>
         </Container>
       </div>
 
@@ -109,10 +112,10 @@ const HomePage = () => {
                 <Card style={styles.featureCard}>
                   <Card.Body>
                     <Card.Title style={styles.featureTitle}>
-                    Administração Eficiente
+                      Administração Eficiente
                     </Card.Title>
                     <Card.Text>
-                    Gerencie processos acadêmicos e administrativos de forma ágil e centralizada, promovendo uma gestão mais organizada e produtiva.
+                      Gerencie processos acadêmicos e administrativos de forma ágil e centralizada, promovendo uma gestão mais organizada e produtiva.
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -124,7 +127,7 @@ const HomePage = () => {
                       Area do Aluno
                     </Card.Title>
                     <Card.Text>
-                    Acesse suas informações acadêmicas, acompanhe seu desempenho e organize suas atividades de maneira simples e prática.
+                      Acesse suas informações acadêmicas, acompanhe seu desempenho e organize suas atividades de maneira simples e prática.
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -136,7 +139,7 @@ const HomePage = () => {
                       Portal do Professor
                     </Card.Title>
                     <Card.Text>
-                    Gerencie suas aulas, acompanhe o progresso dos alunos e facilite a comunicação com a comunidade acadêmica.
+                      Gerencie suas aulas, acompanhe o progresso dos alunos e facilite a comunicação com a comunidade acadêmica.
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -156,7 +159,7 @@ const styles = {
     backgroundColor: "#f0f4f8",
   },
   sidebar: {
-    width: "400px", 
+    width: "400px",
     backgroundColor: "#1976d2",
     color: "white",
     padding: "40px",
@@ -188,7 +191,7 @@ const styles = {
     alignItems: "center",
     textAlign: "center",
     marginTop: "100px",
-    width: "90%", 
+    width: "90%",
   },
   errorMessage: {
     color: "red",
@@ -200,9 +203,10 @@ const styles = {
     backgroundColor: "#1565c0",
     border: "none",
   },
+  esqueciSenha: { color: "white", textDecoration: "none", marginTop: "10px" },
   mainContent: {
     flexGrow: 1,
-    marginLeft: "400px", 
+    marginLeft: "400px",
     backgroundImage: `url(${FotoHome})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -225,7 +229,7 @@ const styles = {
     left: "50%",
     transform: "translateX(-50%)",
     width: "80%",
-    displayflex:"0,0,20,0"
+    displayflex: "0,0,20,0"
   },
   featureCard: {
     backgroundColor: "rgba(255, 255, 255, 0.9)",
@@ -234,7 +238,7 @@ const styles = {
     padding: "20px",
     border: "none",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-    height:"100%",
+    height: "100%",
     minHeight: "150px",
   },
   featureTitle: {

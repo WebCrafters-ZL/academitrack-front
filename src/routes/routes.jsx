@@ -1,7 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "../pages/HomePage/HomePage";  
-import Login from "../pages/Login/Login"; 
+import EsqueciSenha from "../pages/EsqueciSenha/EsqueciSenha"; 
+import RedefinirSenha from "../pages/RedefinirSenha/RedefinirSenha";
 import ProfessorLayout from "../pages/ProfessorLayout/ProfessorLayout"; 
 import HomeProfessor from "../components/ProfessorComponents/HomeProfessor/HomeProfessor"; 
 import AlunoNotas from "../components/AlunoComponents/AlunoNotas/AlunoNotas"; 
@@ -45,9 +46,8 @@ const AppRoutes = () => {
     <Routes>
       {/* Rota da HomePage */}
       <Route path="/" element={<HomePage />} />  {/* Rota da HomePage */}
-
-      {/* Rota de Login */}
-      <Route path="/login" element={<Login />} /> {/* Rota de Login */}
+      <Route path="esqueci-senha" element={<EsqueciSenha />} />
+      <Route path="redefinir-senha/:token" element={<RedefinirSenha />} />  
 
       {/* Rotas para Aluno */}
       <Route path="/aluno" element={<AlunoLayout />}>
